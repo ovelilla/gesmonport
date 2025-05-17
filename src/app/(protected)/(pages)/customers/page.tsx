@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const CustomersPage = () => {
-  return <div className="p-4">CustomersPage</div>;
+  return <div className="p-4">CustomersPage </div>;
 };
 
 export default CustomersPage;
