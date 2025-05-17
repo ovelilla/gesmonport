@@ -50,7 +50,7 @@ function Body<TData, TValue>({ columns, table }: BodyProps<TData, TValue>) {
         ) : (
           <TableRow>
             <TableCell colSpan={columns.length} className="h-24 text-center">
-              No results.
+              No se han encontrado resultados
             </TableCell>
           </TableRow>
         )}

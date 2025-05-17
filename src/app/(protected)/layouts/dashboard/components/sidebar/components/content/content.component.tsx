@@ -37,7 +37,7 @@ const Content = () => {
 
             return isCollapsible ? (
               <Collapsible
-                key={item.url}
+                key={item.title}
                 asChild
                 defaultOpen={isActive}
                 className="group/collapsible"
