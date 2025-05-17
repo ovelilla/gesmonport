@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
@@ -12,8 +11,6 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: false,
-  turbopack: {},
 };
 
-const withNextIntl = createNextIntlPlugin();
-export default withNextIntl(nextConfig);
+export default nextConfig;
