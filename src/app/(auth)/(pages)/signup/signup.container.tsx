@@ -157,7 +157,7 @@ const SignUpContainer = () => {
       </CardContent>
       <CardFooter>
         <ButtonLink linkProps={{ href: "/signin", prefetch: false }}>
-          Registrarse
+          ¿Ya tienes una cuenta? Iniciar sesión
         </ButtonLink>
       </CardFooter>
     </Card>
