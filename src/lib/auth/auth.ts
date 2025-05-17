@@ -31,7 +31,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         select: {
           id: true,
           emailVerified: true,
-          isTwoFactorEnabled: true,
         },
       });
 
