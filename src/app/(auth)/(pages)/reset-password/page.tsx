@@ -1,3 +1,5 @@
+// Vendors
+import { Suspense } from "react";
 // Containers
 import { ResetPasswordContainer } from "./reset-password.container";
 // Types
@@ -9,7 +11,11 @@ export const metadata: Metadata = {
 };
 
 const ResetPasswordPage = () => {
-  return <ResetPasswordContainer />;
+  return (
+    <Suspense>
+      <ResetPasswordContainer />
+    </Suspense>
+  );
 };
 
 export default ResetPasswordPage;
