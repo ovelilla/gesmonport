@@ -1,7 +1,7 @@
 // Components
 import { SidebarHeader, SidebarMenuButton } from "@/components/ui/sidebar";
 // Icons
-import { Building, ChevronsUpDown } from "lucide-react";
+import { DoorClosed, ChevronsUpDown } from "lucide-react";
 // Types
 import type { HeaderProps } from "./types/header.component.types";
 
@@ -17,7 +17,7 @@ const Header = ({ session }: HeaderProps) => {
         size="lg"
       >
         <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-          <Building className="size-4" />
+          <DoorClosed className="size-4" />
         </div>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <span className="truncate font-semibold">Gesmonport</span>
