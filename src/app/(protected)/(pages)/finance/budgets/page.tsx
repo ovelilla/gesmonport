@@ -2,12 +2,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Budgets",
-  description: "Budgets page",
+  title: "Presupuestos",
+  description: "Página de presupuestos",
 };
 
 const BudgetsPage = () => {
-  return <div className="p-4">BudgetsPage</div>;
+  return <div className="p-4">Presupuestos</div>;
 };
 
 export default BudgetsPage;
