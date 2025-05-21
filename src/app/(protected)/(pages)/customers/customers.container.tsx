@@ -29,7 +29,8 @@ const CustomersContainer = ({ customers }: CustomersProps) => {
   } = CustomersHook({ customers });
 
   return (
-    <div className="flex w-full grow p-4">
+    <div className="flex flex-1 flex-col gap-2 overflow-hidden p-4">
+      <h1 className="text-2xl font-medium">Clientes</h1>
       <DataTable
         columns={columns}
         data={data}

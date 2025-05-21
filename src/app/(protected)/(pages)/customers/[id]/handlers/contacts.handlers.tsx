@@ -2,20 +2,19 @@
 import { toast } from "sonner";
 // Actions
 import {
-  createCustomer,
-  deleteCustomer,
-  deleteMultipleCustomers,
-  updateCustomer,
-} from "../actions/customers.actions";
+  createContact,
+  deleteContact,
+  deleteMultipleContacts,
+  updateContact,
+} from "../actions/contacts.actions";
 // Types
 import type {
-  CustomersHandlersProps,
-  CustomersHandlersReturn,
+  ContactsHandlersProps,
+  ContactsHandlersReturn,
   CreateHandlerProps,
   DeleteHandlerProps,
   DeleteMultipleHandlerProps,
   EditHandlerProps,
-  NavigateHandlerProps,
   OpenChangeAlertDialogHandlerProps,
   OpenChangeDialogHandlerProps,
   SubmitHandlerCreateProps,
@@ -23,7 +22,7 @@ import type {
   SubmitHandlerDeleteProps,
   SubmitHandlerEditProps,
   SubmitHandlerProps,
-} from "./types/customers.handlers.types";
+} from "./types/contacts.handlers.types";
 
 const createHandler = ({ setOpenDialog }: CreateHandlerProps): void => {
   setOpenDialog(true);
@@ -55,24 +54,11 @@ const editHandler = ({
 }: EditHandlerProps): void => {
   const transformedRow = {
     ...row,
-    email: row.email ?? "",
     phone: row.phone ?? "",
-    billingAddress: row.billingAddress ?? "",
-    shippingAddress: row.shippingAddress ?? "",
-    vatNumber: row.vatNumber ?? "",
-    iban: row.iban ?? "",
-    notes: row.notes ?? "",
-    discountDoor: row.discountDoor ?? 0,
-    discountParts: row.discountParts ?? 0,
-    paymentMethod: row.paymentMethod ?? "NOT_SPECIFIED",
   };
   form.reset(transformedRow, { keepDefaultValues: true });
   setSelectedRow(row);
   setOpenDialog(true);
-};
-
-const navigateHandler = ({ row, router }: NavigateHandlerProps): void => {
-  router.push(`/customers/${row.id}`);
 };
 
 const openChangeAlertDialogHandler = ({
@@ -111,6 +97,7 @@ const openChangeDialogHandler = ({
 
 const submitHandler = ({
   form,
+  params,
   selectedRow,
   setData,
   setLoading,
@@ -120,8 +107,8 @@ const submitHandler = ({
 }: SubmitHandlerProps): void => {
   if (selectedRow) {
     submitHandlerEdit({
-      selectedRow,
       form,
+      selectedRow,
       setData,
       setLoading,
       setOpenDialog,
@@ -131,6 +118,7 @@ const submitHandler = ({
   } else {
     submitHandlerCreate({
       form,
+      params,
       setData,
       setLoading,
       setOpenDialog,
@@ -141,6 +129,7 @@ const submitHandler = ({
 
 const submitHandlerCreate = async ({
   form,
+  params,
   setData,
   setLoading,
   setOpenDialog,
@@ -149,24 +138,27 @@ const submitHandlerCreate = async ({
   setLoading(true);
 
   try {
-    const { client, error, success } = await createCustomer({ values });
+    const { contact, error, success } = await createContact({
+      id: params.id,
+      values,
+    });
 
     if (error) {
       toast.error(error);
       return;
     }
 
-    if (success && client) {
+    if (success && contact) {
       setData((prev) =>
-        [...prev, client].sort((a, b) => a.name.localeCompare(b.name)),
+        [...prev, contact].sort((a, b) => a.name.localeCompare(b.name)),
       );
       form.reset();
       setOpenDialog(false);
       toast.success(success);
     }
   } catch (error) {
-    console.error("Error in submitHandlerCreate:", error);
-    toast.error("Error al crear el cliente. Por favor, inténtalo de nuevo");
+    console.error(error);
+    toast.error("Error al crear el contacto. Por favor, inténtalo de nuevo");
   } finally {
     setLoading(false);
   }
@@ -188,7 +180,7 @@ const submitHandlerEdit = async ({
   setLoading(true);
 
   try {
-    const { client, error, success } = await updateCustomer({
+    const { contact, error, success } = await updateContact({
       id: selectedRow.id,
       values,
     });
@@ -198,10 +190,10 @@ const submitHandlerEdit = async ({
       return;
     }
 
-    if (success && client) {
+    if (success && contact) {
       setData((prev) =>
         prev
-          .map((item) => (item.id === client.id ? client : item))
+          .map((item) => (item.id === contact.id ? contact : item))
           .sort((a, b) => a.name.localeCompare(b.name)),
       );
       form.reset();
@@ -210,9 +202,9 @@ const submitHandlerEdit = async ({
       toast.success(success);
     }
   } catch (error) {
-    console.error("Error in submitHandlerEdit:", error);
+    console.error(error);
     toast.error(
-      "Error al actualizar el cliente. Por favor, inténtalo de nuevo",
+      "Error al actualizar el cointacto. Por favor, inténtalo de nuevo",
     );
   } finally {
     setLoading(false);
@@ -231,7 +223,7 @@ const submitHandlerDelete = async ({
   setLoading(true);
 
   try {
-    const { success, error } = await deleteCustomer({ id: selectedRow.id });
+    const { success, error } = await deleteContact({ id: selectedRow.id });
 
     if (error) {
       toast.error(error);
@@ -244,7 +236,7 @@ const submitHandlerDelete = async ({
     }
   } catch (error) {
     console.error(error);
-    toast.error("Error al eliminar el cliente. Por favor, inténtalo de nuevo");
+    toast.error("Error al eliminar el contacto. Por favor, inténtalo de nuevo");
   } finally {
     setLoading(false);
   }
@@ -258,7 +250,7 @@ const submitHandlerDeleteMultiple = async ({
 }: SubmitHandlerDeleteMultipleProps): Promise<void> => {
   setLoading(true);
   try {
-    const { success, error } = await deleteMultipleCustomers({
+    const { success, error } = await deleteMultipleContacts({
       ids: selectedRows.map((row) => row.id),
     });
 
@@ -277,16 +269,16 @@ const submitHandlerDeleteMultiple = async ({
   } catch (error) {
     console.error(error);
     toast.error(
-      "Error al eliminar los clientes. Por favor, inténtalo de nuevo",
+      "Error al eliminar los contactos. Por favor, inténtalo de nuevo",
     );
   } finally {
     setLoading(false);
   }
 };
 
-const CustomersHandlers = ({
+const ContactsHandlers = ({
   form,
-  router,
+  params,
   selectedRow,
   selectedRows,
   setData,
@@ -295,7 +287,7 @@ const CustomersHandlers = ({
   setOpenDialog,
   setSelectedRow,
   setSelectedRows,
-}: CustomersHandlersProps): CustomersHandlersReturn => {
+}: ContactsHandlersProps): ContactsHandlersReturn => {
   return {
     handleCreate: () => createHandler({ setOpenDialog }),
     handleDelete: (row) => deleteHandler({ row, setSelectedRow, setOpenAlert }),
@@ -308,7 +300,6 @@ const CustomersHandlers = ({
         setSelectedRow,
         setOpenDialog,
       }),
-    handleNavigate: (row) => navigateHandler({ row, router }),
     handleOpenChangeAlertDialog: (open) =>
       openChangeAlertDialogHandler({
         open,
@@ -329,6 +320,7 @@ const CustomersHandlers = ({
     handleSubmit: (values) =>
       submitHandler({
         form,
+        params,
         selectedRow,
         setData,
         setLoading,
@@ -348,4 +340,4 @@ const CustomersHandlers = ({
   };
 };
 
-export { CustomersHandlers };
+export { ContactsHandlers };

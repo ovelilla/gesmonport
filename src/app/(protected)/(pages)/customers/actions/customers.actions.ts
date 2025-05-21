@@ -84,21 +84,10 @@ const deleteMultipleCustomers = async ({
 
 const readCustomers = async (): Promise<ReadCustomersReturn> => {
   try {
-    const clients = await prisma.customer.findMany({
+    const customers = await prisma.customer.findMany({
       orderBy: { name: "asc" },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        billingAddress: true,
-        shippingAddress: true,
-        vatNumber: true,
-        iban: true,
-        notes: true,
-      },
     });
-    return clients;
+    return customers;
   } catch (error) {
     console.error(error);
     return [];

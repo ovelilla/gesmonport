@@ -23,7 +23,7 @@ function DataTable<TData>({
   });
 
   return (
-    <div className="flex h-full w-full grow flex-col gap-4">
+    <div className="flex w-full flex-1 flex-col gap-4 overflow-hidden">
       <Header
         {...{
           actions: headerActions,
