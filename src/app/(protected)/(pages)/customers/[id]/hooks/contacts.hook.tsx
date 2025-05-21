@@ -9,10 +9,10 @@ import { DEFAULT_FORM_VALUES } from "../constants/contacts.constants";
 // Handlers
 import { ContactsHandlers } from "../handlers/contacts.handlers";
 // Schemas
-import { contactSchema } from "../schemas/contacts.schema";
+import { contactSchema } from "../schemas/contact.schema";
 // Types
 import type { Contact } from "../types/contacts.types";
-import type { ContactSchema } from "../schemas/types/contacts.schema.types";
+import type { ContactSchema } from "../schemas/types/contact.schema.types";
 import type {
   ContactsHookProps,
   ContactsHookReturn,

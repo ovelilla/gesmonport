@@ -1,7 +1,7 @@
 // Types
 import type { UseFormReturn } from "react-hook-form";
 import type { Contact } from "../../types/contacts.types";
-import type { ContactSchema } from "../../schemas/types/contacts.schema.types";
+import type { ContactSchema } from "../../schemas/types/contact.schema.types";
 import type { ContactsHandlersReturn } from "../../handlers/types/contacts.handlers.types";
 import type {
   GetColumnsConfigReturn,

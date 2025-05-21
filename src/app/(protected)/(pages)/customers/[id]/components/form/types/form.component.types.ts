@@ -1,6 +1,6 @@
 // Types
 import type { UseFormReturn } from "react-hook-form";
-import type { ContactSchema } from "../../../schemas/types/contacts.schema.types";
+import type { ContactSchema } from "../../../schemas/types/contact.schema.types";
 
 type ContactFormProps = {
   form: UseFormReturn<ContactSchema>;

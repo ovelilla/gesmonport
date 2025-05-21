@@ -2,7 +2,7 @@
 // Libs
 import { prisma } from "@/lib/db/prisma";
 // Schemas
-import { contactSchema } from "../schemas/contacts.schema";
+import { contactSchema } from "../schemas/contact.schema";
 // Types
 import type {
   CreateContactProps,

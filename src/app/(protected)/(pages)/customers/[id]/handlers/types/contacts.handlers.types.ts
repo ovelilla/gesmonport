@@ -2,7 +2,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { Contact } from "../../types/contacts.types";
-import type { ContactSchema } from "../../schemas/types/contacts.schema.types";
+import type { ContactSchema } from "../../schemas/types/contact.schema.types";
 
 type ContactsHandlersProps = {
   form: UseFormReturn<ContactSchema>;
