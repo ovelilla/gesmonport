@@ -16,10 +16,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-// Constants
-import constants from "./constants/user-form.constants";
 // Types
-import type { UserFormProps } from "./types/user-form.component.types";
+import type { UserFormProps } from "./types/form.component.types";
 
 const UserForm = ({ form, handleSubmit, label, loading }: UserFormProps) => (
   <Form {...form}>
