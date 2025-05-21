@@ -30,6 +30,7 @@ const resetPasswordSchema = z.object({
     .min(1, "La contraseña es obligatoria")
     .min(6, "La contraseña debe tener al menos 6 caracteres")
     .max(32, "La contraseña no puede tener más de 32 caracteres")
+    .trim()
     .superRefine((value, ctx) => {
       passwordRules.forEach((rule) => {
         if (!rule.test(value)) {

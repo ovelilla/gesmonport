@@ -23,9 +23,9 @@ const Detail = ({ customer }: DetailProps) => (
       </CardHeader>
       <CardContent>
         <dl className="grid grid-cols-1 gap-2 md:grid-cols-2">
-          <dt className="font-semibold">Email</dt>
+          <dt className="font-medium">Email</dt>
           <dd>{customer.email || "-"}</dd>
-          <dt className="font-semibold">Teléfono</dt>
+          <dt className="font-medium">Teléfono</dt>
           <dd>{customer.phone || "-"}</dd>
         </dl>
       </CardContent>
@@ -39,11 +39,11 @@ const Detail = ({ customer }: DetailProps) => (
       </CardHeader>
       <CardContent>
         <dl className="grid grid-cols-1 gap-2 md:grid-cols-2">
-          <dt className="font-semibold">Dirección de facturación</dt>
+          <dt className="font-medium">Dirección de facturación</dt>
           <dd className="whitespace-pre-line">
             {customer.billingAddress || "-"}
           </dd>
-          <dt className="font-semibold">Dirección de envío</dt>
+          <dt className="font-medium">Dirección de envío</dt>
           <dd className="whitespace-pre-line">
             {customer.shippingAddress || "-"}
           </dd>
@@ -59,20 +59,20 @@ const Detail = ({ customer }: DetailProps) => (
       </CardHeader>
       <CardContent>
         <dl className="grid grid-cols-1 gap-2 md:grid-cols-2">
-          <dt className="font-semibold">NIF</dt>
+          <dt className="font-medium">NIF</dt>
           <dd>{customer.vatNumber || "-"}</dd>
-          <dt className="font-semibold">IBAN</dt>
+          <dt className="font-medium">IBAN</dt>
           <dd>{customer.iban || "-"}</dd>
-          <dt className="font-semibold">Forma de pago</dt>
+          <dt className="font-medium">Forma de pago</dt>
           <dd>
             {paymentMethods.find((pm) => pm.id === customer.paymentMethod)
               ?.name ?? "-"}
           </dd>
-          <dt className="font-semibold">Descuento puerta completa</dt>
+          <dt className="font-medium">Descuento puerta completa</dt>
           <dd>
             {customer.discountDoor !== null ? `${customer.discountDoor}%` : "-"}
           </dd>
-          <dt className="font-semibold">Descuento piezas sueltas</dt>
+          <dt className="font-medium">Descuento piezas sueltas</dt>
           <dd>
             {customer.discountParts !== null
               ? `${customer.discountParts}%`

@@ -28,16 +28,20 @@ const signUpSchema = z.object({
   name: z
     .string({ required_error: "El nombre es obligatorio" })
     .min(2, "El nombre debe tener al menos 2 caracteres")
-    .max(64, "El nombre no puede tener más de 64 caracteres"),
+    .max(64, "El nombre no puede tener más de 64 caracteres")
+    .trim(),
   email: z
-    .string({ required_error: "El correo electrónico es obligatorio" })
-    .min(1, "El correo electrónico es obligatorio")
-    .email("El correo electrónico es inválido"),
+    .string({ required_error: "El correo electrónico es obligatorio." })
+    .min(1, "El correo electrónico es obligatorio.")
+    .email("El correo electrónico no es válido.")
+    .trim()
+    .toLowerCase(),
   password: z
     .string({ required_error: "La contraseña es obligatoria" })
     .min(1, "La contraseña es obligatoria")
     .min(6, "La contraseña debe tener al menos 6 caracteres")
     .max(32, "La contraseña no puede tener más de 32 caracteres")
+    .trim()
     .superRefine((value, ctx) => {
       passwordRules.forEach((rule) => {
         if (!rule.test(value)) {

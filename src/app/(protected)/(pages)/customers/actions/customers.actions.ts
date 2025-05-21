@@ -27,7 +27,7 @@ const createCustomer = async ({
 
   try {
     if (validatedFields.data.vatNumber) {
-      const existingCustomer = await prisma.customer.findUnique({
+      const existingCustomer = await prisma.customer.findFirst({
         where: { vatNumber: validatedFields.data.vatNumber },
       });
       if (existingCustomer) {
@@ -106,7 +106,7 @@ const updateCustomer = async ({
 
   try {
     if (validatedFields.data.vatNumber) {
-      const existingCustomer = await prisma.customer.findUnique({
+      const existingCustomer = await prisma.customer.findFirst({
         where: { vatNumber: validatedFields.data.vatNumber },
         select: { id: true },
       });
