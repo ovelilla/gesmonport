@@ -1,5 +1,3 @@
-// Vendors
-import Link from "next/link";
 // Components
 import { RowActions } from "@/components/data-table/components/row-actions/row-actions.component";
 import { SelectAllCheckbox } from "@/components/data-table/components/select-all-checkbox/select-all-checkbox.component";
