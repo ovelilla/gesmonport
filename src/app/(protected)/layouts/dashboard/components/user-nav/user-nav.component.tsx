@@ -48,13 +48,13 @@ const UserNav = ({ session }: UserNavProps) => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/dashboard" className="cursor-pointer">
+            <Link href="/dashboard" className="cursor-pointer" prefetch={false}>
               <Settings />
               Ajustes
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/dashboard" className="cursor-pointer">
+            <Link href="/dashboard" className="cursor-pointer" prefetch={false}>
               <Users />
               Usuarios
             </Link>
@@ -62,7 +62,7 @@ const UserNav = ({ session }: UserNavProps) => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/signout">
+          <Link href="/signout" prefetch={false}>
             <LogOut />
             Cerrar sesión
           </Link>

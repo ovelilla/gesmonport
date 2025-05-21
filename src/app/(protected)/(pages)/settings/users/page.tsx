@@ -1,3 +1,7 @@
+// Actions
+import { readUsers } from "./actions/users.actions";
+// Components
+import { UsersContainer } from "./users.container";
 // Types
 import type { Metadata } from "next";
 
@@ -6,8 +10,9 @@ export const metadata: Metadata = {
   description: "Página de usuarios",
 };
 
-const UsersPage = () => {
-  return <div className="p-4">Usuarios</div>;
+const UsersPage = async () => {
+  const users = await readUsers();
+  return <UsersContainer users={users} />;
 };
 
 export default UsersPage;

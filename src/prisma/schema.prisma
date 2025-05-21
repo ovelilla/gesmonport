@@ -14,12 +14,12 @@ enum UserRole {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
+  name          String
   email         String    @unique
   emailVerified DateTime?
   password      String?
   isAuthorized  Boolean   @default(false)
-  role          UserRole  @default(ADMIN)
+  role          UserRole  @default(USER)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

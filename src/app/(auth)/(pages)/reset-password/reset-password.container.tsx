@@ -116,7 +116,7 @@ const ResetPasswordContainer = () => {
         </Form>
       </CardContent>
       <CardFooter>
-        <ButtonLink linkProps={{ href: "/signin" }}>
+        <ButtonLink linkProps={{ href: "/signin", prefetch: false }}>
           Volver a iniciar sesión
         </ButtonLink>
       </CardFooter>
