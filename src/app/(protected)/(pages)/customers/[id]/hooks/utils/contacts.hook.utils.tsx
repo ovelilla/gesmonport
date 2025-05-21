@@ -6,7 +6,7 @@ import { ColumnSorter } from "@/components/data-table/components/column-sorter/c
 // Icons
 import { Ellipsis, SquarePen, Trash2 } from "lucide-react";
 // Types
-import type { Contact } from "../../types/contacts.container.types";
+import type { Contact } from "../../types/contacts.types";
 import type {
   GetColumnsConfigProps,
   GetColumnsConfigReturn,
