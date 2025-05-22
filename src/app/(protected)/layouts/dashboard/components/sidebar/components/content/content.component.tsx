@@ -33,8 +33,9 @@ const Content = () => {
         <SidebarMenu>
           {NAVIGATION.map((item) => {
             const isActive =
-              item.items?.some((subItem) => pathname.startsWith(subItem.url)) ??
-              pathname === item.url;
+              pathname === item.url ||
+              pathname.startsWith(`${item.url}/`) ||
+              item.items?.some((subItem) => pathname.startsWith(subItem.url));
             const isCollapsible = item.items && item.items.length > 0;
 
             return isCollapsible ? (

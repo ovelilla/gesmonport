@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 const CustomersPage = async () => {
-  const clients = await readCustomers();
-  return <CustomersContainer customers={clients} />;
+  const customers = await readCustomers();
+  return <CustomersContainer customers={customers} />;
 };
 
 export default CustomersPage;

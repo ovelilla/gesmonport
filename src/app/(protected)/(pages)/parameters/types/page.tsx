@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 const TypesPage = async () => {
-  const clients = await readTypes();
-  return <TypesContainer types={clients} />;
+  const types = await readTypes();
+  return <TypesContainer types={types} />;
 };
 
 export default TypesPage;

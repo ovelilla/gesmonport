@@ -21,6 +21,10 @@ const NAVIGATION = [
         title: "Tipos de puertas",
         url: "/parameters/types",
       },
+      {
+        title: "Acabados",
+        url: "/parameters/finishes",
+      },
     ],
   },
   {

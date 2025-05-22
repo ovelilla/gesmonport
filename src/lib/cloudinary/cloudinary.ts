@@ -36,9 +36,13 @@ const uploadImage = async ({
   reference,
 }: UploadImageToCloudinaryProps): Promise<UploadImageToCloudinaryReturn | null> => {
   try {
+    if (!file.type.startsWith("image/")) {
+      throw new Error("El archivo no es una imagen válida");
+    }
+
     const arrayBuffer = await file.arrayBuffer();
     const base64 = Buffer.from(arrayBuffer).toString("base64");
-    const dataURI = `data:image/jpeg;base64,${base64}`;
+    const dataURI = `data:${file.type};base64,${base64}`;
 
     const result = await cloudinary.uploader.upload(dataURI, {
       folder,

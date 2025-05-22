@@ -1,19 +1,21 @@
 "use client";
 // Components
 import { AlertDialogWrapper } from "@/components/alert-dialog-wrapper/alert-dialog-wrapper.component";
-import { UserForm } from "./components/form/form.component";
+import { FinishForm } from "./components/form/form.component";
 import { DataTable } from "@/components/data-table/data-table.component";
 import { DialogWrapper } from "@/components/dialog-wrapper/dialog-wrapper.component";
 // Hooks
-import { UsersHook } from "./hooks/users.hook";
+import { FinishesHook } from "./hooks/finishes.hook";
 // Types
-import type { UsersProps } from "./types/users.container.types";
+import type { FinishesProps } from "./types/finishes.container.types";
 
-const UsersContainer = ({ users }: UsersProps) => {
+const FinishesContainer = ({ finishes }: FinishesProps) => {
   const {
     columns,
     data,
+    existingImages,
     form,
+    handleCreate,
     handleOpenChangeAlertDialog,
     handleOpenChangeDialog,
     handleSubmit,
@@ -21,32 +23,44 @@ const UsersContainer = ({ users }: UsersProps) => {
     handleSubmitDeleteMultiple,
     loading,
     multipleSelectActionsProps,
+    newImages,
     openAlert,
     openDialog,
     selectedRow,
     selectedRows,
-  } = UsersHook({ users });
+    setExistingImages,
+    setNewImages,
+    setToDelete,
+    toDelete,
+  } = FinishesHook({ finishes });
 
   return (
     <div className="flex grow flex-col gap-2 p-4">
-      <h1 className="shrink-0 text-2xl font-medium">Usuarios</h1>
+      <h1 className="text-2xl font-medium">Acabados</h1>
       <DataTable
         columns={columns}
         data={data}
         initialColumnVisibility={{}}
         multipleSelectActionsProps={multipleSelectActionsProps}
+        onCreateRecord={handleCreate}
       />
       <DialogWrapper
-        description={`Rellena los campos para ${selectedRow ? "editar" : "crear"} un usuario.`}
+        description={`Rellena los campos para ${selectedRow ? "editar" : "crear"} un acabado.`}
         onOpenChange={handleOpenChangeDialog}
         open={openDialog}
-        title={`${selectedRow ? "Editar" : "Crear"} usuario`}
+        title={`${selectedRow ? "Editar" : "Crear"} acabado`}
       >
-        <UserForm
+        <FinishForm
+          existingImages={existingImages}
           form={form}
           handleSubmit={handleSubmit}
           label={selectedRow ? "Editar" : "Crear"}
           loading={loading}
+          newImages={newImages}
+          setExistingImages={setExistingImages}
+          setNewImages={setNewImages}
+          setToDelete={setToDelete}
+          toDelete={toDelete}
         />
       </DialogWrapper>
       <AlertDialogWrapper
@@ -61,15 +75,15 @@ const UsersContainer = ({ users }: UsersProps) => {
         }}
         description={`¿Estás seguro de que quieres eliminar ${
           selectedRows.length > 1
-            ? "los usuarios seleccionados"
-            : "el usuario seleccionado"
+            ? "los acabados seleccionados"
+            : "el acabado seleccionado"
         }?`}
         open={openAlert}
         onOpenChange={handleOpenChangeAlertDialog}
-        title={`Eliminar ${selectedRows.length > 1 ? "usuarios" : "usuario"}`}
+        title={`Eliminar ${selectedRows.length > 1 ? "acabados" : "acabado"}`}
       />
     </div>
   );
 };
 
-export { UsersContainer };
+export { FinishesContainer };

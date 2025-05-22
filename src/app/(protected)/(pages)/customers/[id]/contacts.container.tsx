@@ -35,7 +35,7 @@ const ContactsContainer = ({ customer, contacts }: ContactsProps) => {
   }
 
   return (
-    <div className="flex w-full flex-1 flex-col gap-2 p-4">
+    <div className="flex grow flex-col gap-2 p-4">
       <h1 className="text-xl font-semibold">{customer.name}</h1>
       <Tabs defaultValue="details" className="flex-1 gap-4 overflow-hidden">
         <TabsList className="bg-background h-10 w-full shrink-0 justify-start rounded-none border-b p-0">

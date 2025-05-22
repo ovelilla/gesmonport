@@ -89,3 +89,23 @@ model Type {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Finish {
+  id          String        @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  images      FinishImage[]
+}
+
+model FinishImage {
+  id        String   @id @default(cuid())
+  url       String
+  publicId  String
+  finishId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  finish    Finish   @relation(fields: [finishId], references: [id], onDelete: Cascade)
+}

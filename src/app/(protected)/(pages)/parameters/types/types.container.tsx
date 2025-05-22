@@ -29,7 +29,7 @@ const TypesContainer = ({ types }: TypesProps) => {
   } = TypesHook({ types });
 
   return (
-    <div className="flex flex-1 flex-col gap-2 overflow-hidden p-4">
+    <div className="flex grow flex-col gap-2 p-4">
       <h1 className="text-2xl font-medium">Tipos de puertas</h1>
       <DataTable
         columns={columns}
