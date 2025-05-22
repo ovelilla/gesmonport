@@ -38,8 +38,6 @@ const PaymentMethodsHook = ({
     defaultValues: DEFAULT_FORM_VALUES,
   });
 
-  const router = useRouter();
-
   const {
     handleCreate,
     handleDelete,
@@ -52,7 +50,6 @@ const PaymentMethodsHook = ({
     handleSubmitDeleteMultiple,
   } = PaymentMethodsHandlers({
     form,
-    router,
     selectedRow,
     selectedRows,
     setData,

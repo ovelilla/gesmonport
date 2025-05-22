@@ -38,8 +38,6 @@ const DepartmentsHook = ({
     defaultValues: DEFAULT_FORM_VALUES,
   });
 
-  const router = useRouter();
-
   const {
     handleCreate,
     handleDelete,
@@ -52,7 +50,6 @@ const DepartmentsHook = ({
     handleSubmitDeleteMultiple,
   } = DepartmentsHandlers({
     form,
-    router,
     selectedRow,
     selectedRows,
     setData,

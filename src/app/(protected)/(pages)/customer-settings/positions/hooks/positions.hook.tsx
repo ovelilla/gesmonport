@@ -38,8 +38,6 @@ const PositionsHook = ({
     defaultValues: DEFAULT_FORM_VALUES,
   });
 
-  const router = useRouter();
-
   const {
     handleCreate,
     handleDelete,
@@ -52,7 +50,6 @@ const PositionsHook = ({
     handleSubmitDeleteMultiple,
   } = PositionsHandlers({
     form,
-    router,
     selectedRow,
     selectedRows,
     setData,
