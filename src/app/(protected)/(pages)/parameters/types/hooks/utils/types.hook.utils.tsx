@@ -17,7 +17,6 @@ import type {
 function getColumnsConfig({
   handleDelete,
   handleEdit,
-  handleNavigate,
 }: GetColumnsConfigProps<Type>): GetColumnsConfigReturn<Type> {
   return [
     {
@@ -47,7 +46,6 @@ function getColumnsConfig({
             icon: Ellipsis,
           }}
           actions={[
-            { icon: Eye, label: "Ver tipo", onClick: handleNavigate },
             { icon: SquarePen, label: "Editar", onClick: handleEdit },
             { icon: Trash2, label: "Eliminar", onClick: handleDelete },
           ]}

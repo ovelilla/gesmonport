@@ -11,7 +11,12 @@ import { ContactsHook } from "./hooks/contacts.hook";
 // Types
 import type { ContactsProps } from "./types/contacts.container.types";
 
-const ContactsContainer = ({ customer, contacts }: ContactsProps) => {
+const ContactsContainer = ({
+  customer,
+  contacts,
+  departments,
+  positions,
+}: ContactsProps) => {
   const {
     columns,
     data,
@@ -38,7 +43,7 @@ const ContactsContainer = ({ customer, contacts }: ContactsProps) => {
     <div className="flex grow flex-col gap-2 p-4">
       <h1 className="text-xl font-semibold">{customer.name}</h1>
       <Tabs defaultValue="details" className="flex-1 gap-4 overflow-hidden">
-        <TabsList className="bg-background h-10 w-full shrink-0 justify-start rounded-none border-b p-0">
+        <TabsList className="bg-background h-10 w-full shrink-0 justify-start rounded-none border-b p-0 print:hidden">
           <TabsTrigger
             className="data-[state=active]:border-primary flex-0 rounded-none border-0 border-b-2 data-[state=active]:shadow-none"
             value="details"
@@ -73,10 +78,12 @@ const ContactsContainer = ({ customer, contacts }: ContactsProps) => {
         title={`${selectedRow ? "Editar" : "Crear"} contacto`}
       >
         <ContactForm
+          departments={departments}
           form={form}
           handleSubmit={handleSubmit}
           label={selectedRow ? "Editar" : "Crear"}
           loading={loading}
+          positions={positions}
         />
       </DialogWrapper>
       <AlertDialogWrapper

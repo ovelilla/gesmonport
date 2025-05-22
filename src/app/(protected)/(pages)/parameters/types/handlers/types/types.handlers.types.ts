@@ -1,5 +1,4 @@
 // Types
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { Dispatch, SetStateAction } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { Type } from "../../types/types.types";
@@ -7,7 +6,6 @@ import type { TypeSchema } from "../../schemas/types/types.schema.types";
 
 type TypesHandlersProps = {
   form: UseFormReturn<TypeSchema>;
-  router: AppRouterInstance;
   selectedRow: Type | null;
   selectedRows: Type[];
   setData: Dispatch<SetStateAction<Type[]>>;
@@ -23,7 +21,6 @@ type TypesHandlersReturn = {
   handleDelete: (row: Type) => void;
   handleDeleteMultiple: (rows: Type[]) => void;
   handleEdit: (row: Type) => void;
-  handleNavigate: (row: Type) => void;
   handleOpenChangeAlertDialog: (open: boolean) => void;
   handleOpenChangeDialog: (open: boolean) => void;
   handleSubmit: (values: TypeSchema) => void;
@@ -49,10 +46,6 @@ type EditHandlerProps = Pick<
   TypesHandlersProps,
   "form" | "setSelectedRow" | "setOpenDialog"
 > & {
-  row: Type;
-};
-
-type NavigateHandlerProps = Pick<TypesHandlersProps, "router"> & {
   row: Type;
 };
 
@@ -119,7 +112,6 @@ export type {
   DeleteHandlerProps,
   DeleteMultipleHandlerProps,
   EditHandlerProps,
-  NavigateHandlerProps,
   OpenChangeAlertDialogHandlerProps,
   OpenChangeDialogHandlerProps,
   SubmitHandlerCreateProps,

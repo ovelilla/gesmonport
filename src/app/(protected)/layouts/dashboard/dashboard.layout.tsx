@@ -20,7 +20,7 @@ const DashboardLayout = ({ children, session }: DashboardProps) => {
         <Sidebar open={open} session={session} />
 
         <div className="flex w-full flex-1 flex-col overflow-hidden">
-          <header className="bg-background flex h-14 shrink-0 items-center justify-end border-b px-2 sm:h-16 sm:px-4">
+          <header className="bg-background flex h-14 shrink-0 items-center justify-end border-b px-2 sm:h-16 sm:px-4 print:hidden">
             <div className="flex gap-2">
               <SidebarTrigger />
               <FullscreenToggle />

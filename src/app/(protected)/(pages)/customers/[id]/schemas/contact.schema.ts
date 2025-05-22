@@ -7,12 +7,29 @@ const contactSchema = z.object({
     .max(64, "El nombre no puede tener más de 64 caracteres")
     .trim(),
   email: z
-    .string({ required_error: "El correo electrónico es obligatorio." })
-    .min(1, "El correo electrónico es obligatorio.")
-    .email("El correo electrónico no es válido.")
-    .trim()
-    .toLowerCase(),
-  phone: z.string().optional(),
+    .union([
+      z.literal(""),
+      z
+        .string()
+        .email("El correo electrónico es inválido")
+        .trim()
+        .toLowerCase(),
+      z.null(),
+    ])
+    .transform((val) => (val === "" ? null : val))
+    .optional(),
+  phone: z
+    .union([z.literal(""), z.string().trim().optional(), z.null()])
+    .transform((val) => (val === "" ? null : val))
+    .optional(),
+  departmentId: z
+    .union([z.literal(""), z.string().trim().optional(), z.null()])
+    .transform((val) => (val === "" ? null : val))
+    .optional(),
+  positionId: z
+    .union([z.literal(""), z.string().trim().optional(), z.null()])
+    .transform((val) => (val === "" ? null : val))
+    .optional(),
 });
 
 export { contactSchema };

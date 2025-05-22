@@ -73,6 +73,7 @@ const FinishForm = ({
                   disabled={loading}
                   id={field.name}
                   placeholder="Descripción"
+                  value={field.value ?? ""}
                 />
               </FormControl>
               <FormMessage />
@@ -92,6 +93,7 @@ const FinishForm = ({
                   id={field.name}
                   placeholder="Referencia"
                   type="text"
+                  value={field.value ?? ""}
                 />
               </FormControl>
               <FormMessage />

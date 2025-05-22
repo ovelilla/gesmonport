@@ -1,5 +1,10 @@
-import { Customer as PrismaCustomer } from "@prisma/client";
+import {
+  Customer as PrismaCustomer,
+  PaymentMethod as PrismaPaymentMethod,
+} from "@prisma/client";
 
 type Customer = PrismaCustomer;
 
-export type { Customer };
+type PaymentMethod = PrismaPaymentMethod;
+
+export type { Customer, PaymentMethod };

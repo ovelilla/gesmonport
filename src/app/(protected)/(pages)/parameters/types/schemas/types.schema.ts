@@ -7,7 +7,10 @@ const typeSchema = z.object({
     .min(1, "El nombre es requerido")
     .max(64, "El nombre no puede tener más de 64 caracteres")
     .trim(),
-  description: z.string().trim().optional(),
+  description: z
+    .union([z.literal(""), z.string().trim().max(500).optional(), z.null()])
+    .transform((val) => (val === "" ? null : val))
+    .optional(),
 });
 
 export { typeSchema };

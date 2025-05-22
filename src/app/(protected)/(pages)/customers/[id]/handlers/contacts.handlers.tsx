@@ -55,6 +55,8 @@ const editHandler = ({
   const transformedRow = {
     ...row,
     phone: row.phone ?? "",
+    departmentId: row.departmentId ?? "",
+    positionId: row.positionId ?? "",
   };
   form.reset(transformedRow, { keepDefaultValues: true });
   setSelectedRow(row);

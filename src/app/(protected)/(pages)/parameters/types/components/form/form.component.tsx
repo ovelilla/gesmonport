@@ -51,6 +51,7 @@ const TypeForm = ({ form, handleSubmit, label, loading }: TypeFormProps) => (
                   disabled={loading}
                   id={field.name}
                   placeholder="Descripción"
+                  value={field.value ?? ""}
                 />
               </FormControl>
               <FormMessage />

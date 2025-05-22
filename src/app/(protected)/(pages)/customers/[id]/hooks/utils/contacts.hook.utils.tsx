@@ -43,6 +43,20 @@ function getColumnsConfig({
       meta: "Teléfono",
     },
     {
+      accessorFn: (row) => row.department?.name ?? "",
+      header: ({ column }) => (
+        <ColumnSorter column={column} label="Departamento" />
+      ),
+      id: "department",
+      meta: "Departamento",
+    },
+    {
+      accessorFn: (row) => row.position?.name ?? "",
+      header: ({ column }) => <ColumnSorter column={column} label="Cargo" />,
+      id: "position",
+      meta: "Cargo",
+    },
+    {
       cell: ({ row }) => (
         <RowActions
           row={row}

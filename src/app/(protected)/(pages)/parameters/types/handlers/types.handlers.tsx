@@ -15,7 +15,6 @@ import type {
   DeleteHandlerProps,
   DeleteMultipleHandlerProps,
   EditHandlerProps,
-  NavigateHandlerProps,
   OpenChangeAlertDialogHandlerProps,
   OpenChangeDialogHandlerProps,
   SubmitHandlerCreateProps,
@@ -60,10 +59,6 @@ const editHandler = ({
   form.reset(transformedRow, { keepDefaultValues: true });
   setSelectedRow(row);
   setOpenDialog(true);
-};
-
-const navigateHandler = ({ row, router }: NavigateHandlerProps): void => {
-  router.push(`/types/${row.id}`);
 };
 
 const openChangeAlertDialogHandler = ({
@@ -273,7 +268,6 @@ const submitHandlerDeleteMultiple = async ({
 
 const TypesHandlers = ({
   form,
-  router,
   selectedRow,
   selectedRows,
   setData,
@@ -295,7 +289,6 @@ const TypesHandlers = ({
         setSelectedRow,
         setOpenDialog,
       }),
-    handleNavigate: (row) => navigateHandler({ row, router }),
     handleOpenChangeAlertDialog: (open) =>
       openChangeAlertDialogHandler({
         open,

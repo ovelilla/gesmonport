@@ -64,7 +64,7 @@ const editHandler = ({
     notes: row.notes ?? "",
     discountDoor: row.discountDoor ?? 0,
     discountParts: row.discountParts ?? 0,
-    paymentMethod: row.paymentMethod ?? "NOT_SPECIFIED",
+    paymentMethodId: row.paymentMethodId ?? "",
   };
   form.reset(transformedRow, { keepDefaultValues: true });
   setSelectedRow(row);

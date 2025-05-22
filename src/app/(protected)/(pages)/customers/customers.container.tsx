@@ -9,7 +9,7 @@ import { CustomersHook } from "./hooks/customers.hook";
 // Types
 import type { CustomersProps } from "./types/customers.container.types";
 
-const CustomersContainer = ({ customers }: CustomersProps) => {
+const CustomersContainer = ({ customers, paymentMethods }: CustomersProps) => {
   const {
     columns,
     data,
@@ -49,6 +49,7 @@ const CustomersContainer = ({ customers }: CustomersProps) => {
           handleSubmit={handleSubmit}
           label={selectedRow ? "Editar" : "Crear"}
           loading={loading}
+          paymentMethods={paymentMethods}
         />
       </DialogWrapper>
       <AlertDialogWrapper

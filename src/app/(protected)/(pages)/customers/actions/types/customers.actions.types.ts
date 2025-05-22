@@ -1,5 +1,5 @@
 // Types
-import type { Customer } from "../../types/customers.types";
+import type { Customer, PaymentMethod } from "../../types/customers.types";
 import type { CustomerSchema } from "../../schemas/types/customer.schema.types";
 
 type CreateCustomerProps = {
@@ -32,6 +32,8 @@ type DeleteMultipleCustomersReturn = {
 
 type ReadCustomersReturn = Customer[];
 
+type ReadPaymentMethodsReturn = PaymentMethod[];
+
 type UpdateCustomerProps = {
   id: string;
   values: CustomerSchema;
@@ -51,6 +53,7 @@ export type {
   DeleteMultipleCustomersProps,
   DeleteMultipleCustomersReturn,
   ReadCustomersReturn,
+  ReadPaymentMethodsReturn,
   UpdateCustomerProps,
   UpdateCustomerReturn,
 };

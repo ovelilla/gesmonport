@@ -1,5 +1,5 @@
 // Actions
-import { readCustomers } from "./actions/customers.actions";
+import { readCustomers, readPaymentMethods } from "./actions/customers.actions";
 // Containers
 import { CustomersContainer } from "./customers.container";
 // Types
@@ -11,8 +11,14 @@ export const metadata: Metadata = {
 };
 
 const CustomersPage = async () => {
-  const customers = await readCustomers();
-  return <CustomersContainer customers={customers} />;
+  const [customers, paymentMethods] = await Promise.all([
+    readCustomers(),
+    readPaymentMethods(),
+  ]);
+
+  return (
+    <CustomersContainer customers={customers} paymentMethods={paymentMethods} />
+  );
 };
 
 export default CustomersPage;

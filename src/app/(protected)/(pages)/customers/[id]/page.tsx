@@ -1,5 +1,10 @@
 // Actions
-import { readCustomer, readContacts } from "./actions/contacts.actions";
+import {
+  readCustomer,
+  readContacts,
+  readDepartments,
+  readPositions,
+} from "./actions/contacts.actions";
 // Components
 import { ContactsContainer } from "./contacts.container";
 // Types
@@ -31,10 +36,21 @@ const generateMetadata = async ({
 const ContactsPage = async ({ params }: ContactsPageProps) => {
   const { id } = await params;
 
-  const customer = await readCustomer({ id });
-  const contacts = await readContacts({ id });
+  const [customer, contacts, departments, positions] = await Promise.all([
+    readCustomer({ id }),
+    readContacts({ id }),
+    readDepartments(),
+    readPositions(),
+  ]);
 
-  return <ContactsContainer contacts={contacts} customer={customer} />;
+  return (
+    <ContactsContainer
+      contacts={contacts}
+      customer={customer}
+      departments={departments}
+      positions={positions}
+    />
+  );
 };
 
 export { generateMetadata };

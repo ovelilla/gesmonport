@@ -1,5 +1,12 @@
 // Icons
-import { ChartLine, Home, Settings, Settings2, Users } from "lucide-react";
+import {
+  ChartLine,
+  Home,
+  Settings,
+  Settings2,
+  UserCog,
+  Users,
+} from "lucide-react";
 
 const NAVIGATION = [
   {
@@ -11,6 +18,25 @@ const NAVIGATION = [
     title: "Clientes",
     url: "/customers",
     icon: Users,
+  },
+  {
+    title: "Ajustes clientes",
+    url: "#",
+    icon: UserCog,
+    items: [
+      {
+        title: "Formas de pago",
+        url: "/customer-settings/payment-methods",
+      },
+      {
+        title: "Departamentos",
+        url: "/customer-settings/departments",
+      },
+      {
+        title: "Cargos",
+        url: "/customer-settings/positions",
+      },
+    ],
   },
   {
     title: "Parámetros",

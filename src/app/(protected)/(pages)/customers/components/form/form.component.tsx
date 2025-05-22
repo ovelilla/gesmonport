@@ -20,18 +20,12 @@ import { Textarea } from "@/components/ui/textarea";
 // Types
 import type { CustomerFormProps } from "./types/form.component.types";
 
-const paymentMethods = [
-  { id: "CASH", name: "Efectivo" },
-  { id: "BANK_DRAFT_30_60", name: "Giro 30/60" },
-  { id: "BANK_TRANSFER", name: "Transferencia bancaria" },
-  { id: "NOT_SPECIFIED", name: "No especificado" },
-];
-
 const CustomerForm = ({
   form,
   handleSubmit,
   label,
   loading,
+  paymentMethods,
 }: CustomerFormProps) => (
   <Form {...form}>
     <form
@@ -69,8 +63,9 @@ const CustomerForm = ({
                   {...field}
                   disabled={loading}
                   id={field.name}
-                  placeholder="Correo electrónico"
+                  placeholder="Ej: nombre@ejemplo.com"
                   type="email"
+                  value={field.value ?? ""}
                 />
               </FormControl>
               <FormMessage />
@@ -89,8 +84,9 @@ const CustomerForm = ({
                     {...field}
                     disabled={loading}
                     id={field.name}
-                    placeholder="Teléfono"
+                    placeholder="Ej: 666123456"
                     type="tel"
+                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />
@@ -108,8 +104,9 @@ const CustomerForm = ({
                     {...field}
                     disabled={loading}
                     id={field.name}
-                    placeholder="NIF"
+                    placeholder="Ej: 12345678Z"
                     type="text"
+                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />
@@ -130,7 +127,8 @@ const CustomerForm = ({
                   {...field}
                   disabled={loading}
                   id={field.name}
-                  placeholder="Dirección de facturación"
+                  placeholder="Calle, número, piso... ciudad, provincia, código postal"
+                  value={field.value ?? ""}
                 />
               </FormControl>
               <FormMessage />
@@ -148,7 +146,8 @@ const CustomerForm = ({
                   {...field}
                   disabled={loading}
                   id={field.name}
-                  placeholder="Dirección de envío"
+                  placeholder="Calle, número, piso... ciudad, provincia, código postal"
+                  value={field.value ?? ""}
                 />
               </FormControl>
               <FormMessage />
@@ -167,8 +166,9 @@ const CustomerForm = ({
                     {...field}
                     disabled={loading}
                     id={field.name}
-                    placeholder="IBAN"
+                    placeholder="Ej: ES9121000418450200051332"
                     type="text"
+                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />
@@ -177,20 +177,20 @@ const CustomerForm = ({
           />
           <FormField
             control={form.control}
-            name="paymentMethod"
+            name="paymentMethodId"
             render={({ field }) => (
               <FormItem className="grow basis-1/2">
-                <FormLabel htmlFor={field.name}>Método de pago</FormLabel>
+                <FormLabel htmlFor={field.name}>Forma de pago</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  defaultValue={field.value ?? ""}
                 >
                   <FormControl>
                     <SelectTrigger
-                      id="paymentMethod"
-                      aria-labelledby="paymentMethod"
+                      id="paymentMethodId"
+                      aria-labelledby="paymentMethodId"
                     >
-                      <SelectValue placeholder="Método de pago" />
+                      <SelectValue placeholder="Selecciona una forma de pago" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -273,7 +273,8 @@ const CustomerForm = ({
                   {...field}
                   disabled={loading}
                   id={field.name}
-                  placeholder="Notas"
+                  placeholder="Añade aquí cualquier nota que quieras recordar sobre este cliente."
+                  value={field.value ?? ""}
                 />
               </FormControl>
               <FormMessage />

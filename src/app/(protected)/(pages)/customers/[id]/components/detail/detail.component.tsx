@@ -6,13 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // Types
 import type { DetailProps } from "./types/detail.component.types";
 
-const paymentMethods = [
-  { id: "CASH", name: "Efectivo" },
-  { id: "BANK_DRAFT_30_60", name: "Giro 30/60" },
-  { id: "BANK_TRANSFER", name: "Transferencia bancaria" },
-  { id: "NOT_SPECIFIED", name: "No especificado" },
-];
-
 const Detail = ({ customer }: DetailProps) => (
   <div className="flex flex-col gap-4">
     <Card className="p-0 text-sm md:p-4">
@@ -64,10 +57,7 @@ const Detail = ({ customer }: DetailProps) => (
           <dt className="font-medium">IBAN</dt>
           <dd>{customer.iban || "-"}</dd>
           <dt className="font-medium">Forma de pago</dt>
-          <dd>
-            {paymentMethods.find((pm) => pm.id === customer.paymentMethod)
-              ?.name ?? "-"}
-          </dd>
+          <dd>{customer.paymentMethod?.name || "-"}</dd>
           <dt className="font-medium">Descuento puerta completa</dt>
           <dd>
             {customer.discountDoor !== null ? `${customer.discountDoor}%` : "-"}

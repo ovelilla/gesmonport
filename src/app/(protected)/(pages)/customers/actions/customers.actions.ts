@@ -12,6 +12,7 @@ import type {
   DeleteMultipleCustomersProps,
   DeleteMultipleCustomersReturn,
   ReadCustomersReturn,
+  ReadPaymentMethodsReturn,
   UpdateCustomerProps,
   UpdateCustomerReturn,
 } from "./types/customers.actions.types";
@@ -32,13 +33,14 @@ const createCustomer = async ({
       });
       if (existingCustomer) {
         return {
-          error: "El CIF ingresado ya está en uso. Introduce un CIF único.",
+          error: "Ya existe un cliente con el CIF ingresado.",
         };
       }
     }
 
     const newCustomer = await prisma.customer.create({
       data: validatedFields.data,
+      include: { paymentMethod: true },
     });
 
     return { success: "Cliente creado con éxito", client: newCustomer };
@@ -86,8 +88,21 @@ const readCustomers = async (): Promise<ReadCustomersReturn> => {
   try {
     const customers = await prisma.customer.findMany({
       orderBy: { name: "asc" },
+      include: { paymentMethod: true },
     });
     return customers;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readPaymentMethods = async (): Promise<ReadPaymentMethodsReturn> => {
+  try {
+    const paymentMethods = await prisma.paymentMethod.findMany({
+      orderBy: { name: "asc" },
+    });
+    return paymentMethods;
   } catch (error) {
     console.error(error);
     return [];
@@ -139,5 +154,6 @@ export {
   deleteCustomer,
   deleteMultipleCustomers,
   readCustomers,
+  readPaymentMethods,
   updateCustomer,
 };

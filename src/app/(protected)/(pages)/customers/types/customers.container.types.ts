@@ -1,8 +1,9 @@
 // Types
-import type { Customer } from "./customers.types";
+import type { Customer, PaymentMethod } from "./customers.types";
 
 type CustomersProps = {
   customers: Customer[];
+  paymentMethods: PaymentMethod[];
 };
 
 export type { CustomersProps };

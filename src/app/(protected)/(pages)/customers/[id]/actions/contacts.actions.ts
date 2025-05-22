@@ -15,6 +15,8 @@ import type {
   ReadCustomerReturn,
   ReadContactsProps,
   ReadContactsReturn,
+  ReadDepartmentsReturn,
+  ReadPositionsReturn,
   UpdateContactProps,
   UpdateContactReturn,
 } from "./types/contacts.actions.types";
@@ -29,18 +31,13 @@ const createContact = async ({
     return { error: "Campos inválidos. Por favor, revisa los datos" };
   }
 
-  const { name, email, phone } = values;
-
   try {
     const newContact = await prisma.contact.create({
       data: {
-        name,
-        email,
-        phone: phone || null,
-        customer: {
-          connect: { id },
-        },
+        ...validatedFields.data,
+        customerId: id,
       },
+      include: { department: true, position: true },
     });
 
     return { success: "Contacto creado con éxito", contact: newContact };
@@ -90,6 +87,7 @@ const readCustomer = async ({
   try {
     const customer = await prisma.customer.findUnique({
       where: { id },
+      include: { paymentMethod: true },
     });
     if (!customer) {
       return null;
@@ -108,8 +106,33 @@ const readContacts = async ({
     const contacts = await prisma.contact.findMany({
       where: { customerId: id },
       orderBy: { name: "asc" },
+      include: { department: true, position: true },
     });
     return contacts;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readDepartments = async (): Promise<ReadDepartmentsReturn> => {
+  try {
+    const departments = await prisma.department.findMany({
+      orderBy: { name: "asc" },
+    });
+    return departments;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readPositions = async (): Promise<ReadPositionsReturn> => {
+  try {
+    const positions = await prisma.position.findMany({
+      orderBy: { name: "asc" },
+    });
+    return positions;
   } catch (error) {
     console.error(error);
     return [];
@@ -126,16 +149,11 @@ const updateContact = async ({
     return { error: "Campos inválidos. Por favor, revisa los datos" };
   }
 
-  const { name, email, phone } = values;
-
   try {
     const updatedContact = await prisma.contact.update({
       where: { id },
-      data: {
-        name,
-        email,
-        phone: phone || null,
-      },
+      data: validatedFields.data,
+      include: { department: true, position: true },
     });
 
     return {
@@ -156,5 +174,7 @@ export {
   deleteMultipleContacts,
   readCustomer,
   readContacts,
+  readDepartments,
+  readPositions,
   updateContact,
 };

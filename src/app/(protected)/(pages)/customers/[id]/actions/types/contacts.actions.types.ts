@@ -1,5 +1,10 @@
 // Types
-import type { Customer, Contact } from "@prisma/client";
+import type {
+  Contact,
+  Customer,
+  Department,
+  Position,
+} from "../../types/contacts.types";
 import type { ContactSchema } from "../../schemas/types/contact.schema.types";
 
 type CreateContactProps = {
@@ -43,6 +48,10 @@ type ReadContactsProps = {
   id: string;
 };
 
+type ReadDepartmentsReturn = Department[];
+
+type ReadPositionsReturn = Position[];
+
 type UpdateContactProps = {
   id: string;
   values: ContactSchema;
@@ -65,6 +74,8 @@ export type {
   ReadCustomerReturn,
   ReadContactsProps,
   ReadContactsReturn,
+  ReadDepartmentsReturn,
+  ReadPositionsReturn,
   UpdateContactProps,
   UpdateContactReturn,
 };

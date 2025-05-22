@@ -9,7 +9,7 @@ const DEFAULT_FORM_VALUES = {
   notes: "",
   discountDoor: 0,
   discountParts: 0,
-  paymentMethod: "NOT_SPECIFIED",
+  paymentMethodId: "",
 } as const;
 
 export { DEFAULT_FORM_VALUES };
