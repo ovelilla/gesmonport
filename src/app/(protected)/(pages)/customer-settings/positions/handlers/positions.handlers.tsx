@@ -268,7 +268,6 @@ const submitHandlerDeleteMultiple = async ({
 
 const PositionsHandlers = ({
   form,
-  router,
   selectedRow,
   selectedRows,
   setData,

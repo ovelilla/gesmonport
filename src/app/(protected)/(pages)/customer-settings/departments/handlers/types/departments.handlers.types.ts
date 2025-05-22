@@ -1,5 +1,4 @@
 // Types
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { Dispatch, SetStateAction } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { Department } from "../../types/departments.types";
@@ -7,7 +6,6 @@ import type { DepartmentSchema } from "../../schemas/types/department.schema.typ
 
 type DepartmentsHandlersProps = {
   form: UseFormReturn<DepartmentSchema>;
-  router: AppRouterInstance;
   selectedRow: Department | null;
   selectedRows: Department[];
   setData: Dispatch<SetStateAction<Department[]>>;

@@ -278,7 +278,6 @@ const submitHandlerDeleteMultiple = async ({
 
 const PaymentMethodsHandlers = ({
   form,
-  router,
   selectedRow,
   selectedRows,
   setData,

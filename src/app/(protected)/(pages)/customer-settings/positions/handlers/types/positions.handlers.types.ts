@@ -1,5 +1,4 @@
 // Types
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { Dispatch, SetStateAction } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { Position } from "../../types/positions.types";
@@ -7,7 +6,6 @@ import type { PositionSchema } from "../../schemas/types/position.schema.types";
 
 type PositionsHandlersProps = {
   form: UseFormReturn<PositionSchema>;
-  router: AppRouterInstance;
   selectedRow: Position | null;
   selectedRows: Position[];
   setData: Dispatch<SetStateAction<Position[]>>;

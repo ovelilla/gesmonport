@@ -276,7 +276,6 @@ const submitHandlerDeleteMultiple = async ({
 
 const DepartmentsHandlers = ({
   form,
-  router,
   selectedRow,
   selectedRows,
   setData,

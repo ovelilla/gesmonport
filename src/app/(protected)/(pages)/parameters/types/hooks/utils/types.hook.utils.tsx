@@ -4,7 +4,7 @@ import { SelectAllCheckbox } from "@/components/data-table/components/select-all
 import { SelectRowCheckbox } from "@/components/data-table/components/select-row-checkbox/select-row-checkbox.component";
 import { ColumnSorter } from "@/components/data-table/components/column-sorter/column-sorter.component";
 // Icons
-import { Ellipsis, Eye, SquarePen, Trash2 } from "lucide-react";
+import { Ellipsis, SquarePen, Trash2 } from "lucide-react";
 // Types
 import type { Type } from "../../types/types.types";
 import type {

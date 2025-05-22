@@ -1,5 +1,4 @@
 // Types
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { Dispatch, SetStateAction } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { PaymentMethod } from "../../types/payment-methods.types";
@@ -7,7 +6,6 @@ import type { PaymentMethodSchema } from "../../schemas/types/payment-method.sch
 
 type PaymentMethodsHandlersProps = {
   form: UseFormReturn<PaymentMethodSchema>;
-  router: AppRouterInstance;
   selectedRow: PaymentMethod | null;
   selectedRows: PaymentMethod[];
   setData: Dispatch<SetStateAction<PaymentMethod[]>>;
