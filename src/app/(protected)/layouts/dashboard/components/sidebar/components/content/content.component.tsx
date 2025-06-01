@@ -1,6 +1,7 @@
 "use client";
 // Vendors
 import Link from "next/link";
+import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 // Components
 import {
@@ -23,15 +24,34 @@ import {
 import { NAVIGATION } from "./constants/content.constants";
 // Icons
 import { ChevronRight } from "lucide-react";
+// Types
+import { ContentProps } from "./types/content.component.types";
 
-const Content = () => {
+const Content = ({ hardwareTypes }: ContentProps) => {
   const pathname = usePathname();
+
+  const navigation = useMemo(() => {
+    return NAVIGATION.map((item) => {
+      if (item.title !== "Herrajes") return item;
+
+      const dynamicItems = hardwareTypes.map(({ name, slug }) => ({
+        title: name,
+        url: `/hardwares/type/${slug}`,
+      }));
+
+      return {
+        ...item,
+        items: [...(item.items || []), ...dynamicItems],
+      };
+    });
+  }, [hardwareTypes]);
+
   return (
     <SidebarContent>
       <SidebarGroup>
         <SidebarGroupLabel>Secciones</SidebarGroupLabel>
         <SidebarMenu>
-          {NAVIGATION.map((item) => {
+          {navigation.map((item) => {
             const isActive =
               pathname === item.url ||
               pathname.startsWith(`${item.url}/`) ||

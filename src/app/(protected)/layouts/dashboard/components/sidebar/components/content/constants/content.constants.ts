@@ -1,10 +1,11 @@
 // Icons
 import {
   ChartLine,
+  DoorClosed,
+  Bolt,
   Home,
   Settings,
   Settings2,
-  UserCog,
   Users,
 } from "lucide-react";
 
@@ -20,36 +21,62 @@ const NAVIGATION = [
     icon: Users,
   },
   {
-    title: "Ajustes clientes",
+    title: "Opciones de clientes",
     url: "#",
-    icon: UserCog,
+    icon: Settings2,
     items: [
       {
         title: "Formas de pago",
-        url: "/customer-settings/payment-methods",
+        url: "/customer-options/payment-methods",
       },
       {
         title: "Departamentos",
-        url: "/customer-settings/departments",
+        url: "/customer-options/departments",
       },
       {
         title: "Cargos",
-        url: "/customer-settings/positions",
+        url: "/customer-options/positions",
       },
     ],
   },
   {
-    title: "Parámetros",
+    title: "Herrajes",
+    url: "/hardwares",
+    icon: Bolt,
+    items: [],
+  },
+  {
+    title: "Opciones de herrajes",
+    url: "#",
+    icon: Settings2,
+    items: [
+      {
+        title: "Tipos de herrajes",
+        url: "/hardwares/options/types",
+      },
+      {
+        title: "Acabados de herrajes",
+        url: "/hardwares/options/finishes",
+      },
+    ],
+  },
+  {
+    title: "Puertas",
+    url: "/doors",
+    icon: DoorClosed,
+  },
+  {
+    title: "Opciones de puertas",
     url: "#",
     icon: Settings2,
     items: [
       {
         title: "Tipos de puertas",
-        url: "/parameters/types",
+        url: "/doors/options/types",
       },
       {
-        title: "Acabados",
-        url: "/parameters/finishes",
+        title: "Acabados de puertas",
+        url: "/doors/options/finishes",
       },
     ],
   },

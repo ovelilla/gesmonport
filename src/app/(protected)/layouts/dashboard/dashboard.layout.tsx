@@ -11,13 +11,17 @@ import { DashboardHook } from "./hooks/dashboard.hook";
 // Types
 import { DashboardProps } from "./types/dashboard.types";
 
-const DashboardLayout = ({ children, session }: DashboardProps) => {
+const DashboardLayout = ({
+  children,
+  hardwareTypes,
+  session,
+}: DashboardProps) => {
   const { open, setOpen } = DashboardHook();
 
   return (
     <SidebarProvider defaultOpen={true} open={open} onOpenChange={setOpen}>
       <div className="flex w-full flex-1">
-        <Sidebar open={open} session={session} />
+        <Sidebar hardwareTypes={hardwareTypes} open={open} session={session} />
 
         <div className="flex w-full flex-1 flex-col overflow-hidden">
           <header className="bg-background flex h-14 shrink-0 items-center justify-end border-b px-2 sm:h-16 sm:px-4 print:hidden">

@@ -224,6 +224,16 @@ const CustomerForm = ({
                       placeholder="Ej: 10"
                       step={0.01}
                       type="number"
+                      onFocus={(event) => {
+                        if (event.target.value === "0") {
+                          event.target.value = "";
+                        }
+                      }}
+                      onBlur={(event) => {
+                        if (event.target.value === "") {
+                          event.target.value = "0";
+                        }
+                      }}
                     />
                     <span className="text-muted-foreground pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-sm">
                       %
@@ -251,6 +261,16 @@ const CustomerForm = ({
                       placeholder="Ej: 10"
                       step={0.01}
                       type="number"
+                      onFocus={(event) => {
+                        if (event.target.value === "0") {
+                          event.target.value = "";
+                        }
+                      }}
+                      onBlur={(event) => {
+                        if (event.target.value === "") {
+                          event.target.value = "0";
+                        }
+                      }}
                     />
                     <span className="text-muted-foreground pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-sm">
                       %

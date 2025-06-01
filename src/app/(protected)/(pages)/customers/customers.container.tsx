@@ -29,7 +29,7 @@ const CustomersContainer = ({ customers, paymentMethods }: CustomersProps) => {
   } = CustomersHook({ customers });
 
   return (
-    <div className="flex grow flex-col gap-2 p-4">
+    <div className="flex grow flex-col gap-2 overflow-hidden p-4">
       <h1 className="text-2xl font-medium">Clientes</h1>
       <DataTable
         columns={columns}

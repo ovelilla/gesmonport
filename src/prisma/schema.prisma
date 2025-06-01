@@ -109,30 +109,122 @@ model Position {
   contacts    Contact[]
 }
 
-model Type {
-  id          String   @id @default(cuid())
+model DoorType {
+  id          String             @id @default(cuid())
   name        String
   description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  images      DoorTypeImage[]
+  hardware    DoorTypeHardware[]
 }
 
-model Finish {
-  id          String        @id @default(cuid())
-  name        String
-  description String?
-  reference   String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  images      FinishImage[]
-}
-
-model FinishImage {
+model DoorTypeImage {
   id        String   @id @default(cuid())
   url       String
   publicId  String
-  finishId  String
+  typeId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  finish    Finish   @relation(fields: [finishId], references: [id], onDelete: Cascade)
+  type      DoorType @relation(fields: [typeId], references: [id], onDelete: Cascade)
+}
+
+model DoorFinish {
+  id          String            @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  images      DoorFinishImage[]
+}
+
+model DoorFinishImage {
+  id        String     @id @default(cuid())
+  url       String
+  publicId  String
+  finishId  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  finish    DoorFinish @relation(fields: [finishId], references: [id], onDelete: Cascade)
+}
+
+model DoorTypeHardware {
+  doorTypeId String
+  hardwareId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  doorType   DoorType @relation(fields: [doorTypeId], references: [id], onDelete: Cascade)
+  hardware   Hardware @relation(fields: [hardwareId], references: [id], onDelete: Cascade)
+
+  @@id([doorTypeId, hardwareId])
+  @@index([hardwareId])
+}
+
+model Hardware {
+  id          String             @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  price       Float
+  finishId    String?
+  typeId      String
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  finish      HardwareFinish?    @relation(fields: [finishId], references: [id])
+  type        HardwareType       @relation(fields: [typeId], references: [id])
+  images      HardwareImage[]
+  doorTypes   DoorTypeHardware[]
+}
+
+model HardwareImage {
+  id         String   @id @default(cuid())
+  url        String
+  publicId   String
+  hardwareId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  hardware   Hardware @relation(fields: [hardwareId], references: [id], onDelete: Cascade)
+}
+
+model HardwareType {
+  id          String              @id @default(cuid())
+  name        String
+  description String?
+  slug        String              @unique
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  images      HardwareTypeImage[]
+  hardware    Hardware[]
+}
+
+model HardwareTypeImage {
+  id        String       @id @default(cuid())
+  url       String
+  publicId  String
+  typeId    String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  type      HardwareType @relation(fields: [typeId], references: [id], onDelete: Cascade)
+}
+
+model HardwareFinish {
+  id          String                @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  images      HardwareFinishImage[]
+  hardware    Hardware[]
+}
+
+model HardwareFinishImage {
+  id        String         @id @default(cuid())
+  url       String
+  publicId  String
+  finishId  String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  finish    HardwareFinish @relation(fields: [finishId], references: [id], onDelete: Cascade)
 }

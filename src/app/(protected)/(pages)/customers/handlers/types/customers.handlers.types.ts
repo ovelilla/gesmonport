@@ -1,5 +1,6 @@
+// Vendors
+import { useRouter } from "next/navigation";
 // Types
-import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { Dispatch, SetStateAction } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type { Customer } from "../../types/customers.types";
@@ -7,7 +8,7 @@ import type { CustomerSchema } from "../../schemas/types/customer.schema.types";
 
 type CustomersHandlersProps = {
   form: UseFormReturn<CustomerSchema>;
-  router: AppRouterInstance;
+  router: ReturnType<typeof useRouter>;
   selectedRow: Customer | null;
   selectedRows: Customer[];
   setData: Dispatch<SetStateAction<Customer[]>>;

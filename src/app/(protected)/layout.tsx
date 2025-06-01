@@ -1,3 +1,5 @@
+// Actions
+import { readHardwareTypes } from "./layouts/dashboard/actions/dashboard.actions";
 // Layouts
 import { DashboardLayout } from "./layouts/dashboard/dashboard.layout";
 // Libs
@@ -10,7 +12,13 @@ import { ProtectedLayoutProps } from "./types/layout.types";
 async function ProtectedLayout({ children }: ProtectedLayoutProps) {
   const session = await getSession();
 
-  return <DashboardLayout session={session}>{children}</DashboardLayout>;
+  const hardwareTypes = await readHardwareTypes();
+
+  return (
+    <DashboardLayout hardwareTypes={hardwareTypes} session={session}>
+      {children}
+    </DashboardLayout>
+  );
 }
 
 export default ProtectedLayout;

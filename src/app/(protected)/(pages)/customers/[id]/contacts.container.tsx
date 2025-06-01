@@ -36,11 +36,11 @@ const ContactsContainer = ({
   } = ContactsHook({ contacts });
 
   if (!customer) {
-    return <div>Cliente no encontrado</div>;
+    return <div className="p-4">Cliente no encontrado</div>;
   }
 
   return (
-    <div className="flex grow flex-col gap-2 p-4">
+    <div className="flex grow flex-col gap-2 overflow-hidden p-4">
       <h1 className="text-xl font-semibold">{customer.name}</h1>
       <Tabs defaultValue="details" className="flex-1 gap-4 overflow-hidden">
         <TabsList className="bg-background h-10 w-full shrink-0 justify-start rounded-none border-b p-0 print:hidden">

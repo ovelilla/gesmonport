@@ -54,7 +54,11 @@ const UserNav = ({ session }: UserNavProps) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/dashboard" className="cursor-pointer" prefetch={false}>
+            <Link
+              href="/settings/users"
+              className="cursor-pointer"
+              prefetch={false}
+            >
               <Users />
               Usuarios
             </Link>

@@ -8,11 +8,11 @@ import { Content } from "./components/content/content.component";
 // Types
 import type { SidebarProps } from "./types/sidebar.component.types";
 
-const Sidebar = ({ session }: SidebarProps) => {
+const Sidebar = ({ hardwareTypes, session }: SidebarProps) => {
   return (
     <SidebarComponent collapsible="icon">
       <Header session={session} />
-      <Content />
+      <Content hardwareTypes={hardwareTypes} />
       <SidebarRail />
     </SidebarComponent>
   );
