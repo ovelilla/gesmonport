@@ -11,6 +11,7 @@ import type { UseFormReturn } from "react-hook-form";
 
 type HardwareHookProps = {
   hardwares: Hardware[];
+  slug: string;
 };
 
 type HardwareHookReturn = Omit<

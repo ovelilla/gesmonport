@@ -4,6 +4,7 @@ const DEFAULT_FORM_VALUES = {
   reference: "",
   price: 0,
   finishId: "",
+  doorTypes: [] as string[],
   images: [] as File[],
 } as const;
 

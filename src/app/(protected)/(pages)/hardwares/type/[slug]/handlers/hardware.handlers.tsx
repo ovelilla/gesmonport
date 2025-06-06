@@ -66,7 +66,7 @@ const editHandler = ({
 }: EditHandlerProps): void => {
   const transformedRow = {
     ...row,
-    description: row.description || "",
+    doorTypes: row.doorTypes.map((dt) => dt.id) || [],
     images: [],
   };
   form.reset(transformedRow, { keepDefaultValues: true });
@@ -77,8 +77,8 @@ const editHandler = ({
   setToDelete([]);
 };
 
-const navigateHandler = ({ row, router }: NavigateHandlerProps): void => {
-  router.push(`/hardware/types/${row.id}`);
+const navigateHandler = ({ row, router, slug }: NavigateHandlerProps): void => {
+  router.push(`/hardwares/type/${slug}/${row.id}`);
 };
 
 const openChangeAlertDialogHandler = ({
@@ -319,6 +319,7 @@ const HardwareHandlers = ({
   setSelectedRow,
   setSelectedRows,
   setToDelete,
+  slug,
   toDelete,
 }: HardwareHandlersProps): HardwareHandlersReturn => {
   return {
@@ -342,7 +343,7 @@ const HardwareHandlers = ({
         setSelectedRow,
         setToDelete,
       }),
-    handleNavigate: (row) => navigateHandler({ row, router }),
+    handleNavigate: (row) => navigateHandler({ row, router, slug }),
     handleOpenChangeAlertDialog: (open) =>
       openChangeAlertDialogHandler({
         open,

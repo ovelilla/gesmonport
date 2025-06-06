@@ -1,5 +1,6 @@
 // Actions
 import {
+  readDoorTypes,
   readHardwares,
   readHardwareFinishes,
   readHardwareType,
@@ -35,11 +36,13 @@ const generateMetadata = async ({
 const HardwarePage = async ({ params }: PricingPageProps) => {
   const { slug } = await params;
 
-  const [hardwares, hardwaresFinishes, hardwareType] = await Promise.all([
-    readHardwares({ slug }),
-    readHardwareFinishes(),
-    readHardwareType({ slug }),
-  ]);
+  const [doorTypes, hardwares, hardwaresFinishes, hardwareType] =
+    await Promise.all([
+      readDoorTypes(),
+      readHardwares({ slug }),
+      readHardwareFinishes(),
+      readHardwareType({ slug }),
+    ]);
 
   if (!hardwareType) {
     return <div className="p-4">Herraje no encontrado</div>;
@@ -47,9 +50,11 @@ const HardwarePage = async ({ params }: PricingPageProps) => {
 
   return (
     <HardwareContainer
+      doorTypes={doorTypes}
       hardwares={hardwares}
       hardwaresFinishes={hardwaresFinishes}
       hardwareType={hardwareType}
+      slug={slug}
     />
   );
 };

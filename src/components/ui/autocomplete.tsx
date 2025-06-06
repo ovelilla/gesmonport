@@ -130,7 +130,7 @@ export function AutoComplete<T extends string>({
                           <div className="relative size-10 shrink-0">
                             <Image
                               alt={option.label}
-                              className="h-10 w-10 rounded-md object-cover"
+                              className="h-10 w-10 rounded-md object-contain"
                               fill={true}
                               sizes="40px"
                               src={option.imageUrl}

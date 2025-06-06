@@ -29,6 +29,13 @@ function getColumnsConfig({
       id: "selection",
     },
     {
+      accessorKey: "customerNumber",
+      header: ({ column }) => (
+        <ColumnSorter column={column} label="Nº Cliente" />
+      ),
+      meta: "Nº Cliente",
+    },
+    {
       accessorKey: "name",
       cell: ({ row }) => (
         <Link href={`/customers/${row.original.id}`} prefetch={false}>
@@ -37,6 +44,13 @@ function getColumnsConfig({
       ),
       header: ({ column }) => <ColumnSorter column={column} label="Nombre" />,
       meta: "Nombre",
+    },
+    {
+      accessorKey: "legalName",
+      header: ({ column }) => (
+        <ColumnSorter column={column} label="Razón social" />
+      ),
+      meta: "Razón social",
     },
     {
       accessorKey: "vatNumber",

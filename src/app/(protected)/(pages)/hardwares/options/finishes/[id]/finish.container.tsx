@@ -40,7 +40,7 @@ const FinishContainer = ({ finish }: FinishProps) => {
               <div className="relative h-60 sm:h-72 md:h-80 lg:h-96">
                 <Image
                   alt={finish.name}
-                  className="rounded-lg object-cover"
+                  className="rounded-lg object-contain"
                   fill={true}
                   priority={true}
                   sizes="500px"
@@ -85,7 +85,7 @@ const FinishContainer = ({ finish }: FinishProps) => {
                 >
                   <Image
                     alt="Miniatura"
-                    className="rounded-lg object-cover"
+                    className="rounded-lg object-contain"
                     fill={true}
                     sizes="125px"
                     src={image.url}

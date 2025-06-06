@@ -38,7 +38,7 @@ const TypeContainer = ({ type }: TypeProps) => {
               <div className="relative h-60 sm:h-72 md:h-80 lg:h-96">
                 <Image
                   alt={type.name}
-                  className="rounded-lg object-cover"
+                  className="rounded-lg object-contain"
                   fill={true}
                   priority={true}
                   sizes="500px"
@@ -83,7 +83,7 @@ const TypeContainer = ({ type }: TypeProps) => {
                 >
                   <Image
                     alt="Miniatura"
-                    className="rounded-lg object-cover"
+                    className="rounded-lg object-contain"
                     fill={true}
                     sizes="125px"
                     src={image.url}

@@ -130,7 +130,7 @@ const TypeForm = ({
                   <div key={index} className="relative h-24">
                     <Image
                       alt={`Preview ${index}`}
-                      className="rounded-md border object-cover"
+                      className="rounded-md border object-contain"
                       fill={true}
                       sizes="96px"
                       src={preview}
@@ -159,7 +159,7 @@ const TypeForm = ({
                 <div key={index} className="relative h-24">
                   <Image
                     alt={`Imagen existente ${index}`}
-                    className="rounded-md border object-cover"
+                    className="rounded-md border object-contain"
                     fill={true}
                     sizes="96px"
                     src={src}

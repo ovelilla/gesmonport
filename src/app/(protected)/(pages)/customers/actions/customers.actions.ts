@@ -17,6 +17,8 @@ import type {
   UpdateCustomerReturn,
 } from "./types/customers.actions.types";
 
+const BASE_NUMBER = 1000;
+
 const createCustomer = async ({
   values,
 }: CreateCustomerProps): Promise<CreateCustomerReturn> => {
@@ -38,8 +40,19 @@ const createCustomer = async ({
       }
     }
 
+    const lastCustomer = await prisma.customer.findFirst({
+      orderBy: { customerNumber: "desc" },
+      select: { customerNumber: true },
+    });
+
+    const nextCustomerNumber =
+      (lastCustomer?.customerNumber ?? BASE_NUMBER - 1) + 1;
+
     const newCustomer = await prisma.customer.create({
-      data: validatedFields.data,
+      data: {
+        ...validatedFields.data,
+        customerNumber: nextCustomerNumber,
+      },
       include: { paymentMethod: true },
     });
 

@@ -16,6 +16,7 @@ import type {
   DeleteHardwareReturn,
   DeleteMultipleHardwareProps,
   DeleteMultipleHardwareReturn,
+  ReadDoorTypesReturn,
   ReadHardwaresProps,
   ReadHardwaresReturn,
   ReadHardwareFinishesReturn,
@@ -68,17 +69,34 @@ const createHardware = async ({
       const newHardware = await prisma.hardware.create({
         data: {
           ...validatedFields.data,
+          doorTypes: {
+            create: validatedFields.data.doorTypes.map((dt) => ({
+              doorTypeId: dt,
+            })),
+          },
           typeId: existingHardwareType.id,
           images: {
             create: validImages,
           },
         },
         include: {
+          doorTypes: {
+            include: {
+              doorType: true,
+            },
+          },
+          finish: true,
           images: true,
+          type: true,
         },
       });
 
-      return { success: "Herraje creado con éxito", hardware: newHardware };
+      const transformed = {
+        ...newHardware,
+        doorTypes: newHardware.doorTypes.map((dt) => dt.doorType),
+      };
+
+      return { success: "Herraje creado con éxito", hardware: transformed };
     } catch (error) {
       console.error(error);
       await Promise.all(validImages.map((img) => deleteImage(img.publicId)));
@@ -136,22 +154,48 @@ const deleteMultipleHardware = async ({
   }
 };
 
+const readDoorTypes = async (): Promise<ReadDoorTypesReturn> => {
+  try {
+    const doorTypes = await prisma.doorType.findMany({
+      orderBy: { name: "asc" },
+    });
+
+    return doorTypes ?? [];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 const readHardwares = async ({
   slug,
 }: ReadHardwaresProps): Promise<ReadHardwaresReturn> => {
   try {
-    const hardwareType = await prisma.hardwareType.findUnique({
-      where: { slug },
-      select: { id: true },
-    });
-
     const hardwareItems = await prisma.hardware.findMany({
-      where: { typeId: hardwareType?.id },
+      where: {
+        type: {
+          slug,
+        },
+      },
       orderBy: { price: "asc" },
-      include: { images: true },
+      include: {
+        doorTypes: {
+          include: {
+            doorType: true,
+          },
+        },
+        finish: true,
+        images: true,
+        type: true,
+      },
     });
 
-    return hardwareItems ?? [];
+    const transformed = hardwareItems.map((hardware) => ({
+      ...hardware,
+      doorTypes: hardware.doorTypes.map((dt) => dt.doorType),
+    }));
+
+    return transformed ?? [];
   } catch (error) {
     console.error(error);
     return [];
@@ -241,18 +285,35 @@ const updateHardware = async ({
         where: { id },
         data: {
           ...validatedFields.data,
+          doorTypes: {
+            create: validatedFields.data.doorTypes.map((dt) => ({
+              doorTypeId: dt,
+            })),
+          },
           images: {
             create: validImages,
           },
         },
         include: {
+          doorTypes: {
+            include: {
+              doorType: true,
+            },
+          },
+          finish: true,
           images: true,
+          type: true,
         },
       });
 
+      const transformed = {
+        ...updatedHardware,
+        doorTypes: updatedHardware.doorTypes.map((dt) => dt.doorType),
+      };
+
       return {
         success: "Herraje actualizado con éxito",
-        hardware: updatedHardware,
+        hardware: transformed,
       };
     } catch (error) {
       console.error(error);
@@ -273,6 +334,7 @@ export {
   createHardware,
   deleteHardware,
   deleteMultipleHardware,
+  readDoorTypes,
   readHardwares,
   readHardwareFinishes,
   readHardwareType,

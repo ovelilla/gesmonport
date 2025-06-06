@@ -52,6 +52,10 @@ const Detail = ({ customer }: DetailProps) => (
       </CardHeader>
       <CardContent>
         <dl className="grid grid-cols-1 gap-2 md:grid-cols-2">
+          <dt className="font-medium">N.º cliente</dt>
+          <dd>{customer.customerNumber}</dd>
+          <dt className="font-medium">Razón social</dt>
+          <dd>{customer.legalName || "-"}</dd>
           <dt className="font-medium">NIF</dt>
           <dd>{customer.vatNumber || "-"}</dd>
           <dt className="font-medium">IBAN</dt>

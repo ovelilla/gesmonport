@@ -23,7 +23,10 @@ import {
   getMultipleSelectActionsProps,
 } from "./utils/hardware.hook.utils";
 
-const HardwareHook = ({ hardwares }: HardwareHookProps): HardwareHookReturn => {
+const HardwareHook = ({
+  hardwares,
+  slug,
+}: HardwareHookProps): HardwareHookReturn => {
   const [data, setData] = useState<Hardware[]>(hardwares);
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -70,6 +73,7 @@ const HardwareHook = ({ hardwares }: HardwareHookProps): HardwareHookReturn => {
     setSelectedRow,
     setSelectedRows,
     setToDelete,
+    slug,
     toDelete,
   });
 
@@ -77,6 +81,7 @@ const HardwareHook = ({ hardwares }: HardwareHookProps): HardwareHookReturn => {
     handleDelete,
     handleEdit,
     handleNavigate,
+    slug,
   });
 
   const multipleSelectActionsProps = getMultipleSelectActionsProps({

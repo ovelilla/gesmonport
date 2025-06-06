@@ -105,6 +105,12 @@ interface MultiSelectProps
   modalPopover?: boolean;
 
   /**
+   * If true, renders the multi-select component as a child of another component.
+   * Optional, defaults to false.
+   */
+  // asChild?: boolean;
+
+  /**
    * Additional class names to apply custom styles to the multi-select component.
    * Optional, can be used to add custom styles.
    */
@@ -124,7 +130,8 @@ export const MultiSelect = React.forwardRef<
       placeholder = "Select options",
       animation = 0,
       maxCount = 3,
-      modalPopover = false,
+      modalPopover = true,
+      // asChild = false,
       className,
       ...props
     },
@@ -143,7 +150,6 @@ export const MultiSelect = React.forwardRef<
       } else if (event.key === "Backspace" && !event.currentTarget.value) {
         const newSelectedValues = [...selectedValues];
         newSelectedValues.pop();
-        
         setSelectedValues(newSelectedValues);
         onValueChange(newSelectedValues);
       }
@@ -172,15 +178,15 @@ export const MultiSelect = React.forwardRef<
       onValueChange(newSelectedValues);
     };
 
-    const toggleAll = () => {
-      if (selectedValues.length === options.length) {
-        handleClear();
-      } else {
-        const allValues = options.map((option) => option.value);
-        setSelectedValues(allValues);
-        onValueChange(allValues);
-      }
-    };
+    // const toggleAll = () => {
+    //   if (selectedValues.length === options.length) {
+    //     handleClear();
+    //   } else {
+    //     const allValues = options.map((option) => option.value);
+    //     setSelectedValues(allValues);
+    //     onValueChange(allValues);
+    //   }
+    // };
 
     return (
       <Popover
@@ -273,7 +279,7 @@ export const MultiSelect = React.forwardRef<
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="h-48 w-auto p-0"
+          className="max-h-64 w-auto p-0"
           align="start"
           onEscapeKeyDown={() => setIsPopoverOpen(false)}
         >
@@ -283,25 +289,8 @@ export const MultiSelect = React.forwardRef<
               onKeyDown={handleInputKeyDown}
             />
             <CommandList>
-              <CommandEmpty>No se han encontrado resultados.</CommandEmpty>
+              <CommandEmpty>No hay opciones disponibles</CommandEmpty>
               <CommandGroup>
-                <CommandItem
-                  key="all"
-                  onSelect={toggleAll}
-                  className="cursor-pointer"
-                >
-                  <div
-                    className={cn(
-                      "border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border",
-                      selectedValues.length === options.length
-                        ? "bg-primary text-primary-foreground"
-                        : "opacity-50 [&_svg]:invisible",
-                    )}
-                  >
-                    <CheckIcon className="h-4 w-4" />
-                  </div>
-                  <span>(Seleccionar todos)</span>
-                </CommandItem>
                 {options.map((option) => {
                   const isSelected = selectedValues.includes(option.value);
                   return (

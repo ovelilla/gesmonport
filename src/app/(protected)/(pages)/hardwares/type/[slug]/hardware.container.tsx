@@ -10,9 +10,11 @@ import { HardwareHook } from "./hooks/hardware.hook";
 import type { HardwareProps } from "./types/hardware.container.types";
 
 const HardwareContainer = ({
+  doorTypes,
   hardwares,
   hardwaresFinishes,
   hardwareType,
+  slug,
 }: HardwareProps) => {
   const {
     columns,
@@ -36,8 +38,8 @@ const HardwareContainer = ({
     setNewImages,
     setToDelete,
     toDelete,
-  } = HardwareHook({ hardwares });
-
+  } = HardwareHook({ hardwares, slug });
+  console.log("data", data);
   return (
     <div className="flex grow flex-col gap-2 overflow-hidden p-4">
       <h1 className="text-2xl font-medium">{hardwareType.name}</h1>
@@ -55,6 +57,7 @@ const HardwareContainer = ({
         title={`${selectedRow ? "Editar" : "Crear"} herraje`}
       >
         <HardwareForm
+          doorTypes={doorTypes}
           existingImages={existingImages}
           form={form}
           handleSubmit={handleSubmit}

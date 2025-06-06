@@ -54,6 +54,26 @@ const CustomerForm = ({
         />
         <FormField
           control={form.control}
+          name="legalName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor={field.name}>Nombre legal</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  disabled={loading}
+                  id={field.name}
+                  placeholder="Nombre legal"
+                  type="text"
+                  value={field.value ?? ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>

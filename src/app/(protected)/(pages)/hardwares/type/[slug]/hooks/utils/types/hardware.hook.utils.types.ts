@@ -6,6 +6,7 @@ type GetColumnsConfigProps<TData> = {
   handleDelete: (row: TData) => void;
   handleEdit: (row: TData) => void;
   handleNavigate: (row: TData) => void;
+  slug: string;
 };
 
 type GetColumnsConfigReturn<TData> = ColumnDef<TData>[];

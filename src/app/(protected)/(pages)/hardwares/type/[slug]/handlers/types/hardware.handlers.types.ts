@@ -22,6 +22,7 @@ type HardwareHandlersProps = {
   setSelectedRow: Dispatch<SetStateAction<Hardware | null>>;
   setSelectedRows: Dispatch<SetStateAction<Hardware[]>>;
   setToDelete: Dispatch<SetStateAction<string[]>>;
+  slug: string;
   toDelete: string[];
 };
 
@@ -67,7 +68,7 @@ type EditHandlerProps = Pick<
   row: Hardware;
 };
 
-type NavigateHandlerProps = Pick<HardwareHandlersProps, "router"> & {
+type NavigateHandlerProps = Pick<HardwareHandlersProps, "router" | "slug"> & {
   row: Hardware;
 };
 

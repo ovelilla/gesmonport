@@ -21,6 +21,7 @@ function getColumnsConfig({
   handleDelete,
   handleEdit,
   handleNavigate,
+  slug,
 }: GetColumnsConfigProps<Hardware>): GetColumnsConfigReturn<Hardware> {
   return [
     {
@@ -31,15 +32,18 @@ function getColumnsConfig({
     },
     {
       cell: ({ row }) => (
-        <Link href={`/hardwares/${row.original.id}`} prefetch={false}>
+        <Link
+          href={`/hardwares/type/${slug}/${row.original.id}`}
+          prefetch={false}
+        >
           <div className="relative m-2 size-16">
             <Image
               alt="Imagen de la moldura"
-              className="rounded-md object-cover"
+              className="rounded-md object-contain"
               fill={true}
               priority={true}
               sizes="64px"
-              src={`https://res.cloudinary.com/dwdtaut74/image/upload/f_auto,q_auto,w_64,h_64,c_fill/v1/${row.original.images[0]?.publicId ?? "no-photo_iu2krp"}`}
+              src={`https://res.cloudinary.com/dwdtaut74/image/upload/f_auto,q_auto,w_64,h_64,c_fit/v1/${row.original.images[0]?.publicId ?? "no-image_lpojgp"}`}
               unoptimized={true}
             />
           </div>
@@ -54,6 +58,13 @@ function getColumnsConfig({
       meta: "Nombre",
     },
     {
+      accessorKey: "reference",
+      header: ({ column }) => (
+        <ColumnSorter column={column} label="Referencia" />
+      ),
+      meta: "Referencia",
+    },
+    {
       accessorKey: "price",
       cell: ({ row }) =>
         new Intl.NumberFormat("es-ES", {
@@ -62,6 +73,12 @@ function getColumnsConfig({
         }).format(row.original.price),
       header: ({ column }) => <ColumnSorter column={column} label="Precio" />,
       meta: "Precio",
+    },
+    {
+      accessorKey: "finish",
+      header: ({ column }) => <ColumnSorter column={column} label="Acabado" />,
+      cell: ({ row }) => row.original.finish?.name ?? "Sin acabado",
+      meta: "Acabado",
     },
     {
       cell: ({ row }) => (

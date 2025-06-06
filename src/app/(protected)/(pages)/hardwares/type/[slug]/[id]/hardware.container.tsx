@@ -24,11 +24,11 @@ import { Separator } from "@/components/ui/separator";
 // Icons
 import { X } from "lucide-react";
 // Types
-import type { FinishProps } from "./types/finish.container.types";
+import type { HardwareProps } from "./types/hardware.container.types";
 
-const FinishContainer = ({ finish }: FinishProps) => {
+const HardwareContainer = ({ hardware }: HardwareProps) => {
   const [selectedImage, setSelectedImage] = useState(
-    finish.images[0]?.url || "",
+    hardware.images[0]?.url || "",
   );
 
   return (
@@ -39,7 +39,7 @@ const FinishContainer = ({ finish }: FinishProps) => {
             <DialogTrigger>
               <div className="relative h-60 sm:h-72 md:h-80 lg:h-96">
                 <Image
-                  alt={finish.name}
+                  alt={hardware.name}
                   className="rounded-lg object-contain"
                   fill={true}
                   priority={true}
@@ -65,7 +65,7 @@ const FinishContainer = ({ finish }: FinishProps) => {
               <DialogDescription className="sr-only" />
               <div className="relative h-full w-full">
                 <Image
-                  alt={finish.name}
+                  alt={hardware.name}
                   className="object-contain"
                   fill={true}
                   sizes="100vw"
@@ -77,7 +77,7 @@ const FinishContainer = ({ finish }: FinishProps) => {
         )}
         <Carousel className="w-full">
           <CarouselContent className="-ml-4">
-            {finish.images.map((image) => (
+            {hardware.images.map((image) => (
               <CarouselItem key={image.id} className="basis-1/4 pl-4">
                 <button
                   className="relative h-20 w-full cursor-pointer p-4 sm:h-24 md:h-28"
@@ -100,9 +100,9 @@ const FinishContainer = ({ finish }: FinishProps) => {
       <Card className="max-w-auto p-0 text-sm">
         <CardContent>
           <div className="flex flex-col gap-1">
-            <h1 className="text-xl font-semibold">{finish.name}</h1>
-            {finish.description && (
-              <p className="text-muted-foreground">{finish.description}</p>
+            <h1 className="text-xl font-semibold">{hardware.name}</h1>
+            {hardware.description && (
+              <p className="text-muted-foreground">{hardware.description}</p>
             )}
           </div>
 
@@ -111,8 +111,27 @@ const FinishContainer = ({ finish }: FinishProps) => {
           <div className="flex flex-col gap-4">
             <h2 className="text-base font-semibold">Detalles</h2>
             <dl className="grid grid-cols-1 gap-2 md:grid-cols-2">
+              <dt className="font-medium">Tipo de herraje</dt>
+              <dd className="whitespace-pre-line">
+                {hardware.type.name ?? "-"}
+              </dd>
+              <dt className="font-medium">Tipos de puertas</dt>
+              <dd className="whitespace-pre-line">
+                {hardware.doorTypes
+                  .map((dt) => dt.name)
+                  .join(", ")
+                  .trim() || "-"}
+              </dd>
               <dt className="font-medium">Referencia</dt>
-              <dd className="whitespace-pre-line">{finish.reference ?? "-"}</dd>
+              <dd className="whitespace-pre-line">
+                {hardware.reference ?? "-"}
+              </dd>
+              <dt className="font-medium">Precio</dt>
+              <dd className="whitespace-pre-line">{hardware.price ?? "-"} €</dd>
+              <dt className="font-medium">Acabado</dt>
+              <dd className="whitespace-pre-line">
+                {hardware.finish?.name ?? "-"}
+              </dd>
             </dl>
           </div>
 
@@ -123,11 +142,11 @@ const FinishContainer = ({ finish }: FinishProps) => {
             <dl className="grid grid-cols-1 gap-2 md:grid-cols-2">
               <dt className="font-medium">Creado el:</dt>
               <dd className="whitespace-pre-line">
-                {format(new Date(finish.createdAt), "PPP", { locale: es })}
+                {format(new Date(hardware.createdAt), "PPP", { locale: es })}
               </dd>
               <dt className="font-semibold">Última actualización:</dt>
               <dd className="whitespace-pre-line">
-                {format(new Date(finish.updatedAt), "PPP", { locale: es })}
+                {format(new Date(hardware.updatedAt), "PPP", { locale: es })}
               </dd>
             </dl>
           </div>
@@ -137,4 +156,4 @@ const FinishContainer = ({ finish }: FinishProps) => {
   );
 };
 
-export { FinishContainer };
+export { HardwareContainer };

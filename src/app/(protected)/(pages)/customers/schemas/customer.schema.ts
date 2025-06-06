@@ -7,6 +7,10 @@ const customerSchema = z.object({
     .min(1, "El nombre es requerido")
     .max(64, "El nombre no puede tener más de 64 caracteres")
     .trim(),
+  legalName: z
+    .union([z.literal(""), z.string().trim().max(64).optional(), z.null()])
+    .transform((val) => (val === "" ? null : val))
+    .optional(),
   email: z
     .union([
       z.literal(""),

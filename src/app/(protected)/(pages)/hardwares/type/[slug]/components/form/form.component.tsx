@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { MultiSelect } from "@/components/ui/multiple-selector";
 import {
   Select,
   SelectContent,
@@ -26,6 +27,7 @@ import { X } from "lucide-react";
 import type { HardwareFormProps } from "./types/form.component.types";
 
 const HardwareForm = ({
+  doorTypes,
   existingImages,
   form,
   handleSubmit,
@@ -179,6 +181,29 @@ const HardwareForm = ({
         </div>
         <FormField
           control={form.control}
+          name="doorTypes"
+          render={({ field }) => (
+            <FormItem className="grow basis-1/2">
+              <FormLabel htmlFor={field.name}>Tipos de puerta</FormLabel>
+              <FormControl>
+                <MultiSelect
+                  {...field}
+                  options={doorTypes.map((doorType) => ({
+                    label: doorType.name,
+                    value: doorType.id,
+                  }))}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  placeholder="Selecciona los tipos de puerta"
+                  variant="inverted"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="images"
           render={({ field }) => (
             <FormItem className="grow basis-1/2">
@@ -226,7 +251,7 @@ const HardwareForm = ({
                   <div key={index} className="relative h-24">
                     <Image
                       alt={`Preview ${index}`}
-                      className="rounded-md border object-cover"
+                      className="rounded-md border object-contain"
                       fill={true}
                       sizes="96px"
                       src={preview}
@@ -254,7 +279,7 @@ const HardwareForm = ({
                 <div key={index} className="relative h-24">
                   <Image
                     alt={`Imagen existente ${index}`}
-                    className="rounded-md border object-cover"
+                    className="rounded-md border object-contain"
                     fill={true}
                     sizes="96px"
                     src={src}

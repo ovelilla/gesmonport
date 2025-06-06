@@ -45,7 +45,9 @@ model PasswordResetToken {
 
 model Customer {
   id              String   @id @default(cuid())
+  customerNumber  Int      @unique
   name            String
+  legalName       String?
   email           String?
   phone           String?
   billingAddress  String?

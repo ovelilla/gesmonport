@@ -1,6 +1,7 @@
 // Types
 import type { HardwareSchema } from "../../schemas/types/hardware.schema.types";
 import {
+  DoorType,
   Hardware,
   HardwareFinish,
   HardwareType,
@@ -36,6 +37,8 @@ type DeleteMultipleHardwareReturn = {
   error?: string;
 };
 
+type ReadDoorTypesReturn = DoorType[];
+
 type ReadHardwaresProps = {
   slug: string;
 };
@@ -70,6 +73,7 @@ export type {
   DeleteHardwareReturn,
   DeleteMultipleHardwareProps,
   DeleteMultipleHardwareReturn,
+  ReadDoorTypesReturn,
   ReadHardwaresProps,
   ReadHardwaresReturn,
   ReadHardwareFinishesReturn,

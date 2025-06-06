@@ -1,5 +1,6 @@
 const DEFAULT_FORM_VALUES = {
   name: "",
+  legalName: "",
   email: "",
   phone: "",
   billingAddress: "",
