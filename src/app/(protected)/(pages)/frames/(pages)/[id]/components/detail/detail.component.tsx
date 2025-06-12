@@ -113,6 +113,19 @@ const Detail = ({ frame }: DetailProps) => {
             <dl className="grid grid-cols-1 gap-2 md:grid-cols-2">
               <dt className="font-medium">Referencia</dt>
               <dd className="whitespace-pre-line">{frame.reference ?? "-"}</dd>
+
+              <dt className="font-medium">Familia</dt>
+              <dd className="whitespace-pre-line">
+                {frame.family?.name ?? "-"}
+              </dd>
+
+              <dt className="font-medium">Tipo</dt>
+              <dd className="whitespace-pre-line">{frame.type?.name ?? "-"}</dd>
+
+              <dt className="font-medium">Acabado</dt>
+              <dd className="whitespace-pre-line">
+                {frame.finish?.name ?? "-"}
+              </dd>
             </dl>
           </div>
 
