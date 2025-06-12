@@ -2,6 +2,8 @@ const DEFAULT_FORM_VALUES = {
   name: "",
   description: "",
   reference: "",
+  heightOffset: 0,
+  sitec: false,
   familyId: "",
   finishId: "",
   typeId: "",

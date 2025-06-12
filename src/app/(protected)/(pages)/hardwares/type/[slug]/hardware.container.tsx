@@ -39,7 +39,6 @@ const HardwareContainer = ({
     setToDelete,
     toDelete,
   } = HardwareHook({ hardwares, slug });
-  console.log("data", data);
   return (
     <div className="flex grow flex-col gap-2 overflow-hidden p-4">
       <h1 className="text-2xl font-medium">{hardwareType.name}</h1>

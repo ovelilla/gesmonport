@@ -232,20 +232,22 @@ model HardwareFinishImage {
 }
 
 model Frame {
-  id          String       @id @default(cuid())
-  name        String
-  description String?
-  reference   String?
-  familyId    String
-  typeId      String
-  finishId    String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  images      FrameImage[]
-  family      FrameFamily  @relation(fields: [familyId], references: [id])
-  type        FrameType    @relation(fields: [typeId], references: [id])
-  finish      FrameFinish  @relation(fields: [finishId], references: [id])
-  prices      FramePrice[]
+  id           String       @id @default(cuid())
+  name         String
+  description  String?
+  reference    String?
+  sitec        Boolean      @default(false)
+  heightOffset Float        @default(0)
+  familyId     String
+  typeId       String
+  finishId     String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  images       FrameImage[]
+  family       FrameFamily  @relation(fields: [familyId], references: [id])
+  type         FrameType    @relation(fields: [typeId], references: [id])
+  finish       FrameFinish  @relation(fields: [finishId], references: [id])
+  prices       FramePrice[]
 }
 
 model FrameImage {

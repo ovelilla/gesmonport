@@ -15,6 +15,15 @@ const frameSchema = z.object({
     .union([z.literal(""), z.string().trim().max(64).optional(), z.null()])
     .transform((val) => (val === "" ? null : val))
     .optional(),
+  heightOffset: z.coerce
+    .number({ required_error: "La altura a descontar es requerida" })
+    .min(0, "La altura a descontar no puede ser negativa")
+    .max(999999, "La altura a descontar no puede ser mayor a 999999"),
+  sitec: z.coerce
+    .boolean({
+      required_error: "El campo SITEC es requerido",
+    })
+    .default(false),
   familyId: z
     .string()
     .min(1, "Debes seleccionar una familia")

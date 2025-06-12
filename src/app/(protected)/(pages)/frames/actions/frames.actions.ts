@@ -28,6 +28,7 @@ const createFrame = async ({
   newImages,
   values,
 }: CreateFrameProps): Promise<CreateFrameReturn> => {
+  console.log("createFrame", values);
   const validatedFields = frameSchema.safeParse(values);
 
   if (!validatedFields.success) {

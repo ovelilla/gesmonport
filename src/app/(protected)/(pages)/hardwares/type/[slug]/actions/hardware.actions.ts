@@ -286,6 +286,7 @@ const updateHardware = async ({
         data: {
           ...validatedFields.data,
           doorTypes: {
+            deleteMany: {},
             create: validatedFields.data.doorTypes.map((dt) => ({
               doorTypeId: dt,
             })),

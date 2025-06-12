@@ -113,6 +113,70 @@ const FrameForm = ({
           />
           <FormField
             control={form.control}
+            name="heightOffset"
+            render={({ field }) => (
+              <FormItem className="grow basis-1/2">
+                <FormLabel htmlFor={field.name}>Altura a descontar</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    disabled={loading}
+                    id={field.name}
+                    max={999999}
+                    min={0}
+                    placeholder="Ej: 10"
+                    step={0.01}
+                    type="number"
+                    onBlur={(event) => {
+                      if (event.target.value === "") {
+                        event.target.value = "0";
+                      }
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex flex-col gap-4 md:flex-row">
+          <FormField
+            control={form.control}
+            name="sitec"
+            render={({ field }) => (
+              <FormItem className="grow basis-1/2">
+                <FormLabel htmlFor={field.name}>SITEC</FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    field.onChange(value === "true");
+                  }}
+                  defaultValue={String(field.value)}
+                >
+                  <FormControl>
+                    <SelectTrigger id="sitec" aria-labelledby="sitec">
+                      <SelectValue placeholder="Marca si es SITEC" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {[
+                      { label: "Sí", value: true },
+                      { label: "No", value: false },
+                    ].map((option) => (
+                      <SelectItem
+                        key={String(option.value)}
+                        value={String(option.value)}
+                      >
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="familyId"
             render={({ field }) => (
               <FormItem className="grow basis-1/2">
