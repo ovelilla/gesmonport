@@ -5,6 +5,7 @@ import {
   DoorClosed,
   Frame,
   Home,
+  Rows4,
   Settings,
   Settings2,
   Users,
@@ -25,10 +26,12 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
     items: [
       {
         title: "Lista de clientes",
+        icon: Rows4,
         url: "/customers",
       },
       {
         title: "Opciones",
+        icon: Settings2,
         items: [
           {
             title: "Formas de pago",
@@ -59,6 +62,7 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
       },
       {
         title: "Opciones",
+        icon: Settings2,
         items: [
           {
             title: "Tipos",
@@ -78,10 +82,12 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
     items: [
       {
         title: "Lista de marcos",
+        icon: Rows4,
         url: "/frames",
       },
       {
         title: "Opciones",
+        icon: Settings2,
         items: [
           {
             title: "Familias",
@@ -105,10 +111,12 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
     items: [
       {
         title: "Lista de puertas",
+        icon: Rows4,
         url: "/doors",
       },
       {
         title: "Opciones",
+        icon: Settings2,
         items: [
           {
             title: "Familias",
