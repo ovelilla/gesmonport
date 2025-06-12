@@ -24,7 +24,7 @@ const generateMetadata = async ({
 
   return {
     title: `Familia ${family.name}`,
-    description: `Familia ${family.name} con referencia ${family.reference}.`,
+    description: `Familia ${family.name}.`,
   };
 };
 
