@@ -19,11 +19,9 @@ const frameSchema = z.object({
     .number({ required_error: "La altura a descontar es requerida" })
     .min(0, "La altura a descontar no puede ser negativa")
     .max(999999, "La altura a descontar no puede ser mayor a 999999"),
-  sitec: z.coerce
-    .boolean({
-      required_error: "El campo SITEC es requerido",
-    })
-    .default(false),
+  sitec: z.coerce.boolean({
+    required_error: "El campo SITEC es requerido",
+  }),
   familyId: z
     .string()
     .min(1, "Debes seleccionar una familia")
