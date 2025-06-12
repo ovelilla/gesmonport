@@ -33,6 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
+    "src/app/(protected)/layouts/dashboard/components/sidebar/components/content/components/sidebar-menu-recursive-item/types/sidebar-menu-recursive-item.component.types.ts",
   ],
   "exclude": [
     "node_modules"

@@ -27,7 +27,7 @@ import {
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = "16rem";
+const SIDEBAR_WIDTH = "20rem";
 const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
@@ -490,9 +490,9 @@ const sidebarMenuButtonVariants = cva(
           "bg-background shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]",
       },
       size: {
-        default: "h-10 text-sm",
-        sm: "h-8 text-xs",
-        lg: "h-12 text-sm group-data-[collapsible=icon]:p-0!",
+        default: "h-10",
+        sm: "h-8",
+        lg: "h-12 group-data-[collapsible=icon]:p-0!",
       },
     },
     defaultVariants: {
@@ -648,7 +648,7 @@ function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
       data-slot="sidebar-menu-sub"
       data-sidebar="menu-sub"
       className={cn(
-        "border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5",
+        "border-sidebar-border ml-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l py-0.5 pl-2.5",
         "group-data-[collapsible=icon]:hidden",
         className,
       )}
@@ -673,31 +673,24 @@ function SidebarMenuSubItem({
 
 function SidebarMenuSubButton({
   asChild = false,
-  size = "md",
   isActive = false,
+  variant = "default",
+  size = "sm",
   className,
   ...props
-}: React.ComponentProps<"a"> & {
+}: React.ComponentProps<"button"> & {
   asChild?: boolean;
-  size?: "sm" | "md";
   isActive?: boolean;
-}) {
-  const Comp = asChild ? Slot : "a";
+} & VariantProps<typeof sidebarMenuButtonVariants>) {
+  const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
-      data-slot="sidebar-menu-sub-button"
-      data-sidebar="menu-sub-button"
+      data-slot="sidebar-menu-button"
+      data-sidebar="menu-button"
       data-size={size}
       data-active={isActive}
-      className={cn(
-        "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground flex h-8 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
-        "data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground",
-        size === "sm" && "text-xs",
-        size === "md" && "text-sm",
-        "group-data-[collapsible=icon]:hidden",
-        className,
-      )}
+      className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
       {...props}
     />
   );

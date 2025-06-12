@@ -5,4 +5,11 @@ type ContentProps = {
   hardwareTypes: HardwareType[];
 };
 
-export type { ContentProps };
+type NavigationType = {
+  title: string;
+  url?: string;
+  icon?: React.FC;
+  items?: NavigationType[];
+};
+
+export type { ContentProps, NavigationType };

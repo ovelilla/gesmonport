@@ -42,7 +42,7 @@ function getColumnsConfig({
               fill={true}
               priority={true}
               sizes="64px"
-              src={`https://res.cloudinary.com/dwdtaut74/image/upload/f_auto,q_auto,w_64,h_64,c_fit/v1/${row.original.images[0].publicId}`}
+              src={`https://res.cloudinary.com/dwdtaut74/image/upload/f_auto,q_auto,w_64,h_64,c_fit/v1/${row.original.images[0]?.publicId ?? "no-image_lpojgp"}`}
               unoptimized={true}
             />
           </div>
