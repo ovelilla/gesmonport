@@ -335,3 +335,107 @@ model FramePrice {
 
   @@unique([frameId, width, height])
 }
+
+model Architrave {
+  id           String            @id @default(cuid())
+  name         String
+  description  String?
+  reference    String?
+  heightOffset Float             @default(0)
+  familyId     String
+  typeId       String
+  finishId     String
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  images       ArchitraveImage[]
+  family       ArchitraveFamily  @relation(fields: [familyId], references: [id])
+  type         ArchitraveType    @relation(fields: [typeId], references: [id])
+  finish       ArchitraveFinish  @relation(fields: [finishId], references: [id])
+  prices       ArchitravePrice[]
+}
+
+model ArchitraveImage {
+  id           String     @id @default(cuid())
+  url          String
+  publicId     String
+  architraveId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  architrave   Architrave @relation(fields: [architraveId], references: [id], onDelete: Cascade)
+}
+
+model ArchitraveFamily {
+  id          String                  @id @default(cuid())
+  name        String
+  description String?
+  slug        String                  @unique
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+  images      ArchitraveFamilyImage[]
+  Architrave  Architrave[]
+}
+
+model ArchitraveFamilyImage {
+  id        String           @id @default(cuid())
+  url       String
+  publicId  String
+  familyId  String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  family    ArchitraveFamily @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model ArchitraveType {
+  id          String                @id @default(cuid())
+  name        String
+  description String?
+  slug        String                @unique
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  images      ArchitraveTypeImage[]
+  Architrave  Architrave[]
+}
+
+model ArchitraveTypeImage {
+  id        String         @id @default(cuid())
+  url       String
+  publicId  String
+  typeId    String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  type      ArchitraveType @relation(fields: [typeId], references: [id], onDelete: Cascade)
+}
+
+model ArchitraveFinish {
+  id          String                  @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+  images      ArchitraveFinishImage[]
+  Architrave  Architrave[]
+}
+
+model ArchitraveFinishImage {
+  id        String           @id @default(cuid())
+  url       String
+  publicId  String
+  finishId  String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  finish    ArchitraveFinish @relation(fields: [finishId], references: [id], onDelete: Cascade)
+}
+
+model ArchitravePrice {
+  id           String     @id @default(cuid())
+  architraveId String
+  width        Float
+  height       Float
+  price        Float
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  architrave   Architrave @relation(fields: [architraveId], references: [id], onDelete: Cascade)
+
+  @@unique([architraveId, width, height])
+}

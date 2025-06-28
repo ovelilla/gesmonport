@@ -7,28 +7,28 @@ import {
   deleteImage,
 } from "@/lib/cloudinary/cloudinary";
 // Schemas
-import { frameSchema } from "../schemas/frame.schema";
+import { architraveSchema } from "../schemas/architrave.schema";
 // Types
 import type {
-  CreateFrameProps,
-  CreateFrameReturn,
-  DeleteFrameProps,
-  DeleteFrameReturn,
-  DeleteMultipleFramesProps,
-  DeleteMultipleFramesReturn,
+  CreateArchitraveProps,
+  CreateArchitraveReturn,
+  DeleteArchitraveProps,
+  DeleteArchitraveReturn,
+  DeleteMultipleArchitravesProps,
+  DeleteMultipleArchitravesReturn,
   ReadFamiliesReturn,
   ReadFinishesReturn,
-  ReadFramesReturn,
+  ReadArchitravesReturn,
   ReadTypesReturn,
-  UpdateFrameProps,
-  UpdateFrameReturn,
-} from "./types/frames.actions.types";
+  UpdateArchitraveProps,
+  UpdateArchitraveReturn,
+} from "./types/architraves.actions.types";
 
-const createFrame = async ({
+const createArchitrave = async ({
   newImages,
   values,
-}: CreateFrameProps): Promise<CreateFrameReturn> => {
-  const validatedFields = frameSchema.safeParse(values);
+}: CreateArchitraveProps): Promise<CreateArchitraveReturn> => {
+  const validatedFields = architraveSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: "Campos inválidos. Por favor, revisa los datos" };
@@ -39,7 +39,7 @@ const createFrame = async ({
       (newImages ?? []).map((image) =>
         uploadImage({
           file: image,
-          folder: "frame/frames",
+          folder: "architrave/architraves",
           reference: validatedFields.data.name,
         }),
       ),
@@ -54,7 +54,7 @@ const createFrame = async ({
     }
 
     try {
-      const newFrame = await prisma.frame.create({
+      const newArchitrave = await prisma.architrave.create({
         data: {
           ...validatedFields.data,
           images: {
@@ -69,67 +69,70 @@ const createFrame = async ({
         },
       });
 
-      return { success: "Marco creado con éxito", frame: newFrame };
+      return {
+        success: "Tapajunta creado con éxito",
+        architrave: newArchitrave,
+      };
     } catch (error) {
       console.error(error);
       await Promise.all(validImages.map((img) => deleteImage(img.publicId)));
       return {
-        error: "Error al crear el marco. Por favor, inténtalo de nuevo",
+        error: "Error al crear el tapajunta. Por favor, inténtalo de nuevo",
       };
     }
   } catch (error) {
     console.error(error);
     return {
-      error: "Error al crear el marco. Por favor, inténtalo de nuevo",
+      error: "Error al crear el tapajunta. Por favor, inténtalo de nuevo",
     };
   }
 };
 
-const deleteFrame = async ({
+const deleteArchitrave = async ({
   id,
-}: DeleteFrameProps): Promise<DeleteFrameReturn> => {
+}: DeleteArchitraveProps): Promise<DeleteArchitraveReturn> => {
   try {
-    const images = await prisma.frameImage.findMany({
-      where: { frameId: id },
+    const images = await prisma.architraveImage.findMany({
+      where: { architraveId: id },
       select: { publicId: true },
     });
 
     await Promise.all(images.map((img) => deleteImage(img.publicId)));
 
-    await prisma.frame.delete({ where: { id } });
-    return { success: "Marco eliminado con éxito" };
+    await prisma.architrave.delete({ where: { id } });
+    return { success: "Tapajunta eliminado con éxito" };
   } catch (error) {
     console.error(error);
     return {
-      error: "Error al eliminar el marco. Por favor, inténtalo de nuevo",
+      error: "Error al eliminar el tapajunta. Por favor, inténtalo de nuevo",
     };
   }
 };
 
-const deleteMultipleFrames = async ({
+const deleteMultipleArchitraves = async ({
   ids,
-}: DeleteMultipleFramesProps): Promise<DeleteMultipleFramesReturn> => {
+}: DeleteMultipleArchitravesProps): Promise<DeleteMultipleArchitravesReturn> => {
   try {
-    const images = await prisma.frameImage.findMany({
-      where: { frameId: { in: ids } },
+    const images = await prisma.architraveImage.findMany({
+      where: { architraveId: { in: ids } },
       select: { publicId: true },
     });
 
     await Promise.all(images.map((img) => deleteImage(img.publicId)));
 
-    await prisma.frame.deleteMany({ where: { id: { in: ids } } });
-    return { success: "Marcos eliminados con éxito" };
+    await prisma.architrave.deleteMany({ where: { id: { in: ids } } });
+    return { success: "Tapajuntas eliminados con éxito" };
   } catch (error) {
     console.error(error);
     return {
-      error: "Error al eliminar los marcos. Por favor, inténtalo de nuevo",
+      error: "Error al eliminar los tapajuntas. Por favor, inténtalo de nuevo",
     };
   }
 };
 
 const readFamilies = async (): Promise<ReadFamiliesReturn> => {
   try {
-    const families = await prisma.frameFamily.findMany({
+    const families = await prisma.architraveFamily.findMany({
       orderBy: { name: "asc" },
     });
     return families;
@@ -141,7 +144,7 @@ const readFamilies = async (): Promise<ReadFamiliesReturn> => {
 
 const readFinishes = async (): Promise<ReadFinishesReturn> => {
   try {
-    const finishes = await prisma.frameFinish.findMany({
+    const finishes = await prisma.architraveFinish.findMany({
       orderBy: { name: "asc" },
     });
     return finishes;
@@ -151,9 +154,9 @@ const readFinishes = async (): Promise<ReadFinishesReturn> => {
   }
 };
 
-const readFrames = async (): Promise<ReadFramesReturn> => {
+const readArchitraves = async (): Promise<ReadArchitravesReturn> => {
   try {
-    const frames = await prisma.frame.findMany({
+    const architraves = await prisma.architrave.findMany({
       orderBy: { name: "asc" },
       include: {
         family: true,
@@ -162,7 +165,7 @@ const readFrames = async (): Promise<ReadFramesReturn> => {
         type: true,
       },
     });
-    return frames;
+    return architraves;
   } catch (error) {
     console.error(error);
     return [];
@@ -171,7 +174,7 @@ const readFrames = async (): Promise<ReadFramesReturn> => {
 
 const readTypes = async (): Promise<ReadTypesReturn> => {
   try {
-    const types = await prisma.frameType.findMany({
+    const types = await prisma.architraveType.findMany({
       orderBy: { name: "asc" },
     });
     return types;
@@ -181,13 +184,13 @@ const readTypes = async (): Promise<ReadTypesReturn> => {
   }
 };
 
-const updateFrame = async ({
+const updateArchitrave = async ({
   id,
   newImages,
   toDelete,
   values,
-}: UpdateFrameProps): Promise<UpdateFrameReturn> => {
-  const validatedFields = frameSchema.safeParse(values);
+}: UpdateArchitraveProps): Promise<UpdateArchitraveReturn> => {
+  const validatedFields = architraveSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: "Campos inválidos. Por favor, revisa los datos" };
@@ -195,8 +198,8 @@ const updateFrame = async ({
 
   try {
     if (toDelete.length > 0) {
-      const imagesToDelete = await prisma.frameImage.findMany({
-        where: { frameId: id, url: { in: toDelete } },
+      const imagesToDelete = await prisma.architraveImage.findMany({
+        where: { architraveId: id, url: { in: toDelete } },
         select: { publicId: true },
       });
 
@@ -204,8 +207,8 @@ const updateFrame = async ({
 
       await Promise.all(cloudinaryPublicIds.map(deleteImage));
 
-      await prisma.frameImage.deleteMany({
-        where: { frameId: id, url: { in: toDelete } },
+      await prisma.architraveImage.deleteMany({
+        where: { architraveId: id, url: { in: toDelete } },
       });
     }
 
@@ -213,7 +216,7 @@ const updateFrame = async ({
       (newImages ?? []).map((image) =>
         uploadImage({
           file: image,
-          folder: "frame/frames",
+          folder: "architrave/architraves",
           reference: validatedFields.data.name,
         }),
       ),
@@ -228,7 +231,7 @@ const updateFrame = async ({
     }
 
     try {
-      const updatedFrame = await prisma.frame.update({
+      const updatedArchitrave = await prisma.architrave.update({
         where: { id },
         data: {
           ...validatedFields.data,
@@ -245,31 +248,32 @@ const updateFrame = async ({
       });
 
       return {
-        success: "Marco actualizado con éxito",
-        frame: updatedFrame,
+        success: "Tapajunta actualizado con éxito",
+        architrave: updatedArchitrave,
       };
     } catch (error) {
       console.error(error);
       await Promise.all(validImages.map((img) => deleteImage(img.publicId)));
       return {
-        error: "Error al actualizar el marco. Por favor, inténtalo de nuevo",
+        error:
+          "Error al actualizar el tapajunta. Por favor, inténtalo de nuevo",
       };
     }
   } catch (error) {
     console.error(error);
     return {
-      error: "Error al actualizar el marco. Por favor, inténtalo de nuevo",
+      error: "Error al actualizar el tapajunta. Por favor, inténtalo de nuevo",
     };
   }
 };
 
 export {
-  createFrame,
-  deleteFrame,
-  deleteMultipleFrames,
+  createArchitrave,
+  deleteArchitrave,
+  deleteMultipleArchitraves,
   readFamilies,
   readFinishes,
-  readFrames,
+  readArchitraves,
   readTypes,
-  updateFrame,
+  updateArchitrave,
 };

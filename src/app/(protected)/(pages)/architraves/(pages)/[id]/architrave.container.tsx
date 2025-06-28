@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Detail } from "./components/detail/detail.component";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // Hooks
-import { FrameHook } from "./hooks/frame.hook";
+import { ArchitraveHook } from "./hooks/architrave.hook";
 // Types
-import type { FrameProps } from "./types/frame.container.types";
+import type { ArchitraveProps } from "./types/architrave.container.types";
 
-const FrameContainer = ({ frame }: FrameProps) => {
+const ArchitraveContainer = ({ architrave }: ArchitraveProps) => {
   const {
     data,
     handleAddColumn,
@@ -21,13 +21,13 @@ const FrameContainer = ({ frame }: FrameProps) => {
     hasChanges,
     setData,
     theme,
-  } = FrameHook({
-    frame,
+  } = ArchitraveHook({
+    architrave,
   });
 
   return (
     <div className="flex grow flex-col gap-2 overflow-hidden p-4">
-      <h1 className="text-xl font-semibold">{frame.name}</h1>
+      <h1 className="text-xl font-semibold">{architrave.name}</h1>
       <Tabs defaultValue="details" className="flex-1 gap-4 overflow-hidden">
         <TabsList className="bg-background h-10 w-full shrink-0 justify-start rounded-none border-b p-0 print:hidden">
           <TabsTrigger
@@ -44,7 +44,7 @@ const FrameContainer = ({ frame }: FrameProps) => {
           </TabsTrigger>
         </TabsList>
         <TabsContent className="overflow-auto" value="details">
-          <Detail frame={frame} />
+          <Detail architrave={architrave} />
         </TabsContent>
         <TabsContent className="flex overflow-auto" value="prices">
           <div className="flex flex-col gap-4">
@@ -86,4 +86,4 @@ const FrameContainer = ({ frame }: FrameProps) => {
   );
 };
 
-export { FrameContainer };
+export { ArchitraveContainer };

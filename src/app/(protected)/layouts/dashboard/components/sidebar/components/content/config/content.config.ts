@@ -8,6 +8,7 @@ import {
   Rows4,
   Settings,
   Settings2,
+  SquareDashedBottom,
   Users,
 } from "lucide-react";
 // Types
@@ -100,6 +101,35 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
           {
             title: "Acabados",
             url: "/frames/options/finishes",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Tapajuntas",
+    icon: SquareDashedBottom,
+    items: [
+      {
+        title: "Lista de tapajuntas",
+        icon: Rows4,
+        url: "/architraves",
+      },
+      {
+        title: "Opciones",
+        icon: Settings2,
+        items: [
+          {
+            title: "Familias",
+            url: "/architraves/options/families",
+          },
+          {
+            title: "Tipos",
+            url: "/architraves/options/types",
+          },
+          {
+            title: "Acabados",
+            url: "/architraves/options/finishes",
           },
         ],
       },
