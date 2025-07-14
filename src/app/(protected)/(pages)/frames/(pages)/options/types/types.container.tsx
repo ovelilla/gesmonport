@@ -73,11 +73,10 @@ const TypesContainer = ({ types }: TypesProps) => {
         cancel={{
           label: "Cancelar",
         }}
-        description={`¿Estás seguro de que quieres eliminar ${
-          selectedRows.length > 1
+        description={`¿Estás seguro de que quieres eliminar ${selectedRows.length > 1
             ? "los tipos seleccionados"
             : "el tipo seleccionado"
-        }?`}
+          }?`}
         open={openAlert}
         onOpenChange={handleOpenChangeAlertDialog}
         title={`Eliminar ${selectedRows.length > 1 ? "tipos" : "tipo"}`}

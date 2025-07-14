@@ -28,7 +28,7 @@ const UsersContainer = ({ users }: UsersProps) => {
   } = UsersHook({ users });
 
   return (
-    <div className="flex grow flex-col gap-2 p-4">
+    <div className="flex grow flex-col gap-2 overflow-hidden p-4">
       <h1 className="shrink-0 text-2xl font-medium">Usuarios</h1>
       <DataTable
         columns={columns}
@@ -59,11 +59,10 @@ const UsersContainer = ({ users }: UsersProps) => {
         cancel={{
           label: "Cancelar",
         }}
-        description={`¿Estás seguro de que quieres eliminar ${
-          selectedRows.length > 1
+        description={`¿Estás seguro de que quieres eliminar ${selectedRows.length > 1
             ? "los usuarios seleccionados"
             : "el usuario seleccionado"
-        }?`}
+          }?`}
         open={openAlert}
         onOpenChange={handleOpenChangeAlertDialog}
         title={`Eliminar ${selectedRows.length > 1 ? "usuarios" : "usuario"}`}

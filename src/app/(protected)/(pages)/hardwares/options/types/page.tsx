@@ -6,8 +6,8 @@ import { TypesContainer } from "./types.container";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tipos de puertas",
-  description: "Página de tipos de puertas",
+  title: "Tipos de herrajes",
+  description: "Página de tipos de herrajes",
 };
 
 const TypesPage = async () => {

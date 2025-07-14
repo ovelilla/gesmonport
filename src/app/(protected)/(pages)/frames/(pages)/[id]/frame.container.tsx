@@ -24,7 +24,6 @@ const FrameContainer = ({ frame }: FrameProps) => {
   } = FrameHook({
     frame,
   });
-
   return (
     <div className="flex grow flex-col gap-2 overflow-hidden p-4">
       <h1 className="text-xl font-semibold">{frame.name}</h1>
@@ -77,7 +76,13 @@ const FrameContainer = ({ frame }: FrameProps) => {
               className="text-sm"
               data={data}
               onChange={setData}
-              darkMode={theme === "dark"}
+              darkMode={
+                theme === "dark"
+                  ? true
+                  : theme === "system"
+                    ? window.matchMedia("(prefers-color-scheme: dark)").matches
+                    : false
+              }
             />
           </div>
         </TabsContent>

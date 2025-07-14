@@ -4,6 +4,7 @@ import {
   ChartLine,
   DoorClosed,
   Frame,
+  Grid2x2,
   Home,
   Rows4,
   Settings,
@@ -131,6 +132,39 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
             title: "Acabados",
             url: "/architraves/options/finishes",
           },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Vidrios",
+    icon: Frame,
+    items: [
+      {
+        title: "Lista de vidrios",
+        icon: Rows4,
+        url: "/glass",
+      },
+      {
+        title: "Opciones",
+        icon: Settings2,
+        items: [
+          {
+            title: "Familias",
+            url: "/glass/options/families",
+          },
+          {
+            title: "Tipos",
+            url: "/glass/options/types",
+          },
+          {
+            title: "Acabados",
+            url: "/glass/options/finishes",
+          },
+          {
+            title: "Modelos",
+            url: "/glass/options/models",
+          }
         ],
       },
     ],

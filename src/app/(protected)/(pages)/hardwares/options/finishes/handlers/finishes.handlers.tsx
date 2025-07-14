@@ -180,7 +180,7 @@ const submitHandlerCreate = async ({
     }
   } catch (error) {
     console.error(error);
-    toast.error("Error al crear la moldura. Por favor, inténtalo de nuevo");
+    toast.error("Error al crear el acabado. Por favor, inténtalo de nuevo");
   } finally {
     setLoading(false);
   }
@@ -228,7 +228,7 @@ const submitHandlerEdit = async ({
   } catch (error) {
     console.error(error);
     toast.error(
-      "Error al actualizar la moldura. Por favor, inténtalo de nuevo",
+      "Error al actualizar el acabado. Por favor, inténtalo de nuevo",
     );
   } finally {
     setLoading(false);
@@ -260,7 +260,7 @@ const submitHandlerDelete = async ({
     }
   } catch (error) {
     console.error(error);
-    toast.error("Error al eliminar la moldura. Por favor, inténtalo de nuevo");
+    toast.error("Error al eliminar el acabado. Por favor, inténtalo de nuevo");
   } finally {
     setLoading(false);
   }
@@ -293,7 +293,7 @@ const submitHandlerDeleteMultiple = async ({
   } catch (error) {
     console.error(error);
     toast.error(
-      "Error al eliminar las molduras. Por favor, inténtalo de nuevo",
+      "Error al eliminar los acabados. Por favor, inténtalo de nuevo",
     );
   } finally {
     setLoading(false);
