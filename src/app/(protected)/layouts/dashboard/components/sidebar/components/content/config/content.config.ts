@@ -138,7 +138,7 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
   },
   {
     title: "Vidrios",
-    icon: Frame,
+    icon: Grid2x2,
     items: [
       {
         title: "Lista de vidrios",

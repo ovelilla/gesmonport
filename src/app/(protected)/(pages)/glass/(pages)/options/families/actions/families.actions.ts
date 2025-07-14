@@ -1,6 +1,4 @@
 "use server";
-// Vendors
-import slugify from "slugify";
 // Libs
 import { prisma } from "@/lib/db/prisma";
 import {
