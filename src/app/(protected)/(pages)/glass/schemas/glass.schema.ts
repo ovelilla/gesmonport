@@ -3,9 +3,9 @@ import { z } from "zod";
 
 const glassSchema = z.object({
   name: z
-    .string({ required_error: "El nombre es requerido" })
-    .min(1, "El nombre es requerido")
-    .max(64, "El nombre no puede tener más de 64 caracteres")
+    .string()
+    .min(1, { error: "El nombre es requerido" })
+    .max(64, { error: "El nombre no puede tener más de 64 caracteres" })
     .trim(),
   description: z
     .union([z.literal(""), z.string().trim().max(500).optional(), z.null()])
@@ -17,19 +17,19 @@ const glassSchema = z.object({
     .optional(),
   familyId: z
     .string()
-    .min(1, "Debes seleccionar una familia")
+    .min(1, { error: "Debes seleccionar una familia" })
     .transform((val) => val.trim()),
   finishId: z
     .string()
-    .min(1, "Debes seleccionar un acabado")
+    .min(1, { error: "Debes seleccionar un acabado" })
     .transform((val) => val.trim()),
   modelId: z
     .string()
-    .min(1, "Debes seleccionar un modelo")
+    .min(1, { error: "Debes seleccionar un modelo" })
     .transform((val) => val.trim()),
   typeId: z
     .string()
-    .min(1, "Debes seleccionar un tipo")
+    .min(1, { error: "Debes seleccionar un tipo" })
     .transform((val) => val.trim()),
   images: z
     .array(z.union([z.instanceof(File), z.string()]))

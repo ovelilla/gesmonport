@@ -2,18 +2,21 @@ import { z } from "zod";
 
 const contactSchema = z.object({
   name: z
-    .string({ required_error: "El nombre es requerido" })
-    .min(1, "El nombre es requerido")
-    .max(64, "El nombre no puede tener más de 64 caracteres")
+    .string()
+    .min(1, { error: "El nombre es requerido" })
+    .max(64, { error: "El nombre no puede tener más de 64 caracteres" })
     .trim(),
   email: z
     .union([
       z.literal(""),
       z
         .string()
-        .email("El correo electrónico es inválido")
         .trim()
-        .toLowerCase(),
+        .max(254, {
+          error: "El correo electrónico no puede superar los 254 caracteres.",
+        })
+        .pipe(z.email({ error: "El correo electrónico no es válido." }))
+        .transform((s) => s.toLowerCase()),
       z.null(),
     ])
     .transform((val) => (val === "" ? null : val))

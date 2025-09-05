@@ -26,16 +26,16 @@ export const passwordRules = [
 
 const resetPasswordSchema = z.object({
   password: z
-    .string({ required_error: "La contraseña es obligatoria" })
-    .min(1, "La contraseña es obligatoria")
-    .min(6, "La contraseña debe tener al menos 6 caracteres")
-    .max(32, "La contraseña no puede tener más de 32 caracteres")
+    .string()
+    .min(1, { error: "La contraseña es obligatoria." })
+    .min(6, { error: "La contraseña debe tener al menos 6 caracteres." })
+    .max(32, { error: "La contraseña no puede tener más de 32 caracteres." })
     .trim()
     .superRefine((value, ctx) => {
       passwordRules.forEach((rule) => {
         if (!rule.test(value)) {
           ctx.addIssue({
-            code: z.ZodIssueCode.custom,
+            code: "custom",
             message: rule.message,
           });
         }

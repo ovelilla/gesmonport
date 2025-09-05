@@ -3,16 +3,19 @@ import * as z from "zod";
 
 const signInSchema = z.object({
   email: z
-    .string({ required_error: "El correo electrónico es obligatorio." })
-    .min(1, "El correo electrónico es obligatorio.")
-    .email("El correo electrónico no es válido.")
+    .string()
     .trim()
-    .toLowerCase(),
+    .min(1, { error: "El correo electrónico es obligatorio." })
+    .max(254, {
+      error: "El correo electrónico no puede superar los 254 caracteres.",
+    })
+    .pipe(z.email({ error: "El correo electrónico no es válido." }))
+    .transform((s) => s.toLowerCase()),
   password: z
-    .string({ required_error: "La contraseña es obligatoria" })
-    .min(1, "La contraseña es obligatoria")
-    .min(6, "La contraseña debe tener al menos 6 caracteres")
-    .max(32, "La contraseña no puede tener más de 32 caracteres")
+    .string()
+    .min(1, { error: "La contraseña es obligatoria." })
+    .min(6, { error: "La contraseña debe tener al menos 6 caracteres." })
+    .max(32, { error: "La contraseña no puede tener más de 32 caracteres." })
     .trim(),
 });
 

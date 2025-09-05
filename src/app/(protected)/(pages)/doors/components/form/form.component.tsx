@@ -136,6 +136,11 @@ const DoorForm = ({
                         event.target.value = "0";
                       }
                     }}
+                    onFocus={(event) => {
+                      if (event.target.value === "0") {
+                        event.target.value = "";
+                      }
+                    }}
                   />
                 </FormControl>
                 <FormMessage />

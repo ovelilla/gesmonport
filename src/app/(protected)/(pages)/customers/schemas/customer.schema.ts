@@ -3,9 +3,9 @@ import { z } from "zod";
 
 const customerSchema = z.object({
   name: z
-    .string({ required_error: "El nombre es requerido" })
-    .min(1, "El nombre es requerido")
-    .max(64, "El nombre no puede tener más de 64 caracteres")
+    .string()
+    .min(1, { error: "El nombre es requerido" })
+    .max(64, { error: "El nombre no puede tener más de 64 caracteres" })
     .trim(),
   legalName: z
     .union([z.literal(""), z.string().trim().max(64).optional(), z.null()])
@@ -16,9 +16,12 @@ const customerSchema = z.object({
       z.literal(""),
       z
         .string()
-        .email("El correo electrónico es inválido")
         .trim()
-        .toLowerCase(),
+        .max(254, {
+          error: "El correo electrónico no puede superar los 254 caracteres.",
+        })
+        .pipe(z.email({ error: "El correo electrónico no es válido." }))
+        .transform((s) => s.toLowerCase()),
       z.null(),
     ])
     .transform((val) => (val === "" ? null : val))
@@ -57,13 +60,13 @@ const customerSchema = z.object({
     .optional(),
   discountDoor: z.coerce
     .number()
-    .min(0, "El descuento no puede ser negativo")
-    .max(100, "El descuento no puede ser mayor del 100%")
+    .min(0, { error: "El descuento no puede ser negativo" })
+    .max(100, { error: "El descuento no puede ser mayor del 100%" })
     .optional(),
   discountParts: z.coerce
     .number()
-    .min(0, "El descuento no puede ser negativo")
-    .max(100, "El descuento no puede ser mayor del 100%")
+    .min(0, { error: "El descuento no puede ser negativo" })
+    .max(100, { error: "El descuento no puede ser mayor del 100%" })
     .optional(),
   paymentMethodId: z
     .union([z.string().min(1), z.literal(""), z.null()])

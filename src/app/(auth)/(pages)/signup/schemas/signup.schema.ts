@@ -26,27 +26,31 @@ export const passwordRules = [
 
 const signUpSchema = z.object({
   name: z
-    .string({ required_error: "El nombre es obligatorio" })
-    .min(2, "El nombre debe tener al menos 2 caracteres")
-    .max(64, "El nombre no puede tener más de 64 caracteres")
-    .trim(),
-  email: z
-    .string({ required_error: "El correo electrónico es obligatorio." })
-    .min(1, "El correo electrónico es obligatorio.")
-    .email("El correo electrónico no es válido.")
+    .string()
     .trim()
-    .toLowerCase(),
+    .min(1, { error: "El nombre es obligatorio." })
+    .min(2, { error: "El nombre debe tener al menos 2 caracteres." })
+    .max(64, { error: "El nombre no puede tener más de 64 caracteres." }),
+  email: z
+    .string()
+    .trim()
+    .min(1, { error: "El correo electrónico es obligatorio." })
+    .max(254, {
+      error: "El correo electrónico no puede superar los 254 caracteres.",
+    })
+    .pipe(z.email({ error: "El correo electrónico no es válido." }))
+    .transform((s) => s.toLowerCase()),
   password: z
-    .string({ required_error: "La contraseña es obligatoria" })
-    .min(1, "La contraseña es obligatoria")
-    .min(6, "La contraseña debe tener al menos 6 caracteres")
-    .max(32, "La contraseña no puede tener más de 32 caracteres")
+    .string()
+    .min(1, { error: "La contraseña es obligatoria." })
+    .min(6, { error: "La contraseña debe tener al menos 6 caracteres." })
+    .max(32, { error: "La contraseña no puede tener más de 32 caracteres." })
     .trim()
     .superRefine((value, ctx) => {
       passwordRules.forEach((rule) => {
         if (!rule.test(value)) {
           ctx.addIssue({
-            code: z.ZodIssueCode.custom,
+            code: "custom",
             message: rule.message,
           });
         }

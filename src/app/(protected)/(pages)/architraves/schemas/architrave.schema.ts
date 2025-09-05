@@ -3,9 +3,9 @@ import { z } from "zod";
 
 const architraveSchema = z.object({
   name: z
-    .string({ required_error: "El nombre es requerido" })
-    .min(1, "El nombre es requerido")
-    .max(64, "El nombre no puede tener más de 64 caracteres")
+    .string()
+    .min(1, { error: "El nombre es requerido." })
+    .max(64, { error: "El nombre no puede tener más de 64 caracteres." })
     .trim(),
   description: z
     .union([z.literal(""), z.string().trim().max(500).optional(), z.null()])
@@ -16,20 +16,22 @@ const architraveSchema = z.object({
     .transform((val) => (val === "" ? null : val))
     .optional(),
   heightOffset: z.coerce
-    .number({ required_error: "La altura a descontar es requerida" })
-    .min(0, "La altura a descontar no puede ser negativa")
-    .max(999999, "La altura a descontar no puede ser mayor a 999999"),
+    .number()
+    .min(0, { error: "La altura a descontar no puede ser negativa" })
+    .max(999999, {
+      error: "La altura a descontar no puede ser mayor a 999999",
+    }),
   familyId: z
     .string()
-    .min(1, "Debes seleccionar una familia")
+    .min(1, { error: "Debes seleccionar una familia" })
     .transform((val) => val.trim()),
   finishId: z
     .string()
-    .min(1, "Debes seleccionar un acabado")
+    .min(1, { error: "Debes seleccionar un acabado" })
     .transform((val) => val.trim()),
   typeId: z
     .string()
-    .min(1, "Debes seleccionar un tipo")
+    .min(1, { error: "Debes seleccionar un tipo" })
     .transform((val) => val.trim()),
   images: z
     .array(z.union([z.instanceof(File), z.string()]))
