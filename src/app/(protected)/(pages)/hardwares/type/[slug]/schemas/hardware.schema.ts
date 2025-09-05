@@ -25,7 +25,7 @@ const hardwareSchema = z.object({
     .optional(),
   doorTypes: z
     .array(z.string())
-    .max(10, "Máximo 10 tipos de puerta permitidos"),
+    .max(100, "Máximo 100 tipos de puerta permitidos"),
   images: z
     .array(z.union([z.instanceof(File), z.string()]))
     .max(10, "Máximo 10 imágenes permitidas")

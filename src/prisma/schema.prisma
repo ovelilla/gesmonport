@@ -64,6 +64,7 @@ model Customer {
   contacts Contact[]
 
   paymentMethod PaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+  Budget        Budget[]
 }
 
 model PaymentMethod {
@@ -73,6 +74,7 @@ model PaymentMethod {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   customers   Customer[]
+  Budget      Budget[]
 }
 
 model Contact {
@@ -111,6 +113,69 @@ model Position {
   contacts    Contact[]
 }
 
+model Door {
+  id           String   @id @default(cuid())
+  description  String?
+  familyId     String
+  finishId     String
+  heightOffset Float    @default(0)
+  name         String
+  reference    String?
+  typeId       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  glass  DoorGlass[]
+  images DoorImage[]
+  prices DoorPrice[]
+
+  family DoorFamily @relation(fields: [familyId], references: [id])
+  finish DoorFinish @relation(fields: [finishId], references: [id])
+  type   DoorType   @relation(fields: [typeId], references: [id])
+}
+
+model DoorGlass {
+  doorId    String
+  glassId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  door      Door     @relation(fields: [doorId], references: [id], onDelete: Cascade)
+  glass     Glass    @relation(fields: [glassId], references: [id], onDelete: Cascade)
+
+  @@id([doorId, glassId])
+  @@index([glassId])
+}
+
+model DoorImage {
+  id        String   @id @default(cuid())
+  url       String
+  publicId  String
+  doorId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  door      Door     @relation(fields: [doorId], references: [id], onDelete: Cascade)
+}
+
+model DoorFamily {
+  id          String            @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  images      DoorFamilyImage[]
+  doors       Door[]
+}
+
+model DoorFamilyImage {
+  id        String     @id @default(cuid())
+  url       String
+  publicId  String
+  familyId  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  family    DoorFamily @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
 model DoorType {
   id          String             @id @default(cuid())
   name        String
@@ -119,6 +184,7 @@ model DoorType {
   updatedAt   DateTime           @updatedAt
   images      DoorTypeImage[]
   hardware    DoorTypeHardware[]
+  doors       Door[]
 }
 
 model DoorTypeImage {
@@ -139,6 +205,7 @@ model DoorFinish {
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
   images      DoorFinishImage[]
+  doors       Door[]
 }
 
 model DoorFinishImage {
@@ -149,6 +216,19 @@ model DoorFinishImage {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   finish    DoorFinish @relation(fields: [finishId], references: [id], onDelete: Cascade)
+}
+
+model DoorPrice {
+  id        String   @id @default(cuid())
+  doorId    String
+  width     Float
+  height    Float
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  door      Door     @relation(fields: [doorId], references: [id], onDelete: Cascade)
+
+  @@unique([doorId, width, height])
 }
 
 model DoorTypeHardware {
@@ -173,10 +253,12 @@ model Hardware {
   typeId      String
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
-  finish      HardwareFinish?    @relation(fields: [finishId], references: [id])
-  type        HardwareType       @relation(fields: [typeId], references: [id])
+
   images      HardwareImage[]
   doorTypes   DoorTypeHardware[]
+  
+  finish      HardwareFinish?    @relation(fields: [finishId], references: [id])
+  type        HardwareType       @relation(fields: [typeId], references: [id])
 }
 
 model HardwareImage {
@@ -441,7 +523,7 @@ model ArchitravePrice {
 }
 
 model Glass {
-  id          String       @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   description String?
   reference   String?
@@ -449,14 +531,17 @@ model Glass {
   typeId      String
   finishId    String
   modelId     String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  images      GlassImage[]
-  family      GlassFamily  @relation(fields: [familyId], references: [id])
-  type        GlassType    @relation(fields: [typeId], references: [id])
-  finish      GlassFinish  @relation(fields: [finishId], references: [id])
-  model       GlassModel   @relation(fields: [modelId], references: [id])
-  prices      GlassPrice[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  glass  DoorGlass[]
+  images GlassImage[]
+  prices GlassPrice[]
+
+  family GlassFamily @relation(fields: [familyId], references: [id])
+  type   GlassType   @relation(fields: [typeId], references: [id])
+  finish GlassFinish @relation(fields: [finishId], references: [id])
+  model  GlassModel  @relation(fields: [modelId], references: [id])
 }
 
 model GlassImage {
@@ -563,4 +648,34 @@ model GlassPrice {
   glass     Glass    @relation(fields: [glassId], references: [id], onDelete: Cascade)
 
   @@unique([glassId, width, height])
+}
+
+enum BudgetStatus {
+  pending
+  accepted
+  rejected
+  expired
+  closed
+}
+
+model Budget {
+  id              String       @id @default(cuid())
+  customerId      String
+  date            String
+  discount        Int
+  number          Int
+  observations    String?
+  paymentMethodId String
+  reference       String?
+  sendAddress     String?
+  showIBAN        Boolean
+  status          BudgetStatus @default(pending)
+  tax             Int
+  validity        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer      Customer      @relation(fields: [customerId], references: [id])
+  paymentMethod PaymentMethod @relation(fields: [paymentMethodId], references: [id])
 }

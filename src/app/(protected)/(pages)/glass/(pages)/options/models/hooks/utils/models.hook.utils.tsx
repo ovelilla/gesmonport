@@ -32,7 +32,7 @@ function getColumnsConfig({
     {
       cell: ({ row }) => (
         <Link
-          href={`/frames/options/models/${row.original.id}`}
+          href={`/glass/options/models/${row.original.id}`}
           prefetch={false}
         >
           <div className="relative m-2 size-16">

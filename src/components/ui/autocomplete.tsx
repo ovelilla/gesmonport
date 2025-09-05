@@ -1,8 +1,7 @@
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { Command as CommandPrimitive } from "cmdk";
 import { Check } from "lucide-react";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import {
   Command,
   CommandEmpty,
@@ -19,55 +18,61 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Props<T extends string> = {
-  selectedValue: T;
-  onSelectedValueChange: (value: T) => void;
-  items: { value: T; label: string; imageUrl?: string }[];
-  isLoading?: boolean;
   emptyMessage?: string;
+  isLoading?: boolean;
+  items: { value: T; label: string }[];
+  onSearchValueChange: (value: string) => void;
+  onSelectedValueChange: (value: T) => void;
   placeholder?: string;
+  searchValue: string;
+  selectedValue: T;
 };
 
 export function AutoComplete<T extends string>({
   selectedValue,
   onSelectedValueChange,
+  searchValue,
+  onSearchValueChange,
   items,
   isLoading,
   emptyMessage = "No items.",
   placeholder = "Search...",
 }: Props<T>) {
   const [open, setOpen] = useState(false);
-  const [internalSearchValue, setInternalSearchValue] = useState("");
 
-  const selectedLabel = useMemo(() => {
-    return items.find((item) => item.value === selectedValue)?.label ?? "";
-  }, [selectedValue, items]);
-
-  useEffect(() => {
-    setInternalSearchValue(selectedLabel);
-  }, [selectedLabel]);
+  const labels = useMemo(
+    () =>
+      items.reduce(
+        (acc, item) => {
+          acc[item.value] = item.label;
+          return acc;
+        },
+        {} as Record<string, string>,
+      ),
+    [items],
+  );
 
   const reset = () => {
     onSelectedValueChange("" as T);
-    setInternalSearchValue("");
+    onSearchValueChange("");
   };
 
   const onInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (
-      !e.relatedTarget?.hasAttribute("cmdk-list") &&
-      internalSearchValue !== selectedLabel
-    ) {
-      reset();
+    if (!e.relatedTarget?.hasAttribute("cmdk-list")) {
+      if (labels[selectedValue] !== searchValue) {
+        reset();
+      }
+      setOpen(false);
     }
   };
 
   const onSelectItem = (inputValue: string) => {
+    console.log(inputValue);
     if (inputValue === selectedValue) {
       reset();
     } else {
       onSelectedValueChange(inputValue as T);
-      setInternalSearchValue(
-        items.find((item) => item.value === inputValue)?.label ?? "",
-      );
+      onSearchValueChange(labels[inputValue] ?? "");
     }
     setOpen(false);
   };
@@ -75,24 +80,20 @@ export function AutoComplete<T extends string>({
   return (
     <div className="flex items-center">
       <Popover open={open} onOpenChange={setOpen}>
-        <Command shouldFilter={false}>
+        <Command shouldFilter={true}>
           <PopoverAnchor asChild>
             <CommandPrimitive.Input
               asChild
-              value={internalSearchValue}
-              onValueChange={(val) => {
-                setInternalSearchValue(val);
-                onSelectedValueChange(val as T);
-              }}
+              value={searchValue}
+              onValueChange={onSearchValueChange}
               onKeyDown={(e) => setOpen(e.key !== "Escape")}
-              onMouseDown={() =>
-                setOpen((open) => !!internalSearchValue || !open)
-              }
+              onMouseDown={() => setOpen((open) => !!searchValue || !open)}
               onBlur={onInputBlur}
             >
               <Input placeholder={placeholder} />
             </CommandPrimitive.Input>
           </PopoverAnchor>
+          {!open && <CommandList aria-hidden="true" className="hidden" />}
           <PopoverContent
             asChild
             onOpenAutoFocus={(e) => e.preventDefault()}
@@ -104,7 +105,7 @@ export function AutoComplete<T extends string>({
                 e.preventDefault();
               }
             }}
-            className="w-72 p-0"
+            className="w-64 p-0"
             align="start"
           >
             <CommandList>
@@ -117,28 +118,14 @@ export function AutoComplete<T extends string>({
               )}
               {items.length > 0 && !isLoading ? (
                 <CommandGroup>
-                  {items.map((option) => (
+                  {items.slice(0, 10).map((option) => (
                     <CommandItem
                       key={option.value}
-                      value={option.value}
+                      value={option.label}
                       onMouseDown={(e) => e.preventDefault()}
-                      onSelect={onSelectItem}
-                      className="flex justify-between"
+                      onSelect={() => onSelectItem(option.value)}
                     >
-                      <div className="flex items-center gap-2">
-                        {option.imageUrl && (
-                          <div className="relative size-10 shrink-0">
-                            <Image
-                              alt={option.label}
-                              className="h-10 w-10 rounded-md object-contain"
-                              fill={true}
-                              sizes="40px"
-                              src={option.imageUrl}
-                            />
-                          </div>
-                        )}
-                        <span>{option.label}</span>
-                      </div>
+                      {option.label}
                       <Check
                         className={cn(
                           "mr-2 h-4 w-4",

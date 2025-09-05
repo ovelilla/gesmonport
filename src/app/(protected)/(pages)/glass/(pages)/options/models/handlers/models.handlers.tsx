@@ -79,7 +79,7 @@ const editHandler = ({
 };
 
 const navigateHandler = ({ row, router }: NavigateHandlerProps): void => {
-  router.push(`/frames/options/models/${row.id}`);
+  router.push(`/glass/options/models/${row.id}`);
 };
 
 const openChangeAlertDialogHandler = ({

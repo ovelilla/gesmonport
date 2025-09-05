@@ -24,7 +24,7 @@ const DialogWrapper = ({
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-        <div className="overflow-auto px-4 sm:px-6">{children}</div>
+        <div className="overflow-auto px-4 sm:px-6 grow">{children}</div>
       </DialogContent>
     </Dialog>
   );

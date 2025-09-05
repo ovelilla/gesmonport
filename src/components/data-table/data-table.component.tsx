@@ -23,7 +23,7 @@ function DataTable<TData>({
   });
 
   return (
-    <div className="flex min-h-0 grow flex-col gap-4 overflow-hidden">
+    <div className="flex min-h-0 grow flex-col gap-4">
       <Header
         {...{
           actions: headerActions,
