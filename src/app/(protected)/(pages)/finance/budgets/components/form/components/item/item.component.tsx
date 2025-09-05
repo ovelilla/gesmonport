@@ -183,9 +183,27 @@ const Item = ({
               <Input
                 {...field}
                 id={field.name}
-                placeholder="Alto"
+                inputMode="decimal"
+                max={999999}
+                min={0}
+                onBlur={(e) => {
+                  if (e.target.value === "") {
+                    field.onChange(0);
+                  }
+                  field.onBlur();
+                }}
+                onChange={(event) => {
+                  const v = event.target.value;
+                  field.onChange(v === "" ? "" : Number(v));
+                }}
+                onFocus={() => {
+                  if (field.value === 0) {
+                    field.onChange("");
+                  }
+                }}
+                placeholder="Ej: 10"
+                step={0.01}
                 type="number"
-                value={field.value === 0 ? "" : field.value}
               />
             </FormControl>
             <FormMessage className="col-span-2" />
@@ -202,9 +220,27 @@ const Item = ({
               <Input
                 {...field}
                 id={field.name}
-                placeholder="Ancho"
+                inputMode="decimal"
+                max={999999}
+                min={0}
+                onBlur={(e) => {
+                  if (e.target.value === "") {
+                    field.onChange(0);
+                  }
+                  field.onBlur();
+                }}
+                onChange={(event) => {
+                  const v = event.target.value;
+                  field.onChange(v === "" ? "" : Number(v));
+                }}
+                onFocus={() => {
+                  if (field.value === 0) {
+                    field.onChange("");
+                  }
+                }}
+                placeholder="Ej: 10"
+                step={0.01}
                 type="number"
-                value={field.value === 0 ? "" : field.value}
               />
             </FormControl>
             <FormMessage className="col-span-2" />
@@ -221,9 +257,27 @@ const Item = ({
               <Input
                 {...field}
                 id={field.name}
-                placeholder="Grosor"
+                inputMode="decimal"
+                max={999999}
+                min={0}
+                onBlur={(e) => {
+                  if (e.target.value === "") {
+                    field.onChange(0);
+                  }
+                  field.onBlur();
+                }}
+                onChange={(event) => {
+                  const v = event.target.value;
+                  field.onChange(v === "" ? "" : Number(v));
+                }}
+                onFocus={() => {
+                  if (field.value === 0) {
+                    field.onChange("");
+                  }
+                }}
+                placeholder="Ej: 10"
+                step={0.01}
                 type="number"
-                value={field.value === 0 ? "" : field.value}
               />
             </FormControl>
             <FormMessage className="col-span-2" />
@@ -242,9 +296,27 @@ const Item = ({
               <Input
                 {...field}
                 id={field.name}
-                placeholder="Cantidad"
+                inputMode="decimal"
+                max={999999}
+                min={0}
+                onBlur={(e) => {
+                  if (e.target.value === "") {
+                    field.onChange(0);
+                  }
+                  field.onBlur();
+                }}
+                onChange={(event) => {
+                  const v = event.target.value;
+                  field.onChange(v === "" ? "" : Number(v));
+                }}
+                onFocus={() => {
+                  if (field.value === 0) {
+                    field.onChange("");
+                  }
+                }}
+                placeholder="Ej: 10"
+                step={0.01}
                 type="number"
-                value={field.value === 0 ? "" : field.value}
               />
             </FormControl>
             <FormMessage className="col-span-2" />

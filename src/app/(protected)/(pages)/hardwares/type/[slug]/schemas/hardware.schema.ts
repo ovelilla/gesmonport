@@ -15,8 +15,8 @@ const hardwareSchema = z.object({
     .union([z.literal(""), z.string().trim().max(64).optional(), z.null()])
     .transform((val) => (val === "" ? null : val))
     .optional(),
-  price: z.coerce
-    .number()
+  price: z
+    .number({ error: "El precio no es válido" })
     .min(0, { error: "El precio no puede ser negativo" })
     .max(999999, { error: "El precio no puede ser mayor a 999999" }),
   finishId: z

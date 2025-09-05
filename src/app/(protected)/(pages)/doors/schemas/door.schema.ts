@@ -15,8 +15,8 @@ const doorSchema = z.object({
     .union([z.literal(""), z.string().trim().max(64).optional(), z.null()])
     .transform((val) => (val === "" ? null : val))
     .optional(),
-  heightOffset: z.coerce
-    .number()
+  heightOffset: z
+    .number({ error: "La altura a descontar no es válida" })
     .min(0, { error: "La altura a descontar no puede ser negativa" })
     .max(999999, {
       error: "La altura a descontar no puede ser mayor a 999999",

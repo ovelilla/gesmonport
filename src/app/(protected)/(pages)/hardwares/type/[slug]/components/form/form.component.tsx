@@ -123,17 +123,27 @@ const HardwareForm = ({
                       {...field}
                       disabled={loading}
                       id={field.name}
+                      inputMode="decimal"
                       max={999999}
                       min={0}
+                      onBlur={(e) => {
+                        if (e.target.value === "") {
+                          field.onChange(0);
+                        }
+                        field.onBlur();
+                      }}
+                      onChange={(event) => {
+                        const v = event.target.value;
+                        field.onChange(v === "" ? "" : Number(v));
+                      }}
+                      onFocus={() => {
+                        if (field.value === 0) {
+                          field.onChange("");
+                        }
+                      }}
                       placeholder="Ej: 10"
                       step={0.01}
                       type="number"
-                      onFocus={(e) =>
-                        e.target.value === "0" && (e.target.value = "")
-                      }
-                      onBlur={(e) =>
-                        e.target.value === "" && (e.target.value = "0")
-                      }
                     />
                     <span className="text-muted-foreground pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-sm">
                       €

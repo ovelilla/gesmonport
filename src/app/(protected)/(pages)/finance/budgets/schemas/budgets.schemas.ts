@@ -7,10 +7,10 @@ const budgetSchema = z.object({
   customerId: z
     .string()
     .min(1, { error: "Debes seleccionar un cliente" })
-    .transform((val) => val.trim()),
+    .trim(),
   date: z.string().min(1, { error: "La fecha es requerida" }),
-  discount: z.coerce
-    .number()
+  discount: z
+    .number({ error: "El descuento no es válido" })
     .min(0, { error: "El descuento no puede ser negativo" })
     .max(100, { error: "El descuento no puede ser mayor a 100" }),
   items: z.array(
@@ -22,28 +22,32 @@ const budgetSchema = z.object({
       hardwareIds: z
         .array(z.string())
         .max(100, { error: "Máximo 100 tipos de herrajes permitidos" }),
-      height: z.coerce
-        .number()
-        .min(1, { error: "La altura debe ser mayor que 0" }),
+      height: z
+        .number({ error: "La altura no es válida" })
+        .min(1, { error: "La altura debe ser mayor que 0" })
+        .max(999999, { error: "La altura no puede ser mayor a 999999" }),
       observations: z
         .string()
         .max(500, {
           error: "Las observaciones no pueden exceder los 500 caracteres",
         })
         .optional(),
-      quantity: z.coerce
-        .number()
-        .min(1, { error: "La cantidad debe ser mayor que 0" }),
-      thickness: z.coerce
-        .number()
-        .min(1, { error: "El grosor debe ser mayor que 0" }),
-      width: z.coerce
-        .number()
-        .min(1, { error: "El ancho debe ser mayor que 0" }),
+      quantity: z
+        .number({ error: "La cantidad no es válida" })
+        .min(1, { error: "La cantidad debe ser mayor que 0" })
+        .max(999999, { error: "La cantidad no puede ser mayor a 999999" }),
+      thickness: z
+        .number({ error: "El grosor no es válido" })
+        .min(1, { error: "El grosor debe ser mayor que 0" })
+        .max(999999, { error: "El grosor no puede ser mayor a 999999" }),
+      width: z
+        .number({ error: "El ancho no es válido" })
+        .min(1, { error: "El ancho debe ser mayor que 0" })
+        .max(999999, { error: "El ancho no puede ser mayor a 999999" }),
     }),
   ),
-  number: z.coerce
-    .number()
+  number: z
+    .number({ error: "El número no es válido" })
     .min(0, { error: "El número no puede ser negativo" })
     .max(999999, { error: "El número no puede ser mayor a 999999" }),
   observations: z
@@ -62,14 +66,10 @@ const budgetSchema = z.object({
     .union([z.literal(""), z.string().trim().max(500).optional(), z.null()])
     .transform((val) => (val === "" ? null : val))
     .optional(),
-  showIBAN: z.coerce.boolean(),
-  status: z
-    .string()
-    .trim()
-    .min(1, { error: "El estado es requerido" })
-    .pipe(z.enum(BudgetStatus, { error: "El estado no es válido" })),
-  tax: z.coerce
-    .number()
+  showIBAN: z.boolean(),
+  status: z.enum(BudgetStatus, { error: "El estado no es válido" }),
+  tax: z
+    .number({ error: "El impuesto no es válido" })
     .min(0, { error: "El impuesto no puede ser negativo" })
     .max(100, { error: "El impuesto no puede ser mayor a 100" }),
   validity: z

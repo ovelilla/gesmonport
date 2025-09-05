@@ -58,13 +58,13 @@ const customerSchema = z.object({
     .union([z.literal(""), z.string().trim().max(500).optional(), z.null()])
     .transform((val) => (val === "" ? null : val))
     .optional(),
-  discountDoor: z.coerce
-    .number()
+  discountDoor: z
+    .number({ error: "El descuento no es válido" })
     .min(0, { error: "El descuento no puede ser negativo" })
     .max(100, { error: "El descuento no puede ser mayor del 100%" })
     .optional(),
-  discountParts: z.coerce
-    .number()
+  discountParts: z
+    .number({ error: "El descuento no es válido" })
     .min(0, { error: "El descuento no puede ser negativo" })
     .max(100, { error: "El descuento no puede ser mayor del 100%" })
     .optional(),

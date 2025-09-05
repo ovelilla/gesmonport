@@ -17,7 +17,7 @@ const userSchema = z.object({
     })
     .pipe(z.email({ error: "El correo electrónico no es válido." }))
     .transform((s) => s.toLowerCase()),
-  isAuthorized: z.coerce.boolean({
+  isAuthorized: z.boolean({
     error: "El autorizado es requerido",
   }),
   role: z.string().min(1, { error: "El rol es requerido" }),

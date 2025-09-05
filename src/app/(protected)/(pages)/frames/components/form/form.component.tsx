@@ -122,16 +122,27 @@ const FrameForm = ({
                     {...field}
                     disabled={loading}
                     id={field.name}
+                    inputMode="decimal"
                     max={999999}
                     min={0}
+                    onBlur={(e) => {
+                      if (e.target.value === "") {
+                        field.onChange(0);
+                      }
+                      field.onBlur();
+                    }}
+                    onChange={(event) => {
+                      const v = event.target.value;
+                      field.onChange(v === "" ? "" : Number(v));
+                    }}
+                    onFocus={() => {
+                      if (field.value === 0) {
+                        field.onChange("");
+                      }
+                    }}
                     placeholder="Ej: 10"
                     step={0.01}
                     type="number"
-                    onBlur={(event) => {
-                      if (event.target.value === "") {
-                        event.target.value = "0";
-                      }
-                    }}
                   />
                 </FormControl>
                 <FormMessage />

@@ -193,9 +193,27 @@ const BudgetForm = ({
                       {...field}
                       disabled={loading}
                       id={field.name}
+                      inputMode="numeric"
+                      max={999999}
+                      min={0}
+                      onBlur={(e) => {
+                        if (e.target.value === "") {
+                          field.onChange(0);
+                        }
+                        field.onBlur();
+                      }}
+                      onChange={(event) => {
+                        const v = event.target.value;
+                        field.onChange(v === "" ? "" : Number(v));
+                      }}
+                      onFocus={() => {
+                        if (field.value === 0) {
+                          field.onChange("");
+                        }
+                      }}
+                      placeholder="Ej: 10"
+                      step={1}
                       type="number"
-                      placeholder="Número"
-                      value={field.value ?? 0}
                     />
                   </FormControl>
                   <FormMessage />
@@ -320,9 +338,27 @@ const BudgetForm = ({
                         {...field}
                         disabled={loading}
                         id={field.name}
-                        placeholder="Descuento (%)"
+                        inputMode="numeric"
+                        max={100}
+                        min={0}
+                        onBlur={(e) => {
+                          if (e.target.value === "") {
+                            field.onChange(0);
+                          }
+                          field.onBlur();
+                        }}
+                        onChange={(event) => {
+                          const v = event.target.value;
+                          field.onChange(v === "" ? "" : Number(v));
+                        }}
+                        onFocus={() => {
+                          if (field.value === 0) {
+                            field.onChange("");
+                          }
+                        }}
+                        placeholder="Ej: 10"
+                        step={1}
                         type="number"
-                        value={field.value ?? 0}
                       />
                     </FormControl>
                     <FormMessage />
@@ -340,9 +376,27 @@ const BudgetForm = ({
                         {...field}
                         disabled={loading}
                         id={field.name}
-                        placeholder="IVA (%)"
+                        inputMode="decimal"
+                        max={100}
+                        min={0}
+                        onBlur={(e) => {
+                          if (e.target.value === "") {
+                            field.onChange(0);
+                          }
+                          field.onBlur();
+                        }}
+                        onChange={(event) => {
+                          const v = event.target.value;
+                          field.onChange(v === "" ? "" : Number(v));
+                        }}
+                        onFocus={() => {
+                          if (field.value === 0) {
+                            field.onChange("");
+                          }
+                        }}
+                        placeholder="Ej: 21"
+                        step={0.01}
                         type="number"
-                        value={field.value ?? 0}
                       />
                     </FormControl>
                     <FormMessage />
