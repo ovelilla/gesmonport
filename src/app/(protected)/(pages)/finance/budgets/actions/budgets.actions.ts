@@ -160,7 +160,9 @@ const readHardwares = async (): Promise<ReadHardwaresReturn> => {
       include: {
         doorTypes: {
           include: {
-            doorType: true,
+            doorType: {
+              include: { prices: true },
+            },
           },
         },
         finish: true,
