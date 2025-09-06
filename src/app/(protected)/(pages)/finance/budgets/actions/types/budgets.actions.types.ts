@@ -3,7 +3,10 @@ import type {
   Architrave,
   Budget,
   Customer,
-  Door,
+  DoorFamily,
+  DoorFinish,
+  DoorModel,
+  DoorType,
   Frame,
   Hardware,
   PaymentMethod,
@@ -15,7 +18,13 @@ type ReadBudgetsReturn = Budget[];
 
 type ReadCustomersReturn = Customer[];
 
-type ReadDoorsReturn = Door[];
+type ReadDoorFamiliesReturn = DoorFamily[];
+
+type ReadDoorFinishesReturn = DoorFinish[];
+
+type ReadDoorModelsReturn = DoorModel[];
+
+type ReadDoorTypesReturn = DoorType[];
 
 type ReadFramesReturn = Frame[];
 
@@ -24,11 +33,14 @@ type ReadHardwaresReturn = Hardware[];
 type ReadPaymentMethodsReturn = PaymentMethod[];
 
 export type {
+  ReadArchitravesReturn,
   ReadBudgetsReturn,
   ReadCustomersReturn,
-  ReadDoorsReturn,
+  ReadDoorFamiliesReturn,
+  ReadDoorFinishesReturn,
+  ReadDoorModelsReturn,
+  ReadDoorTypesReturn,
   ReadFramesReturn,
-  ReadArchitravesReturn,
   ReadHardwaresReturn,
   ReadPaymentMethodsReturn,
 };

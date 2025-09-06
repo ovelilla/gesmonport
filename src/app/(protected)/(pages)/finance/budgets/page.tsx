@@ -3,7 +3,10 @@ import {
   readArchitraves,
   readBudgets,
   readCustomers,
-  readDoors,
+  readDoorFamilies,
+  readDoorFinishes,
+  readDoorModels,
+  readDoorTypes,
   readFrames,
   readHardwares,
   readPaymentMethods,
@@ -23,7 +26,10 @@ const BudgetsPage = async () => {
     architraves,
     budgets,
     customers,
-    doors,
+    doorFamilies,
+    doorFinishes,
+    doorModels,
+    doorTypes,
     frames,
     hardwares,
     paymentMethods,
@@ -31,7 +37,10 @@ const BudgetsPage = async () => {
     readArchitraves(),
     readBudgets(),
     readCustomers(),
-    readDoors(),
+    readDoorFamilies(),
+    readDoorFinishes(),
+    readDoorModels(),
+    readDoorTypes(),
     readFrames(),
     readHardwares(),
     readPaymentMethods(),
@@ -42,7 +51,10 @@ const BudgetsPage = async () => {
       architraves={architraves}
       budgets={budgets}
       customers={customers}
-      doors={doors}
+      doorFamilies={doorFamilies}
+      doorFinishes={doorFinishes}
+      doorModels={doorModels}
+      doorTypes={doorTypes}
       frames={frames}
       hardwares={hardwares}
       paymentMethods={paymentMethods}

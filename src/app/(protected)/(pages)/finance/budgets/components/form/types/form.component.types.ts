@@ -2,7 +2,10 @@
 import type {
   Architrave,
   Customer,
-  Door,
+  DoorFamily,
+  DoorFinish,
+  DoorModel,
+  DoorType,
   Frame,
   Hardware,
   PaymentMethod,
@@ -13,7 +16,10 @@ import type { BudgetSchema } from "../../../schemas/types/budgets.schemas.types"
 type BudgetFormProps = {
   architraves: Architrave[];
   customers: Customer[];
-  doors: Door[];
+  doorFamilies: DoorFamily[];
+  doorFinishes: DoorFinish[];
+  doorModels: DoorModel[];
+  doorTypes: DoorType[];
   fieldArray: UseFieldArrayReturn<BudgetSchema, "items">;
   form: UseFormReturn<BudgetSchema>;
   frames: Frame[];

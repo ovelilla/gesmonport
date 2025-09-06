@@ -3,7 +3,10 @@ import type {
   Architrave,
   Budget,
   Customer,
-  Door,
+  DoorFamily,
+  DoorFinish,
+  DoorModel,
+  DoorType,
   Frame,
   Hardware,
   PaymentMethod,
@@ -13,7 +16,10 @@ type BudgetsProps = {
   architraves: Architrave[];
   budgets: Budget[];
   customers: Customer[];
-  doors: Door[];
+  doorFamilies: DoorFamily[];
+  doorFinishes: DoorFinish[];
+  doorModels: DoorModel[];
+  doorTypes: DoorType[];
   frames: Frame[];
   hardwares: Hardware[];
   paymentMethods: PaymentMethod[];

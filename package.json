@@ -1,13 +1,14 @@
 {
-  "name": "nubigest",
+  "name": "gesmonport",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "next build --turbopack",
     "dev": "next dev --turbopack",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "postinstall": "prisma generate",
-    "start": "next start --turbopack"
+    "start": "next start"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
@@ -26,6 +27,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.2",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.542.0",
@@ -65,8 +67,5 @@
     "prisma": "^6.15.0",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "prisma": {
-    "schema": "src/prisma/schema.prisma"
   }
 }

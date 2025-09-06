@@ -45,7 +45,10 @@ import type { BudgetFormProps } from "./types/form.component.types";
 const BudgetForm = ({
   architraves,
   customers,
-  doors,
+  doorFamilies,
+  doorFinishes,
+  doorModels,
+  doorTypes,
   fieldArray,
   form,
   frames,
@@ -445,21 +448,25 @@ const BudgetForm = ({
           </div>
           <div className="flex grow overflow-auto rounded-md border">
             <div className="flex grow flex-col gap-4 p-4">
-              <div className="grid [grid-template-columns:minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_160px_120px_80px] gap-2">
-                <div className="text-sm">Puerta</div>
+              <div className="grid [grid-template-columns:minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_160px_120px_80px_80px] gap-2">
+                <div className="text-sm">Hoja</div>
                 <div className="text-sm">Vidrio</div>
                 <div className="text-sm">Tapajuntas</div>
                 <div className="text-sm">Marco</div>
                 <div className="text-sm">Herrajes</div>
                 <div className="text-sm">Medidas</div>
                 <div className="text-sm">Cantidad</div>
+                <div className="text-sm">Total</div>
                 <div className="justify-self-center text-sm">Acciones</div>
               </div>
               {fieldArray.fields.map((field, index) => (
                 <Item
                   architraves={architraves}
                   key={field.id}
-                  doors={doors}
+                  doorFamilies={doorFamilies}
+                  doorFinishes={doorFinishes}
+                  doorModels={doorModels}
+                  doorTypes={doorTypes}
                   fieldArray={fieldArray}
                   frames={frames}
                   hardwares={hardwares}

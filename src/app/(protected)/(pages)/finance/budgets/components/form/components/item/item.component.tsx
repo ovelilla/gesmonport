@@ -23,7 +23,10 @@ import type { ItemProps } from "./types/item.component.types";
 
 const Item = ({
   architraves,
-  doors,
+  doorFamilies,
+  doorFinishes,
+  doorModels,
+  doorTypes,
   fieldArray,
   frames,
   hardwares,
@@ -32,44 +35,125 @@ const Item = ({
   const {
     architraveItems,
     control,
-    doorItems,
+    doorFamilyItems,
+    doorFinishItems,
+    doorModelItems,
+    doorTypeItems,
     frameItems,
+    // getValues,
     glassItems,
     hardwareItems,
     searchValueArchitrave,
-    searchValueDoor,
+    searchValueDoorFamily,
+    searchValueDoorFinish,
+    searchValueDoorModel,
+    searchValueDoorType,
     searchValueFrame,
     searchValueGlass,
     setSearchValueArchitrave,
-    setSearchValueDoor,
+    setSearchValueDoorFamily,
+    setSearchValueDoorFinish,
+    setSearchValueDoorModel,
+    setSearchValueDoorType,
     setSearchValueFrame,
     setSearchValueGlass,
-    setValue,
-  } = ItemHook({ architraves, doors, fieldArray, frames, hardwares, index });
+    // setValue,
+    total,
+  } = ItemHook({
+    architraves,
+    doorFamilies,
+    doorFinishes,
+    doorModels,
+    doorTypes,
+    fieldArray,
+    frames,
+    hardwares,
+    index,
+  });
 
   return (
-    <div className="grid [grid-template-columns:minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_160px_120px_80px] items-start gap-2">
+    <div className="grid [grid-template-columns:minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_160px_120px_80px_80px] items-start gap-2">
       <FormField
         control={control}
-        name={`items.${index}.doorId`}
+        name={`items.${index}.doorTypeId`}
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="col-[1/2] row-[1/2] grid [grid-template-columns:64px_1fr] items-center">
+            <FormLabel htmlFor={field.name}>Tipo</FormLabel>
             <FormControl>
               <AutoComplete
-                emptyMessage="No se han encontrado puertas."
-                items={doorItems}
-                onSearchValueChange={setSearchValueDoor}
-                onSelectedValueChange={(value) => {
-                  field.onChange(value);
-                  setValue(`items.${index}.glassId`, "");
-                  setSearchValueGlass("");
-                }}
-                placeholder="Nombre puerta"
-                searchValue={searchValueDoor}
+                emptyMessage="No se han encontrado tipos de hojas."
+                items={doorTypeItems}
+                onSearchValueChange={setSearchValueDoorType}
+                onSelectedValueChange={field.onChange}
+                placeholder="Tipo hoja"
+                searchValue={searchValueDoorType}
                 selectedValue={field.value}
               />
             </FormControl>
-            <FormMessage />
+            <FormMessage className="col-span-2" />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.doorFamilyId`}
+        render={({ field }) => (
+          <FormItem className="col-[1/2] row-[2/3] grid [grid-template-columns:64px_1fr] items-center">
+            <FormLabel htmlFor={field.name}>Familia</FormLabel>
+            <FormControl>
+              <AutoComplete
+                emptyMessage="No se han encontrado familias de hojas."
+                items={doorFamilyItems}
+                onSearchValueChange={setSearchValueDoorFamily}
+                onSelectedValueChange={field.onChange}
+                placeholder="Familia hoja"
+                searchValue={searchValueDoorFamily}
+                selectedValue={field.value}
+              />
+            </FormControl>
+            <FormMessage className="col-span-2" />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.doorModelId`}
+        render={({ field }) => (
+          <FormItem className="col-[1/2] row-[3/4] grid [grid-template-columns:64px_1fr] items-center">
+            <FormLabel htmlFor={field.name}>Modelo</FormLabel>
+            <FormControl>
+              <AutoComplete
+                emptyMessage="No se han encontrado modelos de hojas."
+                items={doorModelItems}
+                onSearchValueChange={setSearchValueDoorModel}
+                onSelectedValueChange={field.onChange}
+                placeholder="Modelo hoja"
+                searchValue={searchValueDoorModel}
+                selectedValue={field.value}
+              />
+            </FormControl>
+            <FormMessage className="col-span-2" />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.doorFinishId`}
+        render={({ field }) => (
+          <FormItem className="col-[1/2] row-[4/5] grid [grid-template-columns:64px_1fr] items-center">
+            <FormLabel htmlFor={field.name}>Acabado</FormLabel>
+            <FormControl>
+              <AutoComplete
+                emptyMessage="No se han encontrado acabados de hojas."
+                items={doorFinishItems}
+                onSearchValueChange={setSearchValueDoorFinish}
+                onSelectedValueChange={field.onChange}
+                placeholder="Acabado hoja"
+                searchValue={searchValueDoorFinish}
+                selectedValue={field.value}
+              />
+            </FormControl>
+            <FormMessage className="col-span-2" />
           </FormItem>
         )}
       />
@@ -77,7 +161,7 @@ const Item = ({
         control={control}
         name={`items.${index}.glassId`}
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="col-[2/3] row-[1/2]">
             <FormControl>
               <AutoComplete
                 emptyMessage="No se han encontrado vidrios."
@@ -97,7 +181,7 @@ const Item = ({
         control={control}
         name={`items.${index}.architraveId`}
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="col-[3/4] row-[1/2]">
             <FormControl>
               <AutoComplete
                 emptyMessage="No se han encontrado tapajuntas."
@@ -117,7 +201,7 @@ const Item = ({
         control={control}
         name={`items.${index}.frameId`}
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="col-[4/5] row-[1/2]">
             <FormControl>
               <AutoComplete
                 emptyMessage="No se han encontrado marcos."
@@ -137,7 +221,7 @@ const Item = ({
         control={control}
         name={`items.${index}.architraveIds`}
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="col-[5/6] row-[1/2]">
             <FormControl>
               <MultiSelect
                 {...field}
@@ -159,7 +243,7 @@ const Item = ({
         control={control}
         name={`items.${index}.observations`}
         render={({ field }) => (
-          <FormItem className="col-[1/6] row-[2/4]">
+          <FormItem className="col-[2/6] row-[3/5] self-end">
             <FormLabel htmlFor={field.name}>Observaciones</FormLabel>
             <FormControl>
               <Textarea
@@ -177,7 +261,7 @@ const Item = ({
         control={control}
         name={`items.${index}.height`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] grid [grid-template-columns:48px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[1/2] grid [grid-template-columns:48px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Alto</FormLabel>
             <FormControl>
               <Input
@@ -214,7 +298,7 @@ const Item = ({
         control={control}
         name={`items.${index}.width`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] grid [grid-template-columns:48px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[2/3] grid [grid-template-columns:48px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Ancho</FormLabel>
             <FormControl>
               <Input
@@ -251,7 +335,7 @@ const Item = ({
         control={control}
         name={`items.${index}.thickness`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] grid [grid-template-columns:48px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[3/4] grid [grid-template-columns:48px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Grosor</FormLabel>
             <FormControl>
               <Input
@@ -323,7 +407,13 @@ const Item = ({
           </FormItem>
         )}
       />
-      <div className="col-[8/9] row-[1/4] flex flex-col items-center gap-2">
+      <div className="col-[8/9] row-[1/2] text-sm">
+        {new Intl.NumberFormat("es-ES", {
+          style: "currency",
+          currency: "EUR",
+        }).format(total)}
+      </div>
+      <div className="col-[9/10] row-[1/5] flex flex-col items-center gap-2">
         <Button
           onClick={() => fieldArray.remove(index)}
           size="icon"

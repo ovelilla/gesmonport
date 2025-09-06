@@ -6,18 +6,20 @@ import {
   ArchitraveType,
   Budget as PrismaBudget,
   Customer as PrismaCustomer,
-  Door as PrismaDoor,
-  DoorFamily,
-  DoorFinish,
-  DoorImage,
-  DoorPrice,
-  DoorType,
+  DoorFamily as PrismaDoorFamily,
+  DoorFamilyPrice,
+  DoorFinish as PrismaDoorFinish,
+  DoorFinishPrice,
+  DoorModel as PrismaDoorModel,
+  DoorModelPrice,
+  DoorType as PrismaDoorType,
+  DoorTypePrice,
   Frame as PrismaFrame,
   FrameFamily,
   FrameFinish,
   FrameImage,
   FrameType,
-  Glass,
+  // Glass,
   Hardware as PrismaHardware,
   HardwareFinish,
   HardwareImage,
@@ -40,13 +42,20 @@ type Customer = PrismaCustomer & {
   paymentMethod: PrismaPaymentMethod | null;
 };
 
-type Door = PrismaDoor & {
-  family: DoorFamily;
-  finish: DoorFinish;
-  glass: Glass[];
-  images: DoorImage[];
-  prices: DoorPrice[];
-  type: DoorType;
+type DoorFamily = PrismaDoorFamily & {
+  prices: DoorFamilyPrice[];
+};
+
+type DoorFinish = PrismaDoorFinish & {
+  prices: DoorFinishPrice[];
+};
+
+type DoorModel = PrismaDoorModel & {
+  prices: DoorModelPrice[];
+};
+
+type DoorType = PrismaDoorType & {
+  prices: DoorTypePrice[];
 };
 
 type Frame = PrismaFrame & {
@@ -69,7 +78,10 @@ export type {
   Architrave,
   Budget,
   Customer,
-  Door,
+  DoorFamily,
+  DoorFinish,
+  DoorModel,
+  DoorType,
   Frame,
   Hardware,
   PaymentMethod,

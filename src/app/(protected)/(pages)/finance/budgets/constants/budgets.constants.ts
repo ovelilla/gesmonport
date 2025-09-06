@@ -6,7 +6,10 @@ import type { DefaultValues } from "react-hook-form";
 
 const DEFAULT_ITEM = {
   architraveId: "",
-  doorId: "",
+  doorTypeId: "",
+  doorFamilyId: "",
+  doorModelId: "",
+  doorFinishId: "",
   frameId: "",
   glassId: "",
   hardwareIds: [],

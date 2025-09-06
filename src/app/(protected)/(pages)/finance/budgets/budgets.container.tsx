@@ -13,7 +13,10 @@ const BudgetsContainer = ({
   architraves,
   budgets,
   customers,
-  doors,
+  doorFamilies,
+  doorFinishes,
+  doorModels,
+  doorTypes,
   frames,
   hardwares,
   paymentMethods,
@@ -57,7 +60,10 @@ const BudgetsContainer = ({
         <BudgetForm
           architraves={architraves}
           customers={customers}
-          doors={doors}
+          doorFamilies={doorFamilies}
+          doorFinishes={doorFinishes}
+          doorModels={doorModels}
+          doorTypes={doorTypes}
           fieldArray={fieldArray}
           form={form}
           frames={frames}

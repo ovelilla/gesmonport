@@ -113,49 +113,6 @@ model Position {
   contacts    Contact[]
 }
 
-model Door {
-  id           String   @id @default(cuid())
-  description  String?
-  familyId     String
-  finishId     String
-  heightOffset Float    @default(0)
-  name         String
-  reference    String?
-  typeId       String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  glass  DoorGlass[]
-  images DoorImage[]
-  prices DoorPrice[]
-
-  family DoorFamily @relation(fields: [familyId], references: [id])
-  finish DoorFinish @relation(fields: [finishId], references: [id])
-  type   DoorType   @relation(fields: [typeId], references: [id])
-}
-
-model DoorGlass {
-  doorId    String
-  glassId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  door      Door     @relation(fields: [doorId], references: [id], onDelete: Cascade)
-  glass     Glass    @relation(fields: [glassId], references: [id], onDelete: Cascade)
-
-  @@id([doorId, glassId])
-  @@index([glassId])
-}
-
-model DoorImage {
-  id        String   @id @default(cuid())
-  url       String
-  publicId  String
-  doorId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  door      Door     @relation(fields: [doorId], references: [id], onDelete: Cascade)
-}
-
 model DoorFamily {
   id          String            @id @default(cuid())
   name        String
@@ -163,17 +120,30 @@ model DoorFamily {
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
   images      DoorFamilyImage[]
-  doors       Door[]
+  prices      DoorFamilyPrice[]
 }
 
 model DoorFamilyImage {
-  id        String     @id @default(cuid())
-  url       String
-  publicId  String
-  familyId  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  family    DoorFamily @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  id           String     @id @default(cuid())
+  url          String
+  publicId     String
+  doorFamilyId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  doorFamily   DoorFamily @relation(fields: [doorFamilyId], references: [id], onDelete: Cascade)
+}
+
+model DoorFamilyPrice {
+  id           String     @id @default(cuid())
+  doorFamilyId String
+  width        Float
+  height       Float
+  price        Float
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  doorFamily   DoorFamily @relation(fields: [doorFamilyId], references: [id], onDelete: Cascade)
+
+  @@unique([doorFamilyId, width, height])
 }
 
 model DoorType {
@@ -182,53 +152,9 @@ model DoorType {
   description String?
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
-  images      DoorTypeImage[]
   hardware    DoorTypeHardware[]
-  doors       Door[]
-}
-
-model DoorTypeImage {
-  id        String   @id @default(cuid())
-  url       String
-  publicId  String
-  typeId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  type      DoorType @relation(fields: [typeId], references: [id], onDelete: Cascade)
-}
-
-model DoorFinish {
-  id          String            @id @default(cuid())
-  name        String
-  description String?
-  reference   String?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  images      DoorFinishImage[]
-  doors       Door[]
-}
-
-model DoorFinishImage {
-  id        String     @id @default(cuid())
-  url       String
-  publicId  String
-  finishId  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  finish    DoorFinish @relation(fields: [finishId], references: [id], onDelete: Cascade)
-}
-
-model DoorPrice {
-  id        String   @id @default(cuid())
-  doorId    String
-  width     Float
-  height    Float
-  price     Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  door      Door     @relation(fields: [doorId], references: [id], onDelete: Cascade)
-
-  @@unique([doorId, width, height])
+  images      DoorTypeImage[]
+  prices      DoorTypePrice[]
 }
 
 model DoorTypeHardware {
@@ -243,22 +169,113 @@ model DoorTypeHardware {
   @@index([hardwareId])
 }
 
+model DoorTypeImage {
+  id         String   @id @default(cuid())
+  url        String
+  publicId   String
+  doorTypeId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  doorType   DoorType @relation(fields: [doorTypeId], references: [id], onDelete: Cascade)
+}
+
+model DoorTypePrice {
+  id         String   @id @default(cuid())
+  doorTypeId String
+  width      Float
+  height     Float
+  price      Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  doorType   DoorType @relation(fields: [doorTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([doorTypeId, width, height])
+}
+
+model DoorFinish {
+  id          String            @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  images      DoorFinishImage[]
+  prices      DoorFinishPrice[]
+}
+
+model DoorFinishImage {
+  id           String     @id @default(cuid())
+  url          String
+  publicId     String
+  doorFinishId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  doorFinish   DoorFinish @relation(fields: [doorFinishId], references: [id], onDelete: Cascade)
+}
+
+model DoorFinishPrice {
+  id           String     @id @default(cuid())
+  doorFinishId String
+  width        Float
+  height       Float
+  price        Float
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  doorFinish   DoorFinish @relation(fields: [doorFinishId], references: [id], onDelete: Cascade)
+
+  @@unique([doorFinishId, width, height])
+}
+
+model DoorModel {
+  id          String           @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  images      DoorModelImage[]
+  prices      DoorModelPrice[]
+}
+
+model DoorModelImage {
+  id          String    @id @default(cuid())
+  url         String
+  publicId    String
+  doorModelId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  doorModel   DoorModel @relation(fields: [doorModelId], references: [id], onDelete: Cascade)
+}
+
+model DoorModelPrice {
+  id          String    @id @default(cuid())
+  doorModelId String
+  width       Float
+  height      Float
+  price       Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  doorModel   DoorModel @relation(fields: [doorModelId], references: [id], onDelete: Cascade)
+
+  @@unique([doorModelId, width, height])
+}
+
 model Hardware {
-  id          String             @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   description String?
   reference   String?
   price       Float
   finishId    String?
   typeId      String
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  images      HardwareImage[]
-  doorTypes   DoorTypeHardware[]
-  
-  finish      HardwareFinish?    @relation(fields: [finishId], references: [id])
-  type        HardwareType       @relation(fields: [typeId], references: [id])
+  images    HardwareImage[]
+  doorTypes DoorTypeHardware[]
+
+  finish HardwareFinish? @relation(fields: [finishId], references: [id])
+  type   HardwareType    @relation(fields: [typeId], references: [id])
 }
 
 model HardwareImage {
@@ -534,7 +551,6 @@ model Glass {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  glass  DoorGlass[]
   images GlassImage[]
   prices GlassPrice[]
 

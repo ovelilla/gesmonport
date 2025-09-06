@@ -67,7 +67,6 @@ export function AutoComplete<T extends string>({
   };
 
   const onSelectItem = (inputValue: string) => {
-    console.log(inputValue);
     if (inputValue === selectedValue) {
       reset();
     } else {

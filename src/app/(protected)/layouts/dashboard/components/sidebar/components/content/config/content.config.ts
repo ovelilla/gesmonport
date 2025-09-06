@@ -164,7 +164,7 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
           {
             title: "Modelos",
             url: "/glass/options/models",
-          }
+          },
         ],
       },
     ],
@@ -174,27 +174,20 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
     icon: DoorClosed,
     items: [
       {
-        title: "Lista de puertas",
-        icon: Rows4,
-        url: "/doors",
+        title: "Tipos",
+        url: "/doors/types",
       },
       {
-        title: "Opciones",
-        icon: Settings2,
-        items: [
-          {
-            title: "Familias",
-            url: "/doors/options/families",
-          },
-          {
-            title: "Tipos",
-            url: "/doors/options/types",
-          },
-          {
-            title: "Acabados",
-            url: "/doors/options/finishes",
-          },
-        ],
+        title: "Familias",
+        url: "/doors/families",
+      },
+      {
+        title: "Modelos",
+        url: "/doors/models",
+      },
+      {
+        title: "Acabados",
+        url: "/doors/finishes",
       },
     ],
   },

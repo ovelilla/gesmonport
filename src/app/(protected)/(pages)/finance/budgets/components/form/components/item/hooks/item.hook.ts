@@ -3,11 +3,21 @@
 import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 // Types
-import type { ItemHookProps, ItemHookReturn } from "./types/item.hook.types";
+import type {
+  AutocompleteItem,
+  ItemHookProps,
+  ItemHookReturn,
+} from "./types/item.hook.types";
+import type { BudgetSchema } from "@/app/(protected)/(pages)/finance/budgets/schemas/types/budgets.schemas.types";
+// Utils
+import { getItemPrice, sumPrices, toSelectItems } from "../utils/item.utils";
 
 const ItemHook = ({
   architraves,
-  doors,
+  doorFamilies,
+  doorFinishes,
+  doorModels,
+  doorTypes,
   // fieldArray,
   frames,
   hardwares,
@@ -15,59 +25,97 @@ const ItemHook = ({
 }: ItemHookProps): ItemHookReturn => {
   const [searchValueArchitrave, setSearchValueArchitrave] =
     useState<string>("");
-  const [searchValueDoor, setSearchValueDoor] = useState<string>("");
+  const [searchValueDoorFamily, setSearchValueDoorFamily] =
+    useState<string>("");
+  const [searchValueDoorFinish, setSearchValueDoorFinish] =
+    useState<string>("");
+  const [searchValueDoorModel, setSearchValueDoorModel] = useState<string>("");
+  const [searchValueDoorType, setSearchValueDoorType] = useState<string>("");
   const [searchValueFrame, setSearchValueFrame] = useState<string>("");
   const [searchValueGlass, setSearchValueGlass] = useState<string>("");
 
   const { control, getValues, setValue } = useFormContext();
 
-  const items = useWatch({ name: `items.${index}`, control });
+  const item = useWatch({
+    control,
+    name: `items.${index}`,
+  }) as BudgetSchema["items"][number];
 
-  const architraveItems = architraves.map((architrave) => ({
-    value: architrave.id,
-    label: architrave.name,
-  }));
+  const architraveItems = toSelectItems({ items: architraves });
+  const doorFamilyItems = toSelectItems({ items: doorFamilies });
+  const doorFinishItems = toSelectItems({ items: doorFinishes });
+  const doorModelItems = toSelectItems({ items: doorModels });
+  const doorTypeItems = toSelectItems({ items: doorTypes });
+  const frameItems = toSelectItems({ items: frames });
+  const glassItems: AutocompleteItem[] = [];
+  const hardwareItems = toSelectItems({ items: hardwares });
 
-  const doorItems = doors.map((door) => ({
-    value: door.id,
-    label: door.name,
-  }));
+  const doorFamilyPrice = getItemPrice({
+    items: doorFamilies,
+    id: item.doorFamilyId,
+    height: item.height,
+    width: item.width,
+  });
+  const doorFinishPrice = getItemPrice({
+    items: doorFinishes,
+    id: item.doorFinishId,
+    height: item.height,
+    width: item.width,
+  });
+  const doorModelPrice = getItemPrice({
+    items: doorModels,
+    id: item.doorModelId,
+    height: item.height,
+    width: item.width,
+  });
+  const doorTypePrice = getItemPrice({
+    items: doorTypes,
+    id: item.doorTypeId,
+    height: item.height,
+    width: item.width,
+  });
 
-  const frameItems = frames.map((frame) => ({
-    value: frame.id,
-    label: frame.name,
-  }));
+  const total = sumPrices(
+    doorFamilyPrice,
+    doorFinishPrice,
+    doorModelPrice,
+    doorTypePrice,
+  );
 
-  const glassItems =
-    doors
-      .find((door) => door.id === items.doorId)
-      ?.glass.map((g) => ({
-        value: g.id,
-        label: g.name,
-      })) ?? [];
-
-  const hardwareItems = hardwares.map((hardware) => ({
-    value: hardware.id,
-    label: hardware.name,
-  }));
+  //   doors
+  //     .find((door) => door.id === items.doorId)
+  //     ?.glass.map((g) => ({
+  //       value: g.id,
+  //       label: g.name,
+  //     })) ?? [];
 
   return {
     architraveItems,
     control,
-    doorItems,
+    doorFamilyItems,
+    doorFinishItems,
+    doorModelItems,
+    doorTypeItems,
     frameItems,
     getValues,
     glassItems,
     hardwareItems,
     searchValueArchitrave,
-    searchValueDoor,
+    searchValueDoorFamily,
+    searchValueDoorFinish,
+    searchValueDoorModel,
+    searchValueDoorType,
     searchValueFrame,
     searchValueGlass,
     setSearchValueArchitrave,
-    setSearchValueDoor,
+    setSearchValueDoorFamily,
+    setSearchValueDoorFinish,
+    setSearchValueDoorModel,
+    setSearchValueDoorType,
     setSearchValueFrame,
     setSearchValueGlass,
     setValue,
+    total,
   };
 };
 

@@ -6,7 +6,10 @@ import type {
   ReadArchitravesReturn,
   ReadBudgetsReturn,
   ReadCustomersReturn,
-  ReadDoorsReturn,
+  ReadDoorFamiliesReturn,
+  ReadDoorFinishesReturn,
+  ReadDoorModelsReturn,
+  ReadDoorTypesReturn,
   ReadFramesReturn,
   ReadHardwaresReturn,
   ReadPaymentMethodsReturn,
@@ -72,26 +75,60 @@ const readCustomers = async (): Promise<ReadCustomersReturn> => {
   }
 };
 
-const readDoors = async (): Promise<ReadDoorsReturn> => {
+const readDoorFamilies = async (): Promise<ReadDoorFamiliesReturn> => {
   try {
-    const doorsRaw = await prisma.door.findMany({
+    const doorFamilies = await prisma.doorFamily.findMany({
       orderBy: { name: "asc" },
       include: {
-        family: true,
-        finish: true,
-        glass: {
-          include: { glass: true },
-        },
-        images: true,
         prices: true,
-        type: true,
       },
     });
-    const doors = doorsRaw.map((door) => ({
-      ...door,
-      glass: door.glass.map((dg) => dg.glass),
-    }));
-    return doors;
+    return doorFamilies;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readDoorFinishes = async (): Promise<ReadDoorFinishesReturn> => {
+  try {
+    const doorFinishes = await prisma.doorFinish.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        prices: true,
+      },
+    });
+    return doorFinishes;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readDoorModels = async (): Promise<ReadDoorModelsReturn> => {
+  try {
+    const doorModels = await prisma.doorModel.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        prices: true,
+      },
+    });
+    return doorModels;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readDoorTypes = async (): Promise<ReadDoorTypesReturn> => {
+  try {
+    const doorTypes = await prisma.doorType.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        prices: true,
+      },
+    });
+    return doorTypes;
   } catch (error) {
     console.error(error);
     return [];
@@ -157,11 +194,14 @@ const readPaymentMethods = async (): Promise<ReadPaymentMethodsReturn> => {
 };
 
 export {
-  readArchitraves,
   generateUniqueRandomNumber,
+  readArchitraves,
   readBudgets,
   readCustomers,
-  readDoors,
+  readDoorFamilies,
+  readDoorFinishes,
+  readDoorModels,
+  readDoorTypes,
   readFrames,
   readHardwares,
   readPaymentMethods,

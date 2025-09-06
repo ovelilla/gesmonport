@@ -16,7 +16,16 @@ const budgetSchema = z.object({
   items: z.array(
     z.object({
       architraveId: z.string().min(1, { error: "El tapajuntas es requerido" }),
-      doorId: z.string().min(1, { error: "La puerta es requerida" }),
+      doorTypeId: z.string().min(1, { error: "El tipo de hoja es requerido" }),
+      doorFamilyId: z
+        .string()
+        .min(1, { error: "La familia de hoja es requerida" }),
+      doorModelId: z
+        .string()
+        .min(1, { error: "El modelo de hoja es requerido" }),
+      doorFinishId: z
+        .string()
+        .min(1, { error: "El acabado de hoja es requerido" }),
       frameId: z.string().min(1, { error: "El marco es requerido" }),
       glassId: z.string().min(1, { error: "El vidrio es requerido" }),
       hardwareIds: z
