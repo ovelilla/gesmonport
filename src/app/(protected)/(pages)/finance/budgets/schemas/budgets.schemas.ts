@@ -28,9 +28,16 @@ const budgetSchema = z.object({
         .min(1, { error: "El acabado de hoja es requerido" }),
       frameId: z.string().min(1, { error: "El marco es requerido" }),
       glassId: z.string().min(1, { error: "El vidrio es requerido" }),
-      hardwareIds: z
-        .array(z.string())
-        .max(100, { error: "Máximo 100 tipos de herrajes permitidos" }),
+      hardwareItems: z.array(
+        z.object({
+          typeId: z.string().min(1, { error: "El herraje es requerido" }),
+          hardwareId: z.string().min(1, { error: "El herraje es requerido" }),
+          quantity: z
+            .number({ error: "La cantidad no es válida" })
+            .min(1, { error: "La cantidad debe ser mayor que 0" })
+            .max(999999, { error: "La cantidad no puede ser mayor a 999999" }),
+        }),
+      ),
       height: z
         .number({ error: "La altura no es válida" })
         .min(1, { error: "La altura debe ser mayor que 0" })
@@ -49,9 +56,13 @@ const budgetSchema = z.object({
         .number({ error: "El grosor no es válido" })
         .min(1, { error: "El grosor debe ser mayor que 0" })
         .max(999999, { error: "El grosor no puede ser mayor a 999999" }),
-      width: z
+      width1: z
         .number({ error: "El ancho no es válido" })
         .min(1, { error: "El ancho debe ser mayor que 0" })
+        .max(999999, { error: "El ancho no puede ser mayor a 999999" }),
+      width2: z
+        .number({ error: "El ancho no es válido" })
+        .min(0, { error: "El ancho no puede ser negativo" })
         .max(999999, { error: "El ancho no puede ser mayor a 999999" }),
     }),
   ),

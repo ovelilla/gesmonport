@@ -8,6 +8,7 @@ import type {
   DoorType,
   Frame,
   Hardware,
+  HardwareType,
   PaymentMethod,
 } from "../../../types/budgets.types";
 import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
@@ -25,6 +26,7 @@ type BudgetFormProps = {
   frames: Frame[];
   handleSubmit: (values: BudgetSchema) => void;
   hardwares: Hardware[];
+  hardwareTypes: HardwareType[];
   label: string;
   loading: boolean;
   paymentMethods: PaymentMethod[];

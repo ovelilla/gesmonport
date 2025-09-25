@@ -9,7 +9,7 @@ import { ModelsHook } from "./hooks/models.hook";
 // Types
 import type { ModelsProps } from "./types/models.container.types";
 
-const ModelsContainer = ({ models }: ModelsProps) => {
+const ModelsContainer = ({ finishes, models }: ModelsProps) => {
   const {
     columns,
     data,
@@ -52,6 +52,7 @@ const ModelsContainer = ({ models }: ModelsProps) => {
       >
         <ModelForm
           existingImages={existingImages}
+          finishes={finishes}
           form={form}
           handleSubmit={handleSubmit}
           label={selectedRow ? "Editar" : "Crear"}

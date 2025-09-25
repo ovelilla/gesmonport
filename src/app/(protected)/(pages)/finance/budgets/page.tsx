@@ -9,6 +9,7 @@ import {
   readDoorTypes,
   readFrames,
   readHardwares,
+  readHardwareTypes,
   readPaymentMethods,
 } from "./actions/budgets.actions";
 // Containers
@@ -32,6 +33,7 @@ const BudgetsPage = async () => {
     doorTypes,
     frames,
     hardwares,
+    hardwareTypes,
     paymentMethods,
   ] = await Promise.all([
     readArchitraves(),
@@ -43,6 +45,7 @@ const BudgetsPage = async () => {
     readDoorTypes(),
     readFrames(),
     readHardwares(),
+    readHardwareTypes(),
     readPaymentMethods(),
   ]);
 
@@ -57,6 +60,7 @@ const BudgetsPage = async () => {
       doorTypes={doorTypes}
       frames={frames}
       hardwares={hardwares}
+      hardwareTypes={hardwareTypes}
       paymentMethods={paymentMethods}
     />
   );

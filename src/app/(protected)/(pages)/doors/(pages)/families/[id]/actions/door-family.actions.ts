@@ -17,6 +17,11 @@ const readDoorFamily = async ({
       where: { id },
       include: {
         images: true,
+        models: {
+          include: {
+            doorModel: true,
+          },
+        },
         prices: true,
       },
     });
@@ -25,7 +30,12 @@ const readDoorFamily = async ({
       return null;
     }
 
-    return doorFamily;
+    const transformed = {
+      ...doorFamily,
+      models: doorFamily.models.map((model) => model.doorModel),
+    };
+
+    return transformed;
   } catch (error) {
     console.error(error);
     return null;

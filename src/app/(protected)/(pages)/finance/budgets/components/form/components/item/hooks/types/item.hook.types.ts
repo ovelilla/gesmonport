@@ -11,7 +11,6 @@ import type {
 } from "@/app/(protected)/(pages)/finance/budgets/types/budgets.types";
 import type {
   Control,
-  FieldValues,
   UseFieldArrayReturn,
   UseFormGetValues,
   UseFormSetValue,
@@ -37,15 +36,18 @@ type ItemHookProps = {
 
 type ItemHookReturn = {
   architraveItems: AutocompleteItem[];
-  control: Control<FieldValues, unknown, FieldValues>;
+  control: Control<BudgetSchema>;
   doorFamilyItems: AutocompleteItem[];
   doorFinishItems: AutocompleteItem[];
   doorModelItems: AutocompleteItem[];
   doorTypeItems: AutocompleteItem[];
   frameItems: AutocompleteItem[];
-  getValues: UseFormGetValues<FieldValues>;
+  getValues: UseFormGetValues<BudgetSchema>;
   glassItems: AutocompleteItem[];
-  hardwareItems: AutocompleteItem[];
+  hardwareFieldArray: UseFieldArrayReturn<
+    BudgetSchema,
+    `items.${number}.hardwareItems`
+  >;
   searchValueArchitrave: string;
   searchValueDoorFamily: string;
   searchValueDoorFinish: string;
@@ -60,7 +62,7 @@ type ItemHookReturn = {
   setSearchValueDoorType: Dispatch<SetStateAction<string>>;
   setSearchValueFrame: Dispatch<SetStateAction<string>>;
   setSearchValueGlass: Dispatch<SetStateAction<string>>;
-  setValue: UseFormSetValue<FieldValues>;
+  setValue: UseFormSetValue<BudgetSchema>;
   total: number;
 };
 

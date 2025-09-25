@@ -1,5 +1,5 @@
 // Types
-import type { Family } from "../../types/families.types";
+import type { Family, Model } from "../../types/families.types";
 import type { FamilySchema } from "../../schemas/types/family.schema.types";
 
 type CreateFamilyProps = {
@@ -33,6 +33,8 @@ type DeleteMultipleFamiliesReturn = {
 
 type ReadFamiliesReturn = Family[];
 
+type ReadModelsReturn = Model[];
+
 type UpdateFamilyProps = {
   id: string;
   newImages: File[];
@@ -54,6 +56,7 @@ export type {
   DeleteMultipleFamiliesProps,
   DeleteMultipleFamiliesReturn,
   ReadFamiliesReturn,
+  ReadModelsReturn,
   UpdateFamilyProps,
   UpdateFamilyReturn,
 };

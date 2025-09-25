@@ -9,6 +9,7 @@ import type {
   DoorType,
   Frame,
   Hardware,
+  HardwareType,
   PaymentMethod,
 } from "../../types/budgets.types";
 
@@ -30,6 +31,8 @@ type ReadFramesReturn = Frame[];
 
 type ReadHardwaresReturn = Hardware[];
 
+type ReadHardwareTypesReturn = HardwareType[];
+
 type ReadPaymentMethodsReturn = PaymentMethod[];
 
 export type {
@@ -42,5 +45,6 @@ export type {
   ReadDoorTypesReturn,
   ReadFramesReturn,
   ReadHardwaresReturn,
+  ReadHardwareTypesReturn,
   ReadPaymentMethodsReturn,
 };

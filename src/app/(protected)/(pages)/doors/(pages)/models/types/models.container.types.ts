@@ -1,7 +1,8 @@
 // Types
-import type { Model } from "./models.types";
+import type { Finish, Model } from "./models.types";
 
 type ModelsProps = {
+  finishes: Finish[];
   models: Model[];
 };
 

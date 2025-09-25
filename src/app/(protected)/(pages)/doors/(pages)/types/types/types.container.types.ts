@@ -1,7 +1,8 @@
 // Types
-import type { Type } from "./types.types";
+import type { Family, Type } from "./types.types";
 
 type TypesProps = {
+  families: Family[];
   types: Type[];
 };
 

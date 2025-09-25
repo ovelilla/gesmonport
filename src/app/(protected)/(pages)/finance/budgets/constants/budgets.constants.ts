@@ -4,6 +4,12 @@ import { BudgetStatus } from "@prisma/client";
 import type { BudgetSchema } from "../schemas/types/budgets.schemas.types";
 import type { DefaultValues } from "react-hook-form";
 
+const HARDWARE_DEFAULT_ITEM = {
+  typeId: "",
+  hardwareId: "",
+  quantity: 0,
+};
+
 const DEFAULT_ITEM = {
   architraveId: "",
   doorTypeId: "",
@@ -12,12 +18,13 @@ const DEFAULT_ITEM = {
   doorFinishId: "",
   frameId: "",
   glassId: "",
-  hardwareIds: [],
+  hardwareItems: [HARDWARE_DEFAULT_ITEM],
   height: 0,
   observations: "",
   quantity: 0,
   thickness: 0,
-  width: 0,
+  width1: 0,
+  width2: 0,
 };
 
 const DEFAULT_FORM_VALUES = {
@@ -36,4 +43,4 @@ const DEFAULT_FORM_VALUES = {
   validity: "30 días",
 } satisfies DefaultValues<BudgetSchema>;
 
-export { DEFAULT_FORM_VALUES, DEFAULT_ITEM };
+export { DEFAULT_FORM_VALUES, DEFAULT_ITEM, HARDWARE_DEFAULT_ITEM };

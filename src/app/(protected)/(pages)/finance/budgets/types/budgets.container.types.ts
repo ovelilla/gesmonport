@@ -9,6 +9,7 @@ import type {
   DoorType,
   Frame,
   Hardware,
+  HardwareType,
   PaymentMethod,
 } from "./budgets.types";
 
@@ -22,6 +23,7 @@ type BudgetsProps = {
   doorTypes: DoorType[];
   frames: Frame[];
   hardwares: Hardware[];
+  hardwareTypes: HardwareType[];
   paymentMethods: PaymentMethod[];
 };
 

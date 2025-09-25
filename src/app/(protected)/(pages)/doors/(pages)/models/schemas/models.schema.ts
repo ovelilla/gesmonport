@@ -11,6 +11,9 @@ const modelSchema = z.object({
     .union([z.literal(""), z.string().trim().max(500).optional(), z.null()])
     .transform((val) => (val === "" ? null : val))
     .optional(),
+  finishes: z
+    .array(z.string())
+    .max(100, { error: "Máximo 100 acabados de puertas permitidos" }),
   images: z
     .array(z.union([z.instanceof(File), z.string()]))
     .max(10, "Máximo 10 imágenes permitidas")

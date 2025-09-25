@@ -1,5 +1,5 @@
 // Actions
-import { readModels } from "./actions/models.actions";
+import { readFinishes, readModels } from "./actions/models.actions";
 // Containers
 import { ModelsContainer } from "./models.container";
 // Types
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 const ModelsPage = async () => {
-  const models = await readModels();
-  return <ModelsContainer models={models} />;
+  const [finishes, models] = await Promise.all([readFinishes(), readModels()]);
+  return <ModelsContainer finishes={finishes} models={models} />;
 };
 
 export default ModelsPage;

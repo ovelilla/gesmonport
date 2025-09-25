@@ -16,6 +16,7 @@ import type {
   DeleteTypeReturn,
   DeleteMultipleTypesProps,
   DeleteMultipleTypesReturn,
+  ReadFamiliesReturn,
   ReadTypesReturn,
   UpdateTypeProps,
   UpdateTypeReturn,
@@ -54,16 +55,31 @@ const createType = async ({
       const newType = await prisma.doorType.create({
         data: {
           ...validatedFields.data,
+          families: {
+            create: validatedFields.data.families.map((familyId) => ({
+              doorFamilyId: familyId,
+            })),
+          },
           images: {
             create: validImages,
           },
         },
         include: {
+          families: {
+            include: {
+              doorFamily: true,
+            },
+          },
           images: true,
         },
       });
 
-      return { success: "Tipo creado con éxito", type: newType };
+      const transformed = {
+        ...newType,
+        families: newType.families.map((family) => family.doorFamily),
+      };
+
+      return { success: "Tipo creado con éxito", type: transformed };
     } catch (error) {
       console.error(error);
       await Promise.all(validImages.map((img) => deleteImage(img.publicId)));
@@ -121,15 +137,38 @@ const deleteMultipleTypes = async ({
   }
 };
 
+const readFamilies = async (): Promise<ReadFamiliesReturn> => {
+  try {
+    const families = await prisma.doorFamily.findMany({
+      orderBy: { name: "asc" },
+    });
+    return families;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 const readTypes = async (): Promise<ReadTypesReturn> => {
   try {
     const types = await prisma.doorType.findMany({
       orderBy: { name: "asc" },
       include: {
+        families: {
+          include: {
+            doorFamily: true,
+          },
+        },
         images: true,
       },
     });
-    return types;
+
+    const transformed = types.map((type) => ({
+      ...type,
+      families: type.families.map((family) => family.doorFamily),
+    }));
+
+    return transformed;
   } catch (error) {
     console.error(error);
     return [];
@@ -187,18 +226,28 @@ const updateType = async ({
         where: { id },
         data: {
           ...validatedFields.data,
-          images: {
-            create: validImages,
+          families: {
+            deleteMany: {},
+            create: validatedFields.data.families.map((familyId) => ({
+              doorFamilyId: familyId,
+            })),
           },
+          images: { create: validImages },
         },
         include: {
+          families: { include: { doorFamily: true } },
           images: true,
         },
       });
 
+      const transformed = {
+        ...updatedType,
+        families: updatedType.families.map((family) => family.doorFamily),
+      };
+
       return {
         success: "Tipo actualizado con éxito",
-        type: updatedType,
+        type: transformed,
       };
     } catch (error) {
       console.error(error);
@@ -215,4 +264,11 @@ const updateType = async ({
   }
 };
 
-export { createType, deleteType, deleteMultipleTypes, readTypes, updateType };
+export {
+  createType,
+  deleteType,
+  deleteMultipleTypes,
+  readFamilies,
+  readTypes,
+  updateType,
+};

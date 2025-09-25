@@ -8,16 +8,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { HardwareItem } from "./components/hardaware-item/hardware-item.component";
 import { Input } from "@/components/ui/input";
-import { MultiSelect } from "@/components/ui/multiple-selector";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 // Constants
-import { DEFAULT_ITEM } from "@/app/(protected)/(pages)/finance/budgets/constants/budgets.constants";
+import {
+  DEFAULT_ITEM,
+  HARDWARE_DEFAULT_ITEM,
+} from "@/app/(protected)/(pages)/finance/budgets/constants/budgets.constants";
 // Hooks
 import { ItemHook } from "./hooks/item.hook";
 // Icons
-import { Eraser, Trash2 } from "lucide-react";
+import { Eraser, Plus, Trash2 } from "lucide-react";
 // Types
 import type { ItemProps } from "./types/item.component.types";
 
@@ -30,6 +33,7 @@ const Item = ({
   fieldArray,
   frames,
   hardwares,
+  hardwareTypes,
   index,
 }: ItemProps) => {
   const {
@@ -42,7 +46,7 @@ const Item = ({
     frameItems,
     // getValues,
     glassItems,
-    hardwareItems,
+    hardwareFieldArray,
     searchValueArchitrave,
     searchValueDoorFamily,
     searchValueDoorFinish,
@@ -72,7 +76,7 @@ const Item = ({
   });
 
   return (
-    <div className="grid [grid-template-columns:minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_160px_120px_80px_80px] items-start gap-2">
+    <div className="grid [grid-template-columns:minmax(232px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(520px,1fr)_160px_96px_80px_80px] items-start gap-2">
       <FormField
         control={control}
         name={`items.${index}.doorTypeId`}
@@ -219,31 +223,9 @@ const Item = ({
       />
       <FormField
         control={control}
-        name={`items.${index}.architraveIds`}
-        render={({ field }) => (
-          <FormItem className="col-[5/6] row-[1/2]">
-            <FormControl>
-              <MultiSelect
-                {...field}
-                defaultValue={field.value}
-                maxCount={1}
-                minWidth="160px"
-                onValueChange={field.onChange}
-                options={hardwareItems}
-                placeholder="Selecciona"
-                singleLine={true}
-                variant="inverted"
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={control}
         name={`items.${index}.observations`}
         render={({ field }) => (
-          <FormItem className="col-[2/6] row-[3/5] self-end">
+          <FormItem className="col-[2/5] row-[3/5] self-end">
             <FormLabel htmlFor={field.name}>Observaciones</FormLabel>
             <FormControl>
               <Textarea
@@ -257,11 +239,30 @@ const Item = ({
           </FormItem>
         )}
       />
+      {hardwareFieldArray.fields.map((field, hardwareIndex) => (
+        <HardwareItem
+          control={control}
+          hardwareFieldArray={hardwareFieldArray}
+          hardwares={hardwares}
+          hardwareTypes={hardwareTypes}
+          index={hardwareIndex}
+          key={field.id}
+          parentIndex={index}
+        />
+      ))}
+      <Button
+        className="col-[5/6] w-auto self-start justify-self-start"
+        onClick={() => hardwareFieldArray.append(HARDWARE_DEFAULT_ITEM)}
+        type="button"
+      >
+        <Plus />
+        Añadir herraje
+      </Button>
       <FormField
         control={control}
         name={`items.${index}.height`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] row-[1/2] grid [grid-template-columns:48px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[1/2] grid [grid-template-columns:56px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Alto</FormLabel>
             <FormControl>
               <Input
@@ -296,10 +297,47 @@ const Item = ({
       />
       <FormField
         control={control}
-        name={`items.${index}.width`}
+        name={`items.${index}.width1`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] row-[2/3] grid [grid-template-columns:48px_1fr] items-center">
-            <FormLabel htmlFor={field.name}>Ancho</FormLabel>
+          <FormItem className="col-[6/7] row-[2/3] grid [grid-template-columns:56px_1fr] items-center">
+            <FormLabel htmlFor={field.name}>Ancho 1</FormLabel>
+            <FormControl>
+              <Input
+                {...field}
+                id={field.name}
+                inputMode="decimal"
+                max={999999}
+                min={0}
+                onBlur={(e) => {
+                  if (e.target.value === "") {
+                    field.onChange(0);
+                  }
+                  field.onBlur();
+                }}
+                onChange={(event) => {
+                  const v = event.target.value;
+                  field.onChange(v === "" ? "" : Number(v));
+                }}
+                onFocus={() => {
+                  if (field.value === 0) {
+                    field.onChange("");
+                  }
+                }}
+                placeholder="Ej: 10"
+                step={0.01}
+                type="number"
+              />
+            </FormControl>
+            <FormMessage className="col-span-2" />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.width2`}
+        render={({ field }) => (
+          <FormItem className="col-[6/7] row-[3/4] grid [grid-template-columns:56px_1fr] items-center">
+            <FormLabel htmlFor={field.name}>Ancho 2</FormLabel>
             <FormControl>
               <Input
                 {...field}
@@ -335,7 +373,7 @@ const Item = ({
         control={control}
         name={`items.${index}.thickness`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] row-[3/4] grid [grid-template-columns:48px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[4/5] grid [grid-template-columns:56px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Grosor</FormLabel>
             <FormControl>
               <Input
@@ -407,7 +445,7 @@ const Item = ({
           </FormItem>
         )}
       />
-      <div className="col-[8/9] row-[1/2] text-sm">
+      <div className="col-[8/9] row-[1/2] flex justify-end text-sm">
         {new Intl.NumberFormat("es-ES", {
           style: "currency",
           currency: "EUR",
@@ -432,7 +470,7 @@ const Item = ({
         </Button>
       </div>
       {index !== fieldArray.fields.length - 1 && (
-        <Separator className="col-span-8 mt-2" />
+        <Separator className="col-span-9 mt-2" />
       )}
     </div>
   );

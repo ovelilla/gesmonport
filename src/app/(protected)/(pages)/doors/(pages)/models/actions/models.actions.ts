@@ -16,6 +16,7 @@ import type {
   DeleteModelReturn,
   DeleteMultipleModelsProps,
   DeleteMultipleModelsReturn,
+  ReadFinishesReturn,
   ReadModelsReturn,
   UpdateModelProps,
   UpdateModelReturn,
@@ -54,16 +55,27 @@ const createModel = async ({
       const newModel = await prisma.doorModel.create({
         data: {
           ...validatedFields.data,
+          finishes: {
+            create: validatedFields.data.finishes.map((finishId) => ({
+              doorFinishId: finishId,
+            })),
+          },
           images: {
             create: validImages,
           },
         },
         include: {
+          finishes: { include: { doorFinish: true } },
           images: true,
         },
       });
 
-      return { success: "Modelo creado con éxito", model: newModel };
+      const transformed = {
+        ...newModel,
+        finishes: newModel.finishes.map((finish) => finish.doorFinish),
+      };
+
+      return { success: "Modelo creado con éxito", model: transformed };
     } catch (error) {
       console.error(error);
       await Promise.all(validImages.map((img) => deleteImage(img.publicId)));
@@ -121,15 +133,34 @@ const deleteMultipleModels = async ({
   }
 };
 
+const readFinishes = async (): Promise<ReadFinishesReturn> => {
+  try {
+    const finishes = await prisma.doorFinish.findMany({
+      orderBy: { name: "asc" },
+    });
+    return finishes;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 const readModels = async (): Promise<ReadModelsReturn> => {
   try {
     const models = await prisma.doorModel.findMany({
       orderBy: { name: "asc" },
       include: {
+        finishes: { include: { doorFinish: true } },
         images: true,
       },
     });
-    return models;
+
+    const transformed = models.map((model) => ({
+      ...model,
+      finishes: model.finishes.map((finish) => finish.doorFinish),
+    }));
+
+    return transformed;
   } catch (error) {
     console.error(error);
     return [];
@@ -187,18 +218,28 @@ const updateModel = async ({
         where: { id },
         data: {
           ...validatedFields.data,
-          images: {
-            create: validImages,
+          finishes: {
+            deleteMany: {},
+            create: validatedFields.data.finishes.map((finishId) => ({
+              doorFinish: { connect: { id: finishId } },
+            })),
           },
+          images: { create: validImages },
         },
         include: {
+          finishes: { include: { doorFinish: true } },
           images: true,
         },
       });
 
+      const transformed = {
+        ...updatedModel,
+        finishes: updatedModel.finishes.map((finish) => finish.doorFinish),
+      };
+
       return {
         success: "Modelo actualizado con éxito",
-        model: updatedModel,
+        model: transformed,
       };
     } catch (error) {
       console.error(error);
@@ -219,6 +260,7 @@ export {
   createModel,
   deleteModel,
   deleteMultipleModels,
+  readFinishes,
   readModels,
   updateModel,
 };

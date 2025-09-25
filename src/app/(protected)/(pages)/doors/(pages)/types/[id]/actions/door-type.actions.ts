@@ -16,6 +16,11 @@ const readDoorType = async ({
     const doorType = await prisma.doorType.findUnique({
       where: { id },
       include: {
+        families: {
+          include: {
+            doorFamily: true,
+          },
+        },
         images: true,
         prices: true,
       },
@@ -25,7 +30,12 @@ const readDoorType = async ({
       return null;
     }
 
-    return doorType;
+    const transformed = {
+      ...doorType,
+      families: doorType.families.map((family) => family.doorFamily),
+    };
+
+    return transformed;
   } catch (error) {
     console.error(error);
     return null;

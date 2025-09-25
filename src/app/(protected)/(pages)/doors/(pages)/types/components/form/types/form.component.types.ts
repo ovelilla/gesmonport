@@ -1,10 +1,12 @@
 // Types
+import type { Family } from "../../../types/types.types";
 import type { UseFormReturn } from "react-hook-form";
 import type { TypeSchema } from "../../../schemas/types/type.schema.types";
 import type { Dispatch, SetStateAction } from "react";
 
 type TypeFormProps = {
   existingImages: string[];
+  families: Family[];
   form: UseFormReturn<TypeSchema>;
   handleSubmit: (values: TypeSchema) => void;
   label: string;

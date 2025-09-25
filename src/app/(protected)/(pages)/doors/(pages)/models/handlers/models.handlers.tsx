@@ -66,7 +66,7 @@ const editHandler = ({
 }: EditHandlerProps): void => {
   const transformedRow = {
     ...row,
-    description: row.description || "",
+    finishes: row.finishes.map((finish) => finish.id),
     images: [],
   };
   form.reset(transformedRow, { keepDefaultValues: true });

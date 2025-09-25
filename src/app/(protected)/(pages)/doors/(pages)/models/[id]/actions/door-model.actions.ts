@@ -16,6 +16,9 @@ const readDoorModel = async ({
     const doorModel = await prisma.doorModel.findUnique({
       where: { id },
       include: {
+        finishes: {
+          include: { doorFinish: true },
+        },
         images: true,
         prices: true,
       },
@@ -25,7 +28,12 @@ const readDoorModel = async ({
       return null;
     }
 
-    return doorModel;
+    const transformed = {
+      ...doorModel,
+      finishes: doorModel.finishes.map((finish) => finish.doorFinish),
+    };
+
+    return transformed;
   } catch (error) {
     console.error(error);
     return null;

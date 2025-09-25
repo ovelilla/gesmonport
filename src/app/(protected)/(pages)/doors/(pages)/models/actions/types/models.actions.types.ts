@@ -1,5 +1,5 @@
 // Types
-import type { Model } from "../../types/models.types";
+import type { Finish, Model } from "../../types/models.types";
 import type { ModelSchema } from "../../schemas/types/models.schema.types";
 
 type CreateModelProps = {
@@ -31,6 +31,8 @@ type DeleteMultipleModelsReturn = {
   error?: string;
 };
 
+type ReadFinishesReturn = Finish[];
+
 type ReadModelsReturn = Model[];
 
 type UpdateModelProps = {
@@ -53,6 +55,7 @@ export type {
   DeleteModelReturn,
   DeleteMultipleModelsProps,
   DeleteMultipleModelsReturn,
+  ReadFinishesReturn,
   ReadModelsReturn,
   UpdateModelProps,
   UpdateModelReturn,

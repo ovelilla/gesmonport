@@ -9,7 +9,7 @@ import { FamiliesHook } from "./hooks/families.hook";
 // Types
 import type { FamiliesProps } from "./types/families.container.types";
 
-const FamiliesContainer = ({ families }: FamiliesProps) => {
+const FamiliesContainer = ({ families, models }: FamiliesProps) => {
   const {
     columns,
     data,
@@ -56,6 +56,7 @@ const FamiliesContainer = ({ families }: FamiliesProps) => {
           handleSubmit={handleSubmit}
           label={selectedRow ? "Editar" : "Crear"}
           loading={loading}
+          models={models}
           newImages={newImages}
           setExistingImages={setExistingImages}
           setNewImages={setNewImages}

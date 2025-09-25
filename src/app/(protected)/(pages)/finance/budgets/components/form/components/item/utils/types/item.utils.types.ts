@@ -1,3 +1,12 @@
+// Types
+import type { Hardware } from "@/app/(protected)/(pages)/finance/budgets/types/budgets.types";
+import type { BudgetSchema } from "@/app/(protected)/(pages)/finance/budgets/schemas/types/budgets.schemas.types";
+
+type GetHardwareTotal = (params: {
+  hardwareItems: BudgetSchema["items"][number]["hardwareItems"];
+  hardwares: Hardware[];
+}) => number;
+
 type GetItemPrice = <
   TItem extends { id: string; prices: TPrice[] },
   TPrice extends { width: number; height: number; price: number },
@@ -14,4 +23,24 @@ type ToSelectItems = <T extends { id: string; name: string }>(params: {
   items: T[];
 }) => { value: string; label: string }[];
 
-export type { GetItemPrice, SumPrices, ToSelectItems };
+type RelationItem = { id: string; name: string };
+
+type EntityWithRelations<R extends string> = {
+  id: string;
+} & {
+  [K in R]: RelationItem[];
+};
+
+type ToSelectItemsFromRelation = <R extends string>(args: {
+  items: EntityWithRelations<R>[];
+  parentId: string | null | undefined;
+  relationKey: R;
+}) => { value: string; label: string }[];
+
+export type {
+  GetHardwareTotal,
+  GetItemPrice,
+  SumPrices,
+  ToSelectItems,
+  ToSelectItemsFromRelation,
+};

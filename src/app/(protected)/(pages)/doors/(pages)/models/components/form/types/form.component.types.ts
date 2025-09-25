@@ -2,9 +2,11 @@
 import type { UseFormReturn } from "react-hook-form";
 import type { ModelSchema } from "../../../schemas/types/models.schema.types";
 import type { Dispatch, SetStateAction } from "react";
+import type { Finish } from "../../../types/models.types";
 
 type ModelFormProps = {
   existingImages: string[];
+  finishes: Finish[];
   form: UseFormReturn<ModelSchema>;
   handleSubmit: (values: ModelSchema) => void;
   label: string;

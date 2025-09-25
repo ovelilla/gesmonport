@@ -23,7 +23,7 @@ import {
   Hardware as PrismaHardware,
   HardwareFinish,
   HardwareImage,
-  HardwareType,
+  HardwareType as PrismaHardwareType,
   PaymentMethod as PrismaPaymentMethod,
 } from "@prisma/client";
 
@@ -43,6 +43,7 @@ type Customer = PrismaCustomer & {
 };
 
 type DoorFamily = PrismaDoorFamily & {
+  models: PrismaDoorModel[];
   prices: DoorFamilyPrice[];
 };
 
@@ -51,10 +52,12 @@ type DoorFinish = PrismaDoorFinish & {
 };
 
 type DoorModel = PrismaDoorModel & {
+  finishes: PrismaDoorFinish[];
   prices: DoorModelPrice[];
 };
 
 type DoorType = PrismaDoorType & {
+  families: PrismaDoorFamily[];
   prices: DoorTypePrice[];
 };
 
@@ -66,11 +69,13 @@ type Frame = PrismaFrame & {
 };
 
 type Hardware = PrismaHardware & {
-  doorTypes: DoorType[];
+  doorTypes: PrismaDoorType[];
   finish: HardwareFinish | null;
   images: HardwareImage[];
-  type: HardwareType;
+  type: PrismaHardwareType;
 };
+
+type HardwareType = PrismaHardwareType;
 
 type PaymentMethod = PrismaPaymentMethod;
 
@@ -84,5 +89,6 @@ export type {
   DoorType,
   Frame,
   Hardware,
+  HardwareType,
   PaymentMethod,
 };

@@ -17,6 +17,7 @@ import type {
   DeleteMultipleFamiliesProps,
   DeleteMultipleFamiliesReturn,
   ReadFamiliesReturn,
+  ReadModelsReturn,
   UpdateFamilyProps,
   UpdateFamilyReturn,
 } from "./types/families.actions.types";
@@ -57,13 +58,28 @@ const createFamily = async ({
           images: {
             create: validImages,
           },
+          models: {
+            create: validatedFields.data.models.map((modelId) => ({
+              doorModelId: modelId,
+            })),
+          },
         },
         include: {
           images: true,
+          models: {
+            include: {
+              doorModel: true,
+            },
+          },
         },
       });
 
-      return { success: "Familia creada con éxito", family: newFamily };
+      const transformed = {
+        ...newFamily,
+        models: newFamily.models.map((model) => model.doorModel),
+      };
+
+      return { success: "Familia creada con éxito", family: transformed };
     } catch (error) {
       console.error(error);
       await Promise.all(validImages.map((img) => deleteImage(img.publicId)));
@@ -126,10 +142,31 @@ const readFamilies = async (): Promise<ReadFamiliesReturn> => {
     const families = await prisma.doorFamily.findMany({
       orderBy: { name: "asc" },
       include: {
+        models: {
+          include: { doorModel: true },
+        },
         images: true,
       },
     });
-    return families;
+
+    const transformed = families.map((family) => ({
+      ...family,
+      models: family.models.map((model) => model.doorModel),
+    }));
+
+    return transformed;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readModels = async (): Promise<ReadModelsReturn> => {
+  try {
+    const models = await prisma.doorModel.findMany({
+      orderBy: { name: "asc" },
+    });
+    return models;
   } catch (error) {
     console.error(error);
     return [];
@@ -190,15 +227,31 @@ const updateFamily = async ({
           images: {
             create: validImages,
           },
+          models: {
+            deleteMany: {},
+            create: validatedFields.data.models.map((modelId) => ({
+              doorModelId: modelId,
+            })),
+          },
         },
         include: {
           images: true,
+          models: {
+            include: {
+              doorModel: true,
+            },
+          },
         },
       });
 
+      const transformed = {
+        ...updatedFamily,
+        models: updatedFamily.models.map((model) => model.doorModel),
+      };
+
       return {
         success: "Familia actualizada con éxito",
-        family: updatedFamily,
+        family: transformed,
       };
     } catch (error) {
       console.error(error);
@@ -220,5 +273,6 @@ export {
   deleteFamily,
   deleteMultipleFamilies,
   readFamilies,
+  readModels,
   updateFamily,
 };

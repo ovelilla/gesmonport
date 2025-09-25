@@ -9,7 +9,7 @@ import { TypesHook } from "./hooks/types.hook";
 // Types
 import type { TypesProps } from "./types/types.container.types";
 
-const TypesContainer = ({ types }: TypesProps) => {
+const TypesContainer = ({ families, types }: TypesProps) => {
   const {
     columns,
     data,
@@ -52,6 +52,7 @@ const TypesContainer = ({ types }: TypesProps) => {
       >
         <TypeForm
           existingImages={existingImages}
+          families={families}
           form={form}
           handleSubmit={handleSubmit}
           label={selectedRow ? "Editar" : "Crear"}

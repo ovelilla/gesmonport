@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { MultiSelect } from "@/components/ui/multiple-selector";
 import { Textarea } from "@/components/ui/textarea";
 // Icons
 import { X } from "lucide-react";
@@ -20,6 +21,7 @@ import type { ModelFormProps } from "./types/form.component.types";
 
 const ModelForm = ({
   existingImages,
+  finishes,
   form,
   handleSubmit,
   label,
@@ -74,6 +76,29 @@ const ModelForm = ({
                   id={field.name}
                   placeholder="Descripción"
                   value={field.value ?? ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="finishes"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor={field.name}>Acabados</FormLabel>
+              <FormControl>
+                <MultiSelect
+                  {...field}
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                  options={finishes.map((finish) => ({
+                    label: finish.name,
+                    value: finish.id,
+                  }))}
+                  placeholder="Seleccionar acabados"
+                  variant="inverted"
                 />
               </FormControl>
               <FormMessage />

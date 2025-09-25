@@ -1,5 +1,14 @@
-import { DoorType as PrismaDoorType, DoorTypeImage } from "@prisma/client";
+import {
+  DoorFamily as PrismaDoorFamily,
+  DoorType as PrismaDoorType,
+  DoorTypeImage,
+} from "@prisma/client";
 
-type Type = PrismaDoorType & { images: DoorTypeImage[] };
+type Family = PrismaDoorFamily;
 
-export type { Type };
+type Type = PrismaDoorType & {
+  families: PrismaDoorFamily[];
+  images: DoorTypeImage[];
+};
+
+export type { Family, Type };

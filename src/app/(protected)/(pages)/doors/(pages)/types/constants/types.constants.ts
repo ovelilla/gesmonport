@@ -1,6 +1,7 @@
 const DEFAULT_FORM_VALUES = {
   name: "",
   description: "",
+  families: [] as string[],
   images: [] as File[],
 } as const;
 

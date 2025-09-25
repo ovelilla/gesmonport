@@ -169,7 +169,7 @@ const HardwareForm = ({
                       id="paymentMethodId"
                       aria-labelledby="paymentMethodId"
                     >
-                      <SelectValue placeholder="Selecciona una forma de pago" />
+                      <SelectValue placeholder="Selecciona un acabado" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>

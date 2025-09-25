@@ -54,6 +54,7 @@ const BudgetForm = ({
   frames,
   handleSubmit,
   hardwares,
+  hardwareTypes,
   label,
   loading,
   paymentMethods,
@@ -448,12 +449,21 @@ const BudgetForm = ({
           </div>
           <div className="flex grow overflow-auto rounded-md border">
             <div className="flex grow flex-col gap-4 p-4">
-              <div className="grid [grid-template-columns:minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_160px_120px_80px_80px] gap-2">
+              <div className="grid [grid-template-columns:minmax(232px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(520px,1fr)_160px_96px_80px_80px] gap-2">
                 <div className="text-sm">Hoja</div>
                 <div className="text-sm">Vidrio</div>
                 <div className="text-sm">Tapajuntas</div>
                 <div className="text-sm">Marco</div>
-                <div className="text-sm">Herrajes</div>
+                <div className="flex flex-col text-sm">
+                  <div>Herrajes</div>
+
+                  <div className="grid [grid-template-columns:minmax(160px,1fr)_minmax(160px,1fr)_96px_80px]">
+                    <div className="text-sm">Tipo</div>
+                    <div className="text-sm">Herraje</div>
+                    <div className="text-sm">Cantidad</div>
+                    <div className="text-sm">Acciones</div>
+                  </div>
+                </div>
                 <div className="text-sm">Medidas</div>
                 <div className="text-sm">Cantidad</div>
                 <div className="text-sm">Total</div>
@@ -470,6 +480,7 @@ const BudgetForm = ({
                   fieldArray={fieldArray}
                   frames={frames}
                   hardwares={hardwares}
+                  hardwareTypes={hardwareTypes}
                   index={index}
                 />
               ))}

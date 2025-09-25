@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { MultiSelect } from "@/components/ui/multiple-selector";
 import { Textarea } from "@/components/ui/textarea";
 // Icons
 import { X } from "lucide-react";
@@ -24,6 +25,7 @@ const FamilyForm = ({
   handleSubmit,
   label,
   loading,
+  models,
   newImages,
   setExistingImages,
   setNewImages,
@@ -74,6 +76,29 @@ const FamilyForm = ({
                   id={field.name}
                   placeholder="Descripción"
                   value={field.value ?? ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="models"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor={field.name}>Modelos</FormLabel>
+              <FormControl>
+                <MultiSelect
+                  {...field}
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                  options={models.map((model) => ({
+                    label: model.name,
+                    value: model.id,
+                  }))}
+                  placeholder="Seleccionar modelos"
+                  variant="inverted"
                 />
               </FormControl>
               <FormMessage />

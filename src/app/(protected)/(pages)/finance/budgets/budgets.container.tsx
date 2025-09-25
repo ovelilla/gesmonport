@@ -19,6 +19,7 @@ const BudgetsContainer = ({
   doorTypes,
   frames,
   hardwares,
+  hardwareTypes,
   paymentMethods,
 }: BudgetsProps) => {
   const {
@@ -69,6 +70,7 @@ const BudgetsContainer = ({
           frames={frames}
           handleSubmit={handleSubmit}
           hardwares={hardwares}
+          hardwareTypes={hardwareTypes}
           label={selectedRow ? "Editar" : "Crear"}
           loading={loading}
           paymentMethods={paymentMethods}

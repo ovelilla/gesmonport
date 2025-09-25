@@ -12,6 +12,7 @@ import type {
   ReadDoorTypesReturn,
   ReadFramesReturn,
   ReadHardwaresReturn,
+  ReadHardwareTypesReturn,
   ReadPaymentMethodsReturn,
 } from "./types/budgets.actions.types";
 
@@ -80,10 +81,15 @@ const readDoorFamilies = async (): Promise<ReadDoorFamiliesReturn> => {
     const doorFamilies = await prisma.doorFamily.findMany({
       orderBy: { name: "asc" },
       include: {
+        models: { include: { doorModel: true } },
         prices: true,
       },
     });
-    return doorFamilies;
+    const transformed = doorFamilies.map((family) => ({
+      ...family,
+      models: family.models.map((model) => model.doorModel),
+    }));
+    return transformed;
   } catch (error) {
     console.error(error);
     return [];
@@ -110,10 +116,15 @@ const readDoorModels = async (): Promise<ReadDoorModelsReturn> => {
     const doorModels = await prisma.doorModel.findMany({
       orderBy: { name: "asc" },
       include: {
+        finishes: { include: { doorFinish: true } },
         prices: true,
       },
     });
-    return doorModels;
+    const transformed = doorModels.map((model) => ({
+      ...model,
+      finishes: model.finishes.map((finish) => finish.doorFinish),
+    }));
+    return transformed;
   } catch (error) {
     console.error(error);
     return [];
@@ -125,10 +136,15 @@ const readDoorTypes = async (): Promise<ReadDoorTypesReturn> => {
     const doorTypes = await prisma.doorType.findMany({
       orderBy: { name: "asc" },
       include: {
+        families: { include: { doorFamily: true } },
         prices: true,
       },
     });
-    return doorTypes;
+    const transformed = doorTypes.map((type) => ({
+      ...type,
+      families: type.families.map((family) => family.doorFamily),
+    }));
+    return transformed;
   } catch (error) {
     console.error(error);
     return [];
@@ -183,6 +199,18 @@ const readHardwares = async (): Promise<ReadHardwaresReturn> => {
   }
 };
 
+const readHardwareTypes = async (): Promise<ReadHardwareTypesReturn> => {
+  try {
+    const hardwareTypes = await prisma.hardwareType.findMany({
+      orderBy: { name: "asc" },
+    });
+    return hardwareTypes;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 const readPaymentMethods = async (): Promise<ReadPaymentMethodsReturn> => {
   try {
     const paymentMethods = await prisma.paymentMethod.findMany({
@@ -206,5 +234,6 @@ export {
   readDoorTypes,
   readFrames,
   readHardwares,
+  readHardwareTypes,
   readPaymentMethods,
 };

@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { MultiSelect } from "@/components/ui/multiple-selector";
 import { Textarea } from "@/components/ui/textarea";
 // Icons
 import { X } from "lucide-react";
@@ -20,6 +21,7 @@ import type { TypeFormProps } from "./types/form.component.types";
 
 const TypeForm = ({
   existingImages,
+  families,
   form,
   handleSubmit,
   label,
@@ -74,6 +76,29 @@ const TypeForm = ({
                   id={field.name}
                   placeholder="Descripción"
                   value={field.value ?? ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="families"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor={field.name}>Familias</FormLabel>
+              <FormControl>
+                <MultiSelect
+                  {...field}
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                  options={families.map((family) => ({
+                    label: family.name,
+                    value: family.id,
+                  }))}
+                  placeholder="Seleccionar familias"
+                  variant="inverted"
                 />
               </FormControl>
               <FormMessage />

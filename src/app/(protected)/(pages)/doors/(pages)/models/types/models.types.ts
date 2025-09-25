@@ -1,5 +1,14 @@
-import { DoorModel as PrismaDoorModel, DoorModelImage } from "@prisma/client";
+import type {
+  DoorFinish as PrismaDoorFinish,
+  DoorModel as PrismaDoorModel,
+  DoorModelImage,
+} from "@prisma/client";
 
-type Model = PrismaDoorModel & { images: DoorModelImage[] };
+type Finish = PrismaDoorFinish;
 
-export type { Model };
+type Model = PrismaDoorModel & {
+  finishes: PrismaDoorFinish[];
+  images: DoorModelImage[];
+};
+
+export type { Model, Finish };

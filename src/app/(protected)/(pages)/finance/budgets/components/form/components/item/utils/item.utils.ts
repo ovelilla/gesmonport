@@ -1,9 +1,25 @@
 // Types
 import type {
+  GetHardwareTotal,
   GetItemPrice,
   SumPrices,
   ToSelectItems,
+  ToSelectItemsFromRelation,
 } from "./types/item.utils.types";
+
+const getHardwareTotal: GetHardwareTotal = ({ hardwareItems, hardwares }) => {
+  return hardwareItems.reduce((acc, hardwareItem) => {
+    if (!hardwareItem.hardwareId || !hardwareItem.quantity) return acc;
+
+    const hardware = hardwares.find(
+      (hardware) => hardware.id === hardwareItem.hardwareId,
+    );
+
+    if (!hardware) return acc;
+
+    return acc + (hardware.price ?? 0) * hardwareItem.quantity;
+  }, 0);
+};
 
 const getItemPrice: GetItemPrice = ({ items, id, width, height }) => {
   if (!width || !height) {
@@ -40,4 +56,22 @@ const toSelectItems: ToSelectItems = ({ items }) =>
     label: item.name,
   }));
 
-export { getItemPrice, sumPrices, toSelectItems };
+const toSelectItemsFromRelation: ToSelectItemsFromRelation = ({
+  items,
+  parentId,
+  relationKey,
+}) =>
+  items
+    .find((i) => i.id === parentId)
+    ?.[relationKey].map((rel) => ({
+      value: rel.id,
+      label: rel.name,
+    })) ?? [];
+
+export {
+  getHardwareTotal,
+  getItemPrice,
+  sumPrices,
+  toSelectItems,
+  toSelectItemsFromRelation,
+};
