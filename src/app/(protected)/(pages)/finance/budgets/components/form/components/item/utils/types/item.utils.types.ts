@@ -2,7 +2,12 @@
 import type { Hardware } from "@/app/(protected)/(pages)/finance/budgets/types/budgets.types";
 import type { BudgetSchema } from "@/app/(protected)/(pages)/finance/budgets/schemas/types/budgets.schemas.types";
 
-type GetHardwareTotal = (params: {
+type GetDoorExtrasTotal = (params: {
+  doorExtraIds: string[];
+  doorExtras: { id: string; price: number }[];
+}) => number;
+
+type GetHardwaresTotal = (params: {
   hardwareItems: BudgetSchema["items"][number]["hardwareItems"];
   hardwares: Hardware[];
 }) => number;
@@ -38,7 +43,8 @@ type ToSelectItemsFromRelation = <R extends string>(args: {
 }) => { value: string; label: string }[];
 
 export type {
-  GetHardwareTotal,
+  GetDoorExtrasTotal,
+  GetHardwaresTotal,
   GetItemPrice,
   SumPrices,
   ToSelectItems,

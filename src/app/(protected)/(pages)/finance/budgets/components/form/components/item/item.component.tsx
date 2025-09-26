@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/form";
 import { HardwareItem } from "./components/hardaware-item/hardware-item.component";
 import { Input } from "@/components/ui/input";
+import { MultiSelect } from "@/components/ui/multiple-selector";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 // Constants
@@ -28,6 +29,7 @@ const Item = ({
   architraves,
   doorFamilies,
   doorFinishes,
+  doorExtras,
   doorModels,
   doorTypes,
   fieldArray,
@@ -67,6 +69,7 @@ const Item = ({
     architraves,
     doorFamilies,
     doorFinishes,
+    doorExtras,
     doorModels,
     doorTypes,
     fieldArray,
@@ -158,6 +161,30 @@ const Item = ({
               />
             </FormControl>
             <FormMessage className="col-span-2" />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.doorExtras`}
+        render={({ field }) => (
+          <FormItem className="col-[1/2] row-[5/6] grid [grid-template-columns:64px_1fr] items-center">
+            <FormLabel htmlFor={field.name}>Extras</FormLabel>
+            <FormControl>
+              <MultiSelect
+                {...field}
+                defaultValue={field.value}
+                onValueChange={field.onChange}
+                options={doorExtras.map((model) => ({
+                  label: model.name,
+                  value: model.id,
+                }))}
+                placeholder="Seleccionar"
+                singleLine
+                variant="inverted"
+              />
+            </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />

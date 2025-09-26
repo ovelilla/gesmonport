@@ -8,6 +8,7 @@ import type {
   ReadCustomersReturn,
   ReadDoorFamiliesReturn,
   ReadDoorFinishesReturn,
+  ReadDoorExtrasReturn,
   ReadDoorModelsReturn,
   ReadDoorTypesReturn,
   ReadFramesReturn,
@@ -105,6 +106,19 @@ const readDoorFinishes = async (): Promise<ReadDoorFinishesReturn> => {
       },
     });
     return doorFinishes;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readDoorExtras = async (): Promise<ReadDoorExtrasReturn> => {
+  try {
+    const extras = await prisma.doorExtra.findMany({
+      orderBy: { name: "asc" },
+    });
+
+    return extras;
   } catch (error) {
     console.error(error);
     return [];
@@ -230,6 +244,7 @@ export {
   readCustomers,
   readDoorFamilies,
   readDoorFinishes,
+  readDoorExtras,
   readDoorModels,
   readDoorTypes,
   readFrames,

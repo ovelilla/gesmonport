@@ -11,7 +11,8 @@ import type {
 import type { BudgetSchema } from "@/app/(protected)/(pages)/finance/budgets/schemas/types/budgets.schemas.types";
 // Utils
 import {
-  getHardwareTotal,
+  getDoorExtrasTotal,
+  getHardwaresTotal,
   getItemPrice,
   sumPrices,
   toSelectItems,
@@ -22,6 +23,7 @@ const ItemHook = ({
   architraves,
   doorFamilies,
   doorFinishes,
+  doorExtras,
   doorModels,
   doorTypes,
   // fieldArray,
@@ -43,8 +45,6 @@ const ItemHook = ({
     control,
     name: `items.${index}`,
   }) as BudgetSchema["items"][number];
-
-  console.log("Item Hook Render", item);
 
   const hardwareFieldArray = useFieldArray({
     control,
@@ -120,9 +120,14 @@ const ItemHook = ({
     width: item.width2,
   });
 
-  const hardwareTotal = getHardwareTotal({
+  const hardwaresTotal = getHardwaresTotal({
     hardwareItems: item.hardwareItems,
     hardwares,
+  });
+
+  const doorExtrasTotal = getDoorExtrasTotal({
+    doorExtraIds: item.doorExtras,
+    doorExtras,
   });
 
   const subtotal = sumPrices(
@@ -132,9 +137,10 @@ const ItemHook = ({
     doorTypePrice1,
     doorFamilyPrice2,
     doorFinishPrice2,
+    doorExtrasTotal,
     doorModelPrice2,
     doorTypePrice2,
-    hardwareTotal,
+    hardwaresTotal,
   );
 
   const total = subtotal * (item.quantity ?? 0);

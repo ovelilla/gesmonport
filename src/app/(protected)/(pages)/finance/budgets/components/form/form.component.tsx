@@ -47,6 +47,7 @@ const BudgetForm = ({
   customers,
   doorFamilies,
   doorFinishes,
+  doorExtras,
   doorModels,
   doorTypes,
   fieldArray,
@@ -475,6 +476,7 @@ const BudgetForm = ({
                   key={field.id}
                   doorFamilies={doorFamilies}
                   doorFinishes={doorFinishes}
+                  doorExtras={doorExtras}
                   doorModels={doorModels}
                   doorTypes={doorTypes}
                   fieldArray={fieldArray}

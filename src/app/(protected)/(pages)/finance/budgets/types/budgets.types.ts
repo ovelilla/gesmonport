@@ -10,6 +10,7 @@ import {
   DoorFamilyPrice,
   DoorFinish as PrismaDoorFinish,
   DoorFinishPrice,
+  DoorExtra as PrismaDoorExtra,
   DoorModel as PrismaDoorModel,
   DoorModelPrice,
   DoorType as PrismaDoorType,
@@ -51,6 +52,8 @@ type DoorFinish = PrismaDoorFinish & {
   prices: DoorFinishPrice[];
 };
 
+type DoorExtra = PrismaDoorExtra;
+
 type DoorModel = PrismaDoorModel & {
   finishes: PrismaDoorFinish[];
   prices: DoorModelPrice[];
@@ -85,6 +88,7 @@ export type {
   Customer,
   DoorFamily,
   DoorFinish,
+  DoorExtra,
   DoorModel,
   DoorType,
   Frame,

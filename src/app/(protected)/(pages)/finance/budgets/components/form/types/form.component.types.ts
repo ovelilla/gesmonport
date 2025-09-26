@@ -4,6 +4,7 @@ import type {
   Customer,
   DoorFamily,
   DoorFinish,
+  DoorExtra,
   DoorModel,
   DoorType,
   Frame,
@@ -19,6 +20,7 @@ type BudgetFormProps = {
   customers: Customer[];
   doorFamilies: DoorFamily[];
   doorFinishes: DoorFinish[];
+  doorExtras: DoorExtra[];
   doorModels: DoorModel[];
   doorTypes: DoorType[];
   fieldArray: UseFieldArrayReturn<BudgetSchema, "items">;

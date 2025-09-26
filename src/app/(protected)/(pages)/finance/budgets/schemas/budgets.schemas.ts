@@ -26,6 +26,9 @@ const budgetSchema = z.object({
       doorFinishId: z
         .string()
         .min(1, { error: "El acabado de hoja es requerido" }),
+      doorExtras: z
+        .array(z.string())
+        .max(100, { error: "Máximo 100 extras de puertas permitidos" }),
       frameId: z.string().min(1, { error: "El marco es requerido" }),
       glassId: z.string().min(1, { error: "El vidrio es requerido" }),
       hardwareItems: z.array(

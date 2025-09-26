@@ -7,7 +7,6 @@ import {
   XIcon,
   WandSparkles,
 } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -680,7 +679,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     }, [defaultValue, selectedValues, arraysEqual, resetOnDefaultValueChange]);
 
     const getWidthConstraints = () => {
-      const defaultMinWidth = screenSize === "mobile" ? "0px" : "200px";
+      const defaultMinWidth = screenSize === "mobile" ? "0px" : "100px";
       const effectiveMinWidth = minWidth || defaultMinWidth;
       const effectiveMaxWidth = maxWidth || "100%";
       return {

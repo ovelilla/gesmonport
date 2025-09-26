@@ -189,6 +189,10 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
         title: "Acabados",
         url: "/doors/finishes",
       },
+      {
+        title: "Extras",
+        url: "/doors/extras",
+      },
     ],
   },
   {

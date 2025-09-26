@@ -5,6 +5,7 @@ import type {
   Customer,
   DoorFamily,
   DoorFinish,
+  DoorExtra,
   DoorModel,
   DoorType,
   Frame,
@@ -22,6 +23,8 @@ type ReadCustomersReturn = Customer[];
 type ReadDoorFamiliesReturn = DoorFamily[];
 
 type ReadDoorFinishesReturn = DoorFinish[];
+
+type ReadDoorExtrasReturn = DoorExtra[];
 
 type ReadDoorModelsReturn = DoorModel[];
 
@@ -41,6 +44,7 @@ export type {
   ReadCustomersReturn,
   ReadDoorFamiliesReturn,
   ReadDoorFinishesReturn,
+  ReadDoorExtrasReturn,
   ReadDoorModelsReturn,
   ReadDoorTypesReturn,
   ReadFramesReturn,

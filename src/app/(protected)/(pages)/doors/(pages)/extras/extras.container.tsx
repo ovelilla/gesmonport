@@ -1,32 +1,19 @@
 "use client";
 // Components
 import { AlertDialogWrapper } from "@/components/alert-dialog-wrapper/alert-dialog-wrapper.component";
-import { BudgetForm } from "./components/form/form.component";
+import { ExtraForm } from "./components/form/form.component";
 import { DataTable } from "@/components/data-table/data-table.component";
 import { DialogWrapper } from "@/components/dialog-wrapper/dialog-wrapper.component";
 // Hooks
-import { BudgetsHook } from "./hooks/budgets.hook";
+import { ExtrasHook } from "./hooks/extras.hook";
 // Types
-import type { BudgetsProps } from "./types/budgets.container.types";
+import type { ExtrasProps } from "./types/extras.container.types";
 
-const BudgetsContainer = ({
-  architraves,
-  budgets,
-  customers,
-  doorFamilies,
-  doorFinishes,
-  doorExtras,
-  doorModels,
-  doorTypes,
-  frames,
-  hardwares,
-  hardwareTypes,
-  paymentMethods,
-}: BudgetsProps) => {
+const ExtrasContainer = ({ extras }: ExtrasProps) => {
   const {
     columns,
     data,
-    fieldArray,
+    existingImages,
     form,
     handleCreate,
     handleOpenChangeAlertDialog,
@@ -36,15 +23,20 @@ const BudgetsContainer = ({
     handleSubmitDeleteMultiple,
     loading,
     multipleSelectActionsProps,
+    newImages,
     openAlert,
     openDialog,
     selectedRow,
     selectedRows,
-  } = BudgetsHook({ budgets });
+    setExistingImages,
+    setNewImages,
+    setToDelete,
+    toDelete,
+  } = ExtrasHook({ extras });
 
   return (
     <div className="flex grow flex-col gap-2 overflow-hidden p-4">
-      <h1 className="text-2xl font-medium">Presupuestos</h1>
+      <h1 className="text-2xl font-medium">Extras de puertas</h1>
       <DataTable
         columns={columns}
         data={data}
@@ -53,29 +45,22 @@ const BudgetsContainer = ({
         onCreateRecord={handleCreate}
       />
       <DialogWrapper
-        className="w-full max-w-full sm:h-dvh sm:rounded-none sm:border-none"
-        description={`Rellena los campos para ${selectedRow ? "editar" : "crear"} un presupuesto.`}
+        description={`Rellena los campos para ${selectedRow ? "editar" : "crear"} un extra.`}
         onOpenChange={handleOpenChangeDialog}
         open={openDialog}
-        title={`${selectedRow ? "Editar" : "Crear"} presupuesto`}
+        title={`${selectedRow ? "Editar" : "Crear"} extra`}
       >
-        <BudgetForm
-          architraves={architraves}
-          customers={customers}
-          doorFamilies={doorFamilies}
-          doorFinishes={doorFinishes}
-          doorExtras={doorExtras}
-          doorModels={doorModels}
-          doorTypes={doorTypes}
-          fieldArray={fieldArray}
+        <ExtraForm
+          existingImages={existingImages}
           form={form}
-          frames={frames}
           handleSubmit={handleSubmit}
-          hardwares={hardwares}
-          hardwareTypes={hardwareTypes}
           label={selectedRow ? "Editar" : "Crear"}
           loading={loading}
-          paymentMethods={paymentMethods}
+          newImages={newImages}
+          setExistingImages={setExistingImages}
+          setNewImages={setNewImages}
+          setToDelete={setToDelete}
+          toDelete={toDelete}
         />
       </DialogWrapper>
       <AlertDialogWrapper
@@ -90,15 +75,15 @@ const BudgetsContainer = ({
         }}
         description={`¿Estás seguro de que quieres eliminar ${
           selectedRows.length > 1
-            ? "los presupuestos seleccionados"
-            : "el presupuesto seleccionado"
+            ? "los extras seleccionados"
+            : "el extra seleccionado"
         }?`}
         open={openAlert}
         onOpenChange={handleOpenChangeAlertDialog}
-        title={`Eliminar ${selectedRows.length > 1 ? "presupuestos" : "presupuesto"}`}
+        title={`Eliminar ${selectedRows.length > 1 ? "extras" : "extra"}`}
       />
     </div>
   );
 };
 
-export { BudgetsContainer };
+export { ExtrasContainer };

@@ -5,6 +5,7 @@ import type {
   Customer,
   DoorFamily,
   DoorFinish,
+  DoorExtra,
   DoorModel,
   DoorType,
   Frame,
@@ -19,6 +20,7 @@ type BudgetsProps = {
   customers: Customer[];
   doorFamilies: DoorFamily[];
   doorFinishes: DoorFinish[];
+  doorExtras: DoorExtra[];
   doorModels: DoorModel[];
   doorTypes: DoorType[];
   frames: Frame[];

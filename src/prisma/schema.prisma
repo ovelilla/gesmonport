@@ -309,6 +309,27 @@ model DoorFinishPrice {
   @@unique([doorFinishId, width, height])
 }
 
+model DoorExtra {
+  id          String           @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  price       Float
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  images      DoorExtraImage[]
+}
+
+model DoorExtraImage {
+  id          String    @id @default(cuid())
+  url         String
+  publicId    String
+  doorExtraId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  doorExtra   DoorExtra @relation(fields: [doorExtraId], references: [id], onDelete: Cascade)
+}
+
 model Hardware {
   id          String   @id @default(cuid())
   name        String

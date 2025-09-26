@@ -16,6 +16,7 @@ const DEFAULT_ITEM = {
   doorFamilyId: "",
   doorModelId: "",
   doorFinishId: "",
+  doorExtras: [] as string[],
   frameId: "",
   glassId: "",
   hardwareItems: [HARDWARE_DEFAULT_ITEM],

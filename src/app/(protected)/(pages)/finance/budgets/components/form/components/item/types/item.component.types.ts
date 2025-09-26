@@ -3,6 +3,7 @@ import type {
   Architrave,
   DoorFamily,
   DoorFinish,
+  DoorExtra,
   DoorModel,
   DoorType,
   Frame,
@@ -16,6 +17,7 @@ type ItemProps = {
   architraves: Architrave[];
   doorFamilies: DoorFamily[];
   doorFinishes: DoorFinish[];
+  doorExtras: DoorExtra[];
   doorModels: DoorModel[];
   doorTypes: DoorType[];
   fieldArray: UseFieldArrayReturn<BudgetSchema, "items">;

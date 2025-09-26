@@ -1,13 +1,24 @@
 // Types
 import type {
-  GetHardwareTotal,
+  GetDoorExtrasTotal,
+  GetHardwaresTotal,
   GetItemPrice,
   SumPrices,
   ToSelectItems,
   ToSelectItemsFromRelation,
 } from "./types/item.utils.types";
 
-const getHardwareTotal: GetHardwareTotal = ({ hardwareItems, hardwares }) => {
+const getDoorExtrasTotal: GetDoorExtrasTotal = ({
+  doorExtraIds,
+  doorExtras,
+}) => {
+  return doorExtraIds.reduce((acc, extraId) => {
+    const extra = doorExtras.find((de) => de.id === extraId);
+    return extra ? acc + (extra.price ?? 0) : acc;
+  }, 0);
+};
+
+const getHardwaresTotal: GetHardwaresTotal = ({ hardwareItems, hardwares }) => {
   return hardwareItems.reduce((acc, hardwareItem) => {
     if (!hardwareItem.hardwareId || !hardwareItem.quantity) return acc;
 
@@ -69,7 +80,8 @@ const toSelectItemsFromRelation: ToSelectItemsFromRelation = ({
     })) ?? [];
 
 export {
-  getHardwareTotal,
+  getDoorExtrasTotal,
+  getHardwaresTotal,
   getItemPrice,
   sumPrices,
   toSelectItems,
