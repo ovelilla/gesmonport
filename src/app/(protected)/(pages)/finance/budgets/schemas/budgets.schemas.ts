@@ -1,7 +1,7 @@
 // Vendors
 import { z } from "zod";
 // Enums
-import { BudgetStatus } from "@/generated/prisma";
+import { BudgetStatus } from "@/generated/prisma/enums";
 
 const budgetSchema = z.object({
   customerId: z
