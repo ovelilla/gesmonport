@@ -116,7 +116,7 @@ const HardwareItem = ({
                   }
                 }}
                 placeholder="Ej: 10"
-                step={0.01}
+                step={1}
                 type="number"
               />
             </FormControl>

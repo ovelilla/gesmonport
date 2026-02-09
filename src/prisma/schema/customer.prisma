@@ -1,0 +1,69 @@
+model Customer {
+  id              String   @id @default(cuid())
+  customerNumber  Int      @unique
+  name            String
+  legalName       String?
+  email           String?
+  phone           String?
+  billingAddress  String?
+  shippingAddress String?
+  vatNumber       String?
+  iban            String?
+  notes           String?
+  discountDoor    Float?
+  discountParts   Float?
+  paymentMethodId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  contacts Contact[]
+
+  paymentMethod PaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+  Budget        Budget[]
+}
+
+model PaymentMethod {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  customers   Customer[]
+  Budget      Budget[]
+}
+
+model Contact {
+  id           String   @id @default(cuid())
+  name         String
+  email        String?
+  phone        String?
+  customerId   String
+  departmentId String?
+  positionId   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  customer   Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  department Department? @relation(fields: [departmentId], references: [id])
+  position   Position?   @relation(fields: [positionId], references: [id])
+
+  @@index([customerId])
+}
+
+model Department {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  contacts    Contact[]
+}
+
+model Position {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  contacts    Contact[]
+}

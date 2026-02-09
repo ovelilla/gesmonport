@@ -10,15 +10,25 @@ import { BudgetsHook } from "./hooks/budgets.hook";
 import type { BudgetsProps } from "./types/budgets.container.types";
 
 const BudgetsContainer = ({
-  architraves,
+  architraveFamilies,
+  architraveFinishes,
+  architraveModels,
+  architraveTypes,
   budgets,
   customers,
+  doorExtras,
   doorFamilies,
   doorFinishes,
-  doorExtras,
   doorModels,
   doorTypes,
-  frames,
+  frameFamilies,
+  frameFinishes,
+  frameModels,
+  frameTypes,
+  glassFamilies,
+  glassFinishes,
+  glassModels,
+  glassTypes,
   hardwares,
   hardwareTypes,
   paymentMethods,
@@ -60,16 +70,26 @@ const BudgetsContainer = ({
         title={`${selectedRow ? "Editar" : "Crear"} presupuesto`}
       >
         <BudgetForm
-          architraves={architraves}
+          architraveFamilies={architraveFamilies}
+          architraveFinishes={architraveFinishes}
+          architraveModels={architraveModels}
+          architraveTypes={architraveTypes}
           customers={customers}
+          doorExtras={doorExtras}
           doorFamilies={doorFamilies}
           doorFinishes={doorFinishes}
-          doorExtras={doorExtras}
           doorModels={doorModels}
           doorTypes={doorTypes}
           fieldArray={fieldArray}
           form={form}
-          frames={frames}
+          frameFamilies={frameFamilies}
+          frameFinishes={frameFinishes}
+          frameModels={frameModels}
+          frameTypes={frameTypes}
+          glassFamilies={glassFamilies}
+          glassFinishes={glassFinishes}
+          glassModels={glassModels}
+          glassTypes={glassTypes}
           handleSubmit={handleSubmit}
           hardwares={hardwares}
           hardwareTypes={hardwareTypes}

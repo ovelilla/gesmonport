@@ -1,12 +1,22 @@
 // Types
 import type {
-  Architrave,
+  ArchitraveFamily,
+  ArchitraveFinish,
+  ArchitraveModel,
+  ArchitraveType,
+  DoorExtra,
   DoorFamily,
   DoorFinish,
-  DoorExtra,
   DoorModel,
   DoorType,
-  Frame,
+  FrameFamily,
+  FrameFinish,
+  FrameModel,
+  FrameType,
+  GlassFamily,
+  GlassFinish,
+  GlassModel,
+  GlassType,
   Hardware,
   HardwareType,
 } from "@/app/(protected)/(pages)/finance/budgets/types/budgets.types";
@@ -14,14 +24,24 @@ import type { BudgetSchema } from "@/app/(protected)/(pages)/finance/budgets/sch
 import type { UseFieldArrayReturn } from "react-hook-form";
 
 type ItemProps = {
-  architraves: Architrave[];
+  architraveFamilies: ArchitraveFamily[];
+  architraveFinishes: ArchitraveFinish[];
+  architraveModels: ArchitraveModel[];
+  architraveTypes: ArchitraveType[];
+  doorExtras: DoorExtra[];
   doorFamilies: DoorFamily[];
   doorFinishes: DoorFinish[];
-  doorExtras: DoorExtra[];
   doorModels: DoorModel[];
   doorTypes: DoorType[];
   fieldArray: UseFieldArrayReturn<BudgetSchema, "items">;
-  frames: Frame[];
+  frameFamilies: FrameFamily[];
+  frameFinishes: FrameFinish[];
+  frameModels: FrameModel[];
+  frameTypes: FrameType[];
+  glassFamilies: GlassFamily[];
+  glassFinishes: GlassFinish[];
+  glassModels: GlassModel[];
+  glassTypes: GlassType[];
   hardwares: Hardware[];
   hardwareTypes: HardwareType[];
   index: number;

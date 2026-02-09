@@ -5,7 +5,7 @@ import type {
   HardwareFinish,
   HardwareImage,
   HardwareType,
-} from "@prisma/client";
+} from "@/generated/prisma";
 
 type Hardware = PrismaHardware & {
   doorTypes: DoorType[];

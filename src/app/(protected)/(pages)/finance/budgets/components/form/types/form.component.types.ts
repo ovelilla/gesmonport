@@ -1,13 +1,23 @@
 // Types
 import type {
-  Architrave,
+  ArchitraveFamily,
+  ArchitraveFinish,
+  ArchitraveModel,
+  ArchitraveType,
   Customer,
+  DoorExtra,
   DoorFamily,
   DoorFinish,
-  DoorExtra,
   DoorModel,
   DoorType,
-  Frame,
+  FrameFamily,
+  FrameFinish,
+  FrameModel,
+  FrameType,
+  GlassFamily,
+  GlassFinish,
+  GlassModel,
+  GlassType,
   Hardware,
   HardwareType,
   PaymentMethod,
@@ -16,16 +26,26 @@ import type { UseFieldArrayReturn, UseFormReturn } from "react-hook-form";
 import type { BudgetSchema } from "../../../schemas/types/budgets.schemas.types";
 
 type BudgetFormProps = {
-  architraves: Architrave[];
+  architraveFamilies: ArchitraveFamily[];
+  architraveFinishes: ArchitraveFinish[];
+  architraveModels: ArchitraveModel[];
+  architraveTypes: ArchitraveType[];
   customers: Customer[];
+  doorExtras: DoorExtra[];
   doorFamilies: DoorFamily[];
   doorFinishes: DoorFinish[];
-  doorExtras: DoorExtra[];
   doorModels: DoorModel[];
   doorTypes: DoorType[];
   fieldArray: UseFieldArrayReturn<BudgetSchema, "items">;
   form: UseFormReturn<BudgetSchema>;
-  frames: Frame[];
+  frameFamilies: FrameFamily[];
+  frameFinishes: FrameFinish[];
+  frameModels: FrameModel[];
+  frameTypes: FrameType[];
+  glassFamilies: GlassFamily[];
+  glassFinishes: GlassFinish[];
+  glassModels: GlassModel[];
+  glassTypes: GlassType[];
   handleSubmit: (values: BudgetSchema) => void;
   hardwares: Hardware[];
   hardwareTypes: HardwareType[];

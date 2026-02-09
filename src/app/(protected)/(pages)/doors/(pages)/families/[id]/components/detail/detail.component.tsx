@@ -111,6 +111,8 @@ const Detail = ({ doorFamily }: DetailProps) => {
           <div className="flex flex-col gap-4">
             <h2 className="text-base font-semibold">Detalles</h2>
             <dl className="grid grid-cols-1 gap-2 md:grid-cols-2">
+              <dt className="font-medium">Referencia:</dt>
+              <dd className="whitespace-pre-line">{doorFamily.reference}</dd>
               <dt className="font-medium">Modelos</dt>
               <dd className="whitespace-pre-line">
                 {doorFamily.models && doorFamily.models.length > 0

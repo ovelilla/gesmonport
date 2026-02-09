@@ -1,13 +1,23 @@
 // Types
 import type { Dispatch, SetStateAction } from "react";
 import type {
-  Architrave,
+  ArchitraveFamily,
+  ArchitraveFinish,
+  ArchitraveModel,
+  ArchitraveType,
+  DoorExtra,
   DoorFamily,
   DoorFinish,
-  DoorExtra,
   DoorModel,
   DoorType,
-  Frame,
+  FrameFamily,
+  FrameFinish,
+  FrameModel,
+  FrameType,
+  GlassFamily,
+  GlassFinish,
+  GlassModel,
+  GlassType,
   Hardware,
 } from "@/app/(protected)/(pages)/finance/budgets/types/budgets.types";
 import type {
@@ -24,47 +34,34 @@ type AutocompleteItem = {
 };
 
 type ItemHookProps = {
-  architraves: Architrave[];
+  architraveFamilies: ArchitraveFamily[];
+  architraveFinishes: ArchitraveFinish[];
+  architraveModels: ArchitraveModel[];
+  architraveTypes: ArchitraveType[];
+  doorExtras: DoorExtra[];
   doorFamilies: DoorFamily[];
   doorFinishes: DoorFinish[];
-  doorExtras: DoorExtra[];
   doorModels: DoorModel[];
   doorTypes: DoorType[];
   fieldArray: UseFieldArrayReturn<BudgetSchema, "items">;
-  frames: Frame[];
+  frameFamilies: FrameFamily[];
+  frameFinishes: FrameFinish[];
+  frameModels: FrameModel[];
+  frameTypes: FrameType[];
+  glassFamilies: GlassFamily[];
+  glassFinishes: GlassFinish[];
+  glassModels: GlassModel[];
+  glassTypes: GlassType[];
   hardwares: Hardware[];
   index: number;
 };
 
 type ItemHookReturn = {
-  architraveItems: AutocompleteItem[];
   control: Control<BudgetSchema>;
-  doorFamilyItems: AutocompleteItem[];
-  doorFinishItems: AutocompleteItem[];
-  doorModelItems: AutocompleteItem[];
-  doorTypeItems: AutocompleteItem[];
-  frameItems: AutocompleteItem[];
-  getValues: UseFormGetValues<BudgetSchema>;
-  glassItems: AutocompleteItem[];
   hardwareFieldArray: UseFieldArrayReturn<
     BudgetSchema,
     `items.${number}.hardwareItems`
   >;
-  searchValueArchitrave: string;
-  searchValueDoorFamily: string;
-  searchValueDoorFinish: string;
-  searchValueDoorModel: string;
-  searchValueDoorType: string;
-  searchValueFrame: string;
-  searchValueGlass: string;
-  setSearchValueArchitrave: Dispatch<SetStateAction<string>>;
-  setSearchValueDoorFamily: Dispatch<SetStateAction<string>>;
-  setSearchValueDoorFinish: Dispatch<SetStateAction<string>>;
-  setSearchValueDoorModel: Dispatch<SetStateAction<string>>;
-  setSearchValueDoorType: Dispatch<SetStateAction<string>>;
-  setSearchValueFrame: Dispatch<SetStateAction<string>>;
-  setSearchValueGlass: Dispatch<SetStateAction<string>>;
-  setValue: UseFormSetValue<BudgetSchema>;
   total: number;
 };
 

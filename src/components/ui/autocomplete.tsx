@@ -78,7 +78,7 @@ export function AutoComplete<T extends string>({
 
   return (
     <div className="flex items-center">
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover open={open} onOpenChange={setOpen} modal={true}>
         <Command shouldFilter={true}>
           <PopoverAnchor asChild>
             <CommandPrimitive.Input

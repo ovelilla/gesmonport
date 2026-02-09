@@ -108,10 +108,8 @@ interface MultiSelectGroup {
  * Props for MultiSelect component
  */
 interface MultiSelectProps
-  extends Omit<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      "animationConfig"
-    >,
+  extends
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "animationConfig">,
     VariantProps<typeof multiSelectVariants> {
   /**
    * An array of option objects or groups to be displayed in the multi-select component.
@@ -989,17 +987,17 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                       className="flex h-full min-h-6"
                     />
                     <ChevronDown
-                      className="text-muted-foreground mx-2 h-4 cursor-pointer"
+                      className="text-muted-foreground mx-2 h-4 opacity-50"
                       aria-hidden="true"
                     />
                   </div>
                 </div>
               ) : (
                 <div className="mx-auto flex w-full items-center justify-between">
-                  <span className="text-muted-foreground mx-3 text-sm">
+                  <span className="text-muted-foreground mx-3 text-sm font-normal">
                     {placeholder}
                   </span>
-                  <ChevronDown className="text-muted-foreground mx-2 h-4 cursor-pointer" />
+                  <ChevronDown className="text-muted-foreground mx-2 h-4 opacity-50" />
                 </div>
               )}
             </Button>

@@ -1,5 +1,5 @@
 // Types
-import type { HardwareType as PrismaHardwareType } from "@prisma/client";
+import type { HardwareType as PrismaHardwareType } from "@/generated/prisma";
 import type { Session } from "next-auth";
 
 type HardwareType = PrismaHardwareType;

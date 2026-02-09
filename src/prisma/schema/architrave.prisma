@@ -1,0 +1,192 @@
+model ArchitraveType {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  families ArchitraveTypeFamily[]
+  images   ArchitraveTypeImage[]
+  prices   ArchitraveTypePrice[]
+}
+
+model ArchitraveTypeImage {
+  id               String   @id @default(cuid())
+  architraveTypeId String
+  url              String
+  publicId         String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  architraveType ArchitraveType @relation(fields: [architraveTypeId], references: [id], onDelete: Cascade)
+}
+
+model ArchitraveTypePrice {
+  id               String   @id @default(cuid())
+  architraveTypeId String
+  width            Float
+  height           Float
+  price            Float
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  architraveType ArchitraveType @relation(fields: [architraveTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([architraveTypeId, width, height])
+}
+
+model ArchitraveTypeFamily {
+  architraveTypeId   String
+  architraveFamilyId String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  architraveType   ArchitraveType   @relation(fields: [architraveTypeId], references: [id], onDelete: Cascade)
+  architraveFamily ArchitraveFamily @relation(fields: [architraveFamilyId], references: [id], onDelete: Cascade)
+
+  @@id([architraveTypeId, architraveFamilyId])
+  @@index([architraveFamilyId])
+}
+
+model ArchitraveFamily {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  types  ArchitraveTypeFamily[]
+  models ArchitraveFamilyModel[]
+  images ArchitraveFamilyImage[]
+  prices ArchitraveFamilyPrice[]
+}
+
+model ArchitraveFamilyImage {
+  id                 String   @id @default(cuid())
+  architraveFamilyId String
+  url                String
+  publicId           String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  architraveFamily ArchitraveFamily @relation(fields: [architraveFamilyId], references: [id], onDelete: Cascade)
+}
+
+model ArchitraveFamilyPrice {
+  id                 String   @id @default(cuid())
+  architraveFamilyId String
+  width              Float
+  height             Float
+  price              Float
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  architraveFamily ArchitraveFamily @relation(fields: [architraveFamilyId], references: [id], onDelete: Cascade)
+
+  @@unique([architraveFamilyId, width, height])
+}
+
+model ArchitraveFamilyModel {
+  architraveFamilyId String
+  architraveModelId  String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  architraveFamily ArchitraveFamily @relation(fields: [architraveFamilyId], references: [id], onDelete: Cascade)
+  architraveModel  ArchitraveModel  @relation(fields: [architraveModelId], references: [id], onDelete: Cascade)
+
+  @@id([architraveFamilyId, architraveModelId])
+  @@index([architraveModelId])
+}
+
+model ArchitraveModel {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  families ArchitraveFamilyModel[]
+  finishes ArchitraveModelFinish[]
+  images   ArchitraveModelImage[]
+  prices   ArchitraveModelPrice[]
+}
+
+model ArchitraveModelImage {
+  id                String   @id @default(cuid())
+  url               String
+  publicId          String
+  architraveModelId String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  architraveModel ArchitraveModel @relation(fields: [architraveModelId], references: [id], onDelete: Cascade)
+}
+
+model ArchitraveModelPrice {
+  id                String   @id @default(cuid())
+  architraveModelId String
+  width             Float
+  height            Float
+  price             Float
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  architraveModel ArchitraveModel @relation(fields: [architraveModelId], references: [id], onDelete: Cascade)
+
+  @@unique([architraveModelId, width, height])
+}
+
+model ArchitraveModelFinish {
+  architraveModelId  String
+  architraveFinishId String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  architraveModel  ArchitraveModel  @relation(fields: [architraveModelId], references: [id], onDelete: Cascade)
+  architraveFinish ArchitraveFinish @relation(fields: [architraveFinishId], references: [id], onDelete: Cascade)
+
+  @@id([architraveModelId, architraveFinishId])
+  @@index([architraveFinishId])
+}
+
+model ArchitraveFinish {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  models ArchitraveModelFinish[]
+  images ArchitraveFinishImage[]
+  prices ArchitraveFinishPrice[]
+}
+
+model ArchitraveFinishImage {
+  id                 String   @id @default(cuid())
+  architraveFinishId String
+  url                String
+  publicId           String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  architraveFinish ArchitraveFinish @relation(fields: [architraveFinishId], references: [id], onDelete: Cascade)
+}
+
+model ArchitraveFinishPrice {
+  id                 String   @id @default(cuid())
+  architraveFinishId String
+  width              Float
+  height             Float
+  price              Float
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  architraveFinish ArchitraveFinish @relation(fields: [architraveFinishId], references: [id], onDelete: Cascade)
+
+  @@unique([architraveFinishId, width, height])
+}

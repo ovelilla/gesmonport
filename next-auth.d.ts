@@ -1,4 +1,4 @@
-import type { UserRole } from "@prisma/client";
+import type { UserRole } from "@/generated/prisma";
 import type { DefaultSession } from "next-auth";
 import type { JWT as DefaultJWT } from "next-auth/jwt";
 

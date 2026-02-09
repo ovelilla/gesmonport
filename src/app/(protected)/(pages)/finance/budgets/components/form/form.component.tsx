@@ -32,7 +32,7 @@ import { Textarea } from "@/components/ui/textarea";
 // Constants
 import { DEFAULT_ITEM } from "../../constants/budgets.constants";
 // Enums
-import { BudgetStatus } from "@prisma/client";
+import { BudgetStatus } from "@/generated/prisma";
 // Hooks
 import { BudgetFormHook } from "./hooks/form.hook";
 // Icons
@@ -43,16 +43,26 @@ import { cn } from "@/lib/utils";
 import type { BudgetFormProps } from "./types/form.component.types";
 
 const BudgetForm = ({
-  architraves,
+  architraveFamilies,
+  architraveFinishes,
+  architraveModels,
+  architraveTypes,
   customers,
+  doorExtras,
   doorFamilies,
   doorFinishes,
-  doorExtras,
   doorModels,
   doorTypes,
   fieldArray,
   form,
-  frames,
+  frameFamilies,
+  frameFinishes,
+  frameModels,
+  frameTypes,
+  glassFamilies,
+  glassFinishes,
+  glassModels,
+  glassTypes,
   handleSubmit,
   hardwares,
   hardwareTypes,
@@ -78,7 +88,7 @@ const BudgetForm = ({
         className="flex min-h-full flex-col gap-6"
       >
         <div className="flex grow flex-col gap-4">
-          <div className="grid [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))] gap-2">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-2">
             <FormField
               control={form.control}
               name="customerId"
@@ -450,15 +460,14 @@ const BudgetForm = ({
           </div>
           <div className="flex grow overflow-auto rounded-md border">
             <div className="flex grow flex-col gap-4 p-4">
-              <div className="grid [grid-template-columns:minmax(232px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(520px,1fr)_160px_96px_80px_80px] gap-2">
+              <div className="grid grid-cols-[minmax(176px,1fr)_minmax(176px,1fr)_minmax(176px,1fr)_minmax(176px,1fr)_minmax(520px,1fr)_160px_96px_80px_80px] gap-2">
                 <div className="text-sm">Hoja</div>
                 <div className="text-sm">Vidrio</div>
                 <div className="text-sm">Tapajuntas</div>
                 <div className="text-sm">Marco</div>
                 <div className="flex flex-col text-sm">
                   <div>Herrajes</div>
-
-                  <div className="grid [grid-template-columns:minmax(160px,1fr)_minmax(160px,1fr)_96px_80px]">
+                  <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_96px_80px]">
                     <div className="text-sm">Tipo</div>
                     <div className="text-sm">Herraje</div>
                     <div className="text-sm">Cantidad</div>
@@ -472,7 +481,10 @@ const BudgetForm = ({
               </div>
               {fieldArray.fields.map((field, index) => (
                 <Item
-                  architraves={architraves}
+                  architraveFamilies={architraveFamilies}
+                  architraveFinishes={architraveFinishes}
+                  architraveModels={architraveModels}
+                  architraveTypes={architraveTypes}
                   key={field.id}
                   doorFamilies={doorFamilies}
                   doorFinishes={doorFinishes}
@@ -480,7 +492,14 @@ const BudgetForm = ({
                   doorModels={doorModels}
                   doorTypes={doorTypes}
                   fieldArray={fieldArray}
-                  frames={frames}
+                  frameFamilies={frameFamilies}
+                  frameFinishes={frameFinishes}
+                  frameModels={frameModels}
+                  frameTypes={frameTypes}
+                  glassFamilies={glassFamilies}
+                  glassFinishes={glassFinishes}
+                  glassModels={glassModels}
+                  glassTypes={glassTypes}
                   hardwares={hardwares}
                   hardwareTypes={hardwareTypes}
                   index={index}

@@ -1,7 +1,7 @@
 import {
   HardwareFinish as PrismaHardwareFinish,
   HardwareFinishImage,
-} from "@prisma/client";
+} from "@/generated/prisma";
 
 type Finish = PrismaHardwareFinish & { images: HardwareFinishImage[] };
 

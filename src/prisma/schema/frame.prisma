@@ -1,0 +1,192 @@
+model FrameType {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  families FrameTypeFamily[]
+  images   FrameTypeImage[]
+  prices   FrameTypePrice[]
+}
+
+model FrameTypeImage {
+  id          String   @id @default(cuid())
+  frameTypeId String
+  url         String
+  publicId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  frameType FrameType @relation(fields: [frameTypeId], references: [id], onDelete: Cascade)
+}
+
+model FrameTypePrice {
+  id          String   @id @default(cuid())
+  frameTypeId String
+  width       Float
+  height      Float
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  frameType FrameType @relation(fields: [frameTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([frameTypeId, width, height])
+}
+
+model FrameTypeFamily {
+  frameTypeId   String
+  frameFamilyId String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  frameType   FrameType   @relation(fields: [frameTypeId], references: [id], onDelete: Cascade)
+  frameFamily FrameFamily @relation(fields: [frameFamilyId], references: [id], onDelete: Cascade)
+
+  @@id([frameTypeId, frameFamilyId])
+  @@index([frameFamilyId])
+}
+
+model FrameFamily {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  types  FrameTypeFamily[]
+  models FrameFamilyModel[]
+  images FrameFamilyImage[]
+  prices FrameFamilyPrice[]
+}
+
+model FrameFamilyImage {
+  id            String   @id @default(cuid())
+  frameFamilyId String
+  url           String
+  publicId      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  frameFamily FrameFamily @relation(fields: [frameFamilyId], references: [id], onDelete: Cascade)
+}
+
+model FrameFamilyPrice {
+  id            String   @id @default(cuid())
+  frameFamilyId String
+  width         Float
+  height        Float
+  price         Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  frameFamily FrameFamily @relation(fields: [frameFamilyId], references: [id], onDelete: Cascade)
+
+  @@unique([frameFamilyId, width, height])
+}
+
+model FrameFamilyModel {
+  frameFamilyId String
+  frameModelId  String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  frameFamily FrameFamily @relation(fields: [frameFamilyId], references: [id], onDelete: Cascade)
+  frameModel  FrameModel  @relation(fields: [frameModelId], references: [id], onDelete: Cascade)
+
+  @@id([frameFamilyId, frameModelId])
+  @@index([frameModelId])
+}
+
+model FrameModel {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  families FrameFamilyModel[]
+  finishes FrameModelFinish[]
+  images   FrameModelImage[]
+  prices   FrameModelPrice[]
+}
+
+model FrameModelImage {
+  id           String   @id @default(cuid())
+  url          String
+  publicId     String
+  frameModelId String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  frameModel FrameModel @relation(fields: [frameModelId], references: [id], onDelete: Cascade)
+}
+
+model FrameModelPrice {
+  id           String   @id @default(cuid())
+  frameModelId String
+  width        Float
+  height       Float
+  price        Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  frameModel FrameModel @relation(fields: [frameModelId], references: [id], onDelete: Cascade)
+
+  @@unique([frameModelId, width, height])
+}
+
+model FrameModelFinish {
+  frameModelId  String
+  frameFinishId String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  frameModel  FrameModel  @relation(fields: [frameModelId], references: [id], onDelete: Cascade)
+  frameFinish FrameFinish @relation(fields: [frameFinishId], references: [id], onDelete: Cascade)
+
+  @@id([frameModelId, frameFinishId])
+  @@index([frameFinishId])
+}
+
+model FrameFinish {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  models FrameModelFinish[]
+  images FrameFinishImage[]
+  prices FrameFinishPrice[]
+}
+
+model FrameFinishImage {
+  id            String   @id @default(cuid())
+  frameFinishId String
+  url           String
+  publicId      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  frameFinish FrameFinish @relation(fields: [frameFinishId], references: [id], onDelete: Cascade)
+}
+
+model FrameFinishPrice {
+  id            String   @id @default(cuid())
+  frameFinishId String
+  width         Float
+  height        Float
+  price         Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  frameFinish FrameFinish @relation(fields: [frameFinishId], references: [id], onDelete: Cascade)
+
+  @@unique([frameFinishId, width, height])
+}

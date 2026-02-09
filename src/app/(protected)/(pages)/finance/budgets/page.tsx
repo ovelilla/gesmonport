@@ -1,6 +1,9 @@
 // Actions
 import {
-  readArchitraves,
+  readArchitraveFamilies,
+  readArchitraveFinishes,
+  readArchitraveModels,
+  readArchitraveTypes,
   readBudgets,
   readCustomers,
   readDoorFamilies,
@@ -8,7 +11,14 @@ import {
   readDoorExtras,
   readDoorModels,
   readDoorTypes,
-  readFrames,
+  readFrameFamilies,
+  readFrameFinishes,
+  readFrameModels,
+  readFrameTypes,
+  readGlassFamilies,
+  readGlassFinishes,
+  readGlassModels,
+  readGlassTypes,
   readHardwares,
   readHardwareTypes,
   readPaymentMethods,
@@ -25,28 +35,48 @@ export const metadata: Metadata = {
 
 const BudgetsPage = async () => {
   const [
-    architraves,
+    architraveFamilies,
+    architraveFinishes,
+    architraveModels,
+    architraveTypes,
     budgets,
     customers,
+    doorExtras,
     doorFamilies,
     doorFinishes,
-    doorExtras,
     doorModels,
     doorTypes,
-    frames,
+    frameFamilies,
+    frameFinishes,
+    frameModels,
+    frameTypes,
+    glassFamilies,
+    glassFinishes,
+    glassModels,
+    glassTypes,
     hardwares,
     hardwareTypes,
     paymentMethods,
   ] = await Promise.all([
-    readArchitraves(),
+    readArchitraveFamilies(),
+    readArchitraveFinishes(),
+    readArchitraveModels(),
+    readArchitraveTypes(),
     readBudgets(),
     readCustomers(),
+    readDoorExtras(),
     readDoorFamilies(),
     readDoorFinishes(),
-    readDoorExtras(),
     readDoorModels(),
     readDoorTypes(),
-    readFrames(),
+    readFrameFamilies(),
+    readFrameFinishes(),
+    readFrameModels(),
+    readFrameTypes(),
+    readGlassFamilies(),
+    readGlassFinishes(),
+    readGlassModels(),
+    readGlassTypes(),
     readHardwares(),
     readHardwareTypes(),
     readPaymentMethods(),
@@ -54,15 +84,25 @@ const BudgetsPage = async () => {
 
   return (
     <BudgetsContainer
-      architraves={architraves}
+      architraveFamilies={architraveFamilies}
+      architraveFinishes={architraveFinishes}
+      architraveModels={architraveModels}
+      architraveTypes={architraveTypes}
       budgets={budgets}
       customers={customers}
+      doorExtras={doorExtras}
       doorFamilies={doorFamilies}
       doorFinishes={doorFinishes}
-      doorExtras={doorExtras}
       doorModels={doorModels}
       doorTypes={doorTypes}
-      frames={frames}
+      frameFamilies={frameFamilies}
+      frameFinishes={frameFinishes}
+      frameModels={frameModels}
+      frameTypes={frameTypes}
+      glassFamilies={glassFamilies}
+      glassFinishes={glassFinishes}
+      glassModels={glassModels}
+      glassTypes={glassTypes}
       hardwares={hardwares}
       hardwareTypes={hardwareTypes}
       paymentMethods={paymentMethods}

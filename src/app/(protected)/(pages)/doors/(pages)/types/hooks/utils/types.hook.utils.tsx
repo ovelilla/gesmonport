@@ -61,6 +61,13 @@ function getColumnsConfig({
       meta: "Descripción",
     },
     {
+      accessorKey: "reference",
+      header: ({ column }) => (
+        <ColumnSorter column={column} label="Referencia" />
+      ),
+      meta: "Referencia",
+    },
+    {
       cell: ({ row }) => (
         <RowActions
           row={row}

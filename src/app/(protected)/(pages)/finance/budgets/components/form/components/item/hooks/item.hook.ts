@@ -1,13 +1,8 @@
 "use client";
 // Vendors
-import { useState } from "react";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 // Types
-import type {
-  AutocompleteItem,
-  ItemHookProps,
-  ItemHookReturn,
-} from "./types/item.hook.types";
+import type { ItemHookProps, ItemHookReturn } from "./types/item.hook.types";
 import type { BudgetSchema } from "@/app/(protected)/(pages)/finance/budgets/schemas/types/budgets.schemas.types";
 // Utils
 import {
@@ -15,30 +10,31 @@ import {
   getHardwaresTotal,
   getItemPrice,
   sumPrices,
-  toSelectItems,
-  toSelectItemsFromRelation,
 } from "../utils/item.utils";
 
 const ItemHook = ({
-  architraves,
+  architraveFamilies,
+  architraveFinishes,
+  architraveModels,
+  architraveTypes,
   doorFamilies,
   doorFinishes,
   doorExtras,
   doorModels,
   doorTypes,
   // fieldArray,
-  frames,
+  frameFamilies,
+  frameFinishes,
+  frameModels,
+  frameTypes,
+  glassFamilies,
+  glassFinishes,
+  glassModels,
+  glassTypes,
   hardwares,
   index,
 }: ItemHookProps): ItemHookReturn => {
-  const [searchValueArchitrave, setSearchValueArchitrave] = useState("");
-  const [searchValueDoorFamily, setSearchValueDoorFamily] = useState("");
-  const [searchValueDoorFinish, setSearchValueDoorFinish] = useState("");
-  const [searchValueDoorModel, setSearchValueDoorModel] = useState("");
-  const [searchValueDoorType, setSearchValueDoorType] = useState("");
-  const [searchValueFrame, setSearchValueFrame] = useState("");
-  const [searchValueGlass, setSearchValueGlass] = useState("");
-
+  console.log({ glassTypes });
   const { control, getValues, setValue } = useFormContext<BudgetSchema>();
 
   const item = useWatch({
@@ -51,26 +47,30 @@ const ItemHook = ({
     name: `items.${index}.hardwareItems`,
   });
 
-  const architraveItems = toSelectItems({ items: architraves });
-  const doorFamilyItems = toSelectItemsFromRelation({
-    items: doorTypes,
-    parentId: item.doorTypeId,
-    relationKey: "families",
+  const architraveFamilyPrice = getItemPrice({
+    items: architraveFamilies,
+    id: item.architraveFamilyId,
+    height: item.height,
+    width: item.width1 + item.width2,
   });
-  const doorFinishItems = toSelectItemsFromRelation({
-    items: doorModels,
-    parentId: item.doorModelId,
-    relationKey: "finishes",
+  const architraveFinishPrice = getItemPrice({
+    items: architraveFinishes,
+    id: item.architraveFinishId,
+    height: item.height,
+    width: item.width1 + item.width2,
   });
-  const doorModelItems = toSelectItemsFromRelation({
-    items: doorFamilies,
-    parentId: item.doorFamilyId,
-    relationKey: "models",
+  const architraveModelPrice = getItemPrice({
+    items: architraveModels,
+    id: item.architraveModelId,
+    height: item.height,
+    width: item.width1 + item.width2,
   });
-  const doorTypeItems = toSelectItems({ items: doorTypes });
-  const frameItems = toSelectItems({ items: frames });
-  const glassItems: AutocompleteItem[] = [];
-
+  const architraveTypePrice = getItemPrice({
+    items: architraveTypes,
+    id: item.architraveTypeId,
+    height: item.height,
+    width: item.width1 + item.width2,
+  });
   const doorFamilyPrice1 = getItemPrice({
     items: doorFamilies,
     id: item.doorFamilyId,
@@ -119,11 +119,84 @@ const ItemHook = ({
     height: item.height,
     width: item.width2,
   });
+  const frameFamilyPrice = getItemPrice({
+    items: frameFamilies,
+    id: item.frameFamilyId,
+    height: item.height,
+    width: item.width1 + item.width2,
+  });
+  const frameFinishPrice = getItemPrice({
+    items: frameFinishes,
+    id: item.frameFinishId,
+    height: item.height,
+    width: item.width1 + item.width2,
+  });
+  const frameModelPrice = getItemPrice({
+    items: frameModels,
+    id: item.frameModelId,
+    height: item.height,
+    width: item.width1 + item.width2,
+  });
+  const frameTypePrice = getItemPrice({
+    items: frameTypes,
+    id: item.frameTypeId,
+    height: item.height,
+    width: item.width1 + item.width2,
+  });
+  const glassFamilyPrice1 = getItemPrice({
+    items: glassFamilies,
+    id: item.glassFamilyId,
+    height: item.height,
+    width: item.width1,
+  });
+  const glassFinishPrice1 = getItemPrice({
+    items: glassFinishes,
+    id: item.glassFinishId,
+    height: item.height,
+    width: item.width1,
+  });
+  const glassModelPrice1 = getItemPrice({
+    items: glassModels,
+    id: item.glassModelId,
+    height: item.height,
+    width: item.width1,
+  });
+  const glassTypePrice1 = getItemPrice({
+    items: glassTypes,
+    id: item.glassTypeId,
+    height: item.height,
+    width: item.width1,
+  });
+  const glassFamilyPrice2 = getItemPrice({
+    items: glassFamilies,
+    id: item.glassFamilyId,
+    height: item.height,
+    width: item.width2,
+  });
+  const glassFinishPrice2 = getItemPrice({
+    items: glassFinishes,
+    id: item.glassFinishId,
+    height: item.height,
+    width: item.width2,
+  });
+  const glassModelPrice2 = getItemPrice({
+    items: glassModels,
+    id: item.glassModelId,
+    height: item.height,
+    width: item.width2,
+  });
+  const glassTypePrice2 = getItemPrice({
+    items: glassTypes,
+    id: item.glassTypeId,
+    height: item.height,
+    width: item.width2,
+  });
 
   const hardwaresTotal = getHardwaresTotal({
     hardwareItems: item.hardwareItems,
     hardwares,
   });
+  console.log({ hardwaresTotal });
 
   const doorExtrasTotal = getDoorExtrasTotal({
     doorExtraIds: item.doorExtras,
@@ -131,6 +204,10 @@ const ItemHook = ({
   });
 
   const subtotal = sumPrices(
+    architraveFamilyPrice,
+    architraveFinishPrice,
+    architraveModelPrice,
+    architraveTypePrice,
     doorFamilyPrice1,
     doorFinishPrice1,
     doorModelPrice1,
@@ -140,37 +217,26 @@ const ItemHook = ({
     doorExtrasTotal,
     doorModelPrice2,
     doorTypePrice2,
+    frameFamilyPrice,
+    frameFinishPrice,
+    frameModelPrice,
+    frameTypePrice,
+    glassFamilyPrice1,
+    glassFinishPrice1,
+    glassModelPrice1,
+    glassTypePrice1,
+    glassFamilyPrice2,
+    glassFinishPrice2,
+    glassModelPrice2,
+    glassTypePrice2,
     hardwaresTotal,
   );
 
   const total = subtotal * (item.quantity ?? 0);
 
   return {
-    architraveItems,
     control,
-    doorFamilyItems,
-    doorFinishItems,
-    doorModelItems,
-    doorTypeItems,
-    frameItems,
-    getValues,
-    glassItems,
     hardwareFieldArray,
-    searchValueArchitrave,
-    searchValueDoorFamily,
-    searchValueDoorFinish,
-    searchValueDoorModel,
-    searchValueDoorType,
-    searchValueFrame,
-    searchValueGlass,
-    setSearchValueArchitrave,
-    setSearchValueDoorFamily,
-    setSearchValueDoorFinish,
-    setSearchValueDoorModel,
-    setSearchValueDoorType,
-    setSearchValueFrame,
-    setSearchValueGlass,
-    setValue,
     total,
   };
 };

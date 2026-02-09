@@ -3,15 +3,25 @@
 import { prisma } from "@/lib/db/prisma";
 // Types
 import type {
-  ReadArchitravesReturn,
+  ReadArchitraveFamiliesReturn,
+  ReadArchitraveFinishesReturn,
+  ReadArchitraveModelsReturn,
+  ReadArchitraveTypesReturn,
   ReadBudgetsReturn,
   ReadCustomersReturn,
+  ReadDoorExtrasReturn,
   ReadDoorFamiliesReturn,
   ReadDoorFinishesReturn,
-  ReadDoorExtrasReturn,
   ReadDoorModelsReturn,
   ReadDoorTypesReturn,
-  ReadFramesReturn,
+  ReadFrameFamiliesReturn,
+  ReadFrameFinishesReturn,
+  ReadFrameModelsReturn,
+  ReadFrameTypesReturn,
+  ReadGlassFamiliesReturn,
+  ReadGlassFinishesReturn,
+  ReadGlassModelsReturn,
+  ReadGlassTypesReturn,
   ReadHardwaresReturn,
   ReadHardwareTypesReturn,
   ReadPaymentMethodsReturn,
@@ -33,18 +43,77 @@ const generateUniqueRandomNumber = async (): Promise<number> => {
   return number;
 };
 
-const readArchitraves = async (): Promise<ReadArchitravesReturn> => {
+const readArchitraveFamilies =
+  async (): Promise<ReadArchitraveFamiliesReturn> => {
+    try {
+      const architraveFamilies = await prisma.architraveFamily.findMany({
+        orderBy: { name: "asc" },
+        include: {
+          models: { include: { architraveModel: true } },
+          prices: true,
+        },
+      });
+      const transformed = architraveFamilies.map((family) => ({
+        ...family,
+        models: family.models.map((model) => model.architraveModel),
+      }));
+      return transformed;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+const readArchitraveFinishes =
+  async (): Promise<ReadArchitraveFinishesReturn> => {
+    try {
+      const architraveFinishes = await prisma.architraveFinish.findMany({
+        orderBy: { name: "asc" },
+        include: {
+          prices: true,
+        },
+      });
+      return architraveFinishes;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+const readArchitraveModels = async (): Promise<ReadArchitraveModelsReturn> => {
   try {
-    const architraves = await prisma.architrave.findMany({
+    const architraveModels = await prisma.architraveModel.findMany({
       orderBy: { name: "asc" },
       include: {
-        family: true,
-        finish: true,
-        images: true,
-        type: true,
+        finishes: { include: { architraveFinish: true } },
+        prices: true,
       },
     });
-    return architraves;
+    const transformed = architraveModels.map((model) => ({
+      ...model,
+      finishes: model.finishes.map((finish) => finish.architraveFinish),
+    }));
+    return transformed;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readArchitraveTypes = async (): Promise<ReadArchitraveTypesReturn> => {
+  try {
+    const architraveTypes = await prisma.architraveType.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        families: { include: { architraveFamily: true } },
+        prices: true,
+      },
+    });
+    const transformed = architraveTypes.map((type) => ({
+      ...type,
+      families: type.families.map((family) => family.architraveFamily),
+    }));
+    return transformed;
   } catch (error) {
     console.error(error);
     return [];
@@ -165,18 +234,150 @@ const readDoorTypes = async (): Promise<ReadDoorTypesReturn> => {
   }
 };
 
-const readFrames = async (): Promise<ReadFramesReturn> => {
+const readFrameFamilies = async (): Promise<ReadFrameFamiliesReturn> => {
   try {
-    const frames = await prisma.frame.findMany({
+    const frameFamilies = await prisma.frameFamily.findMany({
       orderBy: { name: "asc" },
       include: {
-        family: true,
-        finish: true,
-        images: true,
-        type: true,
+        models: { include: { frameModel: true } },
+        prices: true,
       },
     });
-    return frames;
+    const transformed = frameFamilies.map((family) => ({
+      ...family,
+      models: family.models.map((model) => model.frameModel),
+    }));
+    return transformed;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readFrameFinishes = async (): Promise<ReadFrameFinishesReturn> => {
+  try {
+    const frameFinishes = await prisma.frameFinish.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        prices: true,
+      },
+    });
+    return frameFinishes;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readFrameModels = async (): Promise<ReadFrameModelsReturn> => {
+  try {
+    const frameModels = await prisma.frameModel.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        finishes: { include: { frameFinish: true } },
+        prices: true,
+      },
+    });
+    const transformed = frameModels.map((model) => ({
+      ...model,
+      finishes: model.finishes.map((finish) => finish.frameFinish),
+    }));
+    return transformed;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readFrameTypes = async (): Promise<ReadFrameTypesReturn> => {
+  try {
+    const frameTypes = await prisma.frameType.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        families: { include: { frameFamily: true } },
+        prices: true,
+      },
+    });
+    const transformed = frameTypes.map((type) => ({
+      ...type,
+      families: type.families.map((family) => family.frameFamily),
+    }));
+    return transformed;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readGlassFamilies = async (): Promise<ReadGlassFamiliesReturn> => {
+  try {
+    const glassFamilies = await prisma.glassFamily.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        models: { include: { glassModel: true } },
+        prices: true,
+      },
+    });
+    const transformed = glassFamilies.map((family) => ({
+      ...family,
+      models: family.models.map((model) => model.glassModel),
+    }));
+    return transformed;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readGlassFinishes = async (): Promise<ReadGlassFinishesReturn> => {
+  try {
+    const glassFinishes = await prisma.glassFinish.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        prices: true,
+      },
+    });
+    return glassFinishes;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readGlassModels = async (): Promise<ReadGlassModelsReturn> => {
+  try {
+    const glassModels = await prisma.glassModel.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        finishes: { include: { glassFinish: true } },
+        prices: true,
+      },
+    });
+    const transformed = glassModels.map((model) => ({
+      ...model,
+      finishes: model.finishes.map((finish) => finish.glassFinish),
+    }));
+    return transformed;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const readGlassTypes = async (): Promise<ReadGlassTypesReturn> => {
+  try {
+    const glassTypes = await prisma.glassType.findMany({
+      orderBy: { name: "asc" },
+      include: {
+        families: { include: { glassFamily: true } },
+        prices: true,
+      },
+    });
+    const transformed = glassTypes.map((type) => ({
+      ...type,
+      families: type.families.map((family) => family.glassFamily),
+    }));
+    return transformed;
   } catch (error) {
     console.error(error);
     return [];
@@ -239,7 +440,10 @@ const readPaymentMethods = async (): Promise<ReadPaymentMethodsReturn> => {
 
 export {
   generateUniqueRandomNumber,
-  readArchitraves,
+  readArchitraveFamilies,
+  readArchitraveFinishes,
+  readArchitraveModels,
+  readArchitraveTypes,
   readBudgets,
   readCustomers,
   readDoorFamilies,
@@ -247,7 +451,14 @@ export {
   readDoorExtras,
   readDoorModels,
   readDoorTypes,
-  readFrames,
+  readFrameFamilies,
+  readFrameFinishes,
+  readFrameModels,
+  readFrameTypes,
+  readGlassFamilies,
+  readGlassFinishes,
+  readGlassModels,
+  readGlassTypes,
   readHardwares,
   readHardwareTypes,
   readPaymentMethods,

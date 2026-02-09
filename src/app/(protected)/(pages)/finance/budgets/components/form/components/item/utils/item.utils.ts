@@ -39,23 +39,32 @@ const getItemPrice: GetItemPrice = ({ items, id, width, height }) => {
 
   const item = items.find((i) => i.id === id);
 
-  if (!item) {
+  if (!item || item.prices.length === 0) {
     return null;
   }
 
-  const exact = item.prices.find(
-    (p) => p.width === width && p.height === height,
-  );
+  const widths = item.prices.map((p) => p.width);
+  const heights = item.prices.map((p) => p.height);
+
+  const minW = Math.min(...widths);
+  const maxW = Math.max(...widths);
+  const minH = Math.min(...heights);
+  const maxH = Math.max(...heights);
+
+  const w = Math.min(Math.max(width, minW), maxW);
+  const h = Math.min(Math.max(height, minH), maxH);
+
+  const exact = item.prices.find((p) => p.width === w && p.height === h);
 
   if (exact) {
     return exact.price;
   }
 
   const candidates = item.prices
-    .filter((p) => p.width >= width && p.height >= height)
+    .filter((p) => p.width >= w && p.height >= h)
     .sort((a, b) => a.width - b.width || a.height - b.height);
 
-  return candidates.length > 0 ? candidates[0].price : null;
+  return candidates[0]?.price ?? null;
 };
 
 const sumPrices: SumPrices = (...prices) =>

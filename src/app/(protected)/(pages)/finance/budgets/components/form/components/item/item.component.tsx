@@ -11,6 +11,13 @@ import {
 import { HardwareItem } from "./components/hardaware-item/hardware-item.component";
 import { Input } from "@/components/ui/input";
 import { MultiSelect } from "@/components/ui/multiple-selector";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 // Constants
@@ -26,78 +33,78 @@ import { Eraser, Plus, Trash2 } from "lucide-react";
 import type { ItemProps } from "./types/item.component.types";
 
 const Item = ({
-  architraves,
+  architraveFamilies,
+  architraveFinishes,
+  architraveModels,
+  architraveTypes,
+  doorExtras,
   doorFamilies,
   doorFinishes,
-  doorExtras,
   doorModels,
   doorTypes,
   fieldArray,
-  frames,
+  frameFamilies,
+  frameFinishes,
+  frameModels,
+  frameTypes,
+  glassFamilies,
+  glassFinishes,
+  glassModels,
+  glassTypes,
   hardwares,
   hardwareTypes,
   index,
 }: ItemProps) => {
-  const {
-    architraveItems,
-    control,
-    doorFamilyItems,
-    doorFinishItems,
-    doorModelItems,
-    doorTypeItems,
-    frameItems,
-    // getValues,
-    glassItems,
-    hardwareFieldArray,
-    searchValueArchitrave,
-    searchValueDoorFamily,
-    searchValueDoorFinish,
-    searchValueDoorModel,
-    searchValueDoorType,
-    searchValueFrame,
-    searchValueGlass,
-    setSearchValueArchitrave,
-    setSearchValueDoorFamily,
-    setSearchValueDoorFinish,
-    setSearchValueDoorModel,
-    setSearchValueDoorType,
-    setSearchValueFrame,
-    setSearchValueGlass,
-    // setValue,
-    total,
-  } = ItemHook({
-    architraves,
+  const { control, hardwareFieldArray, total } = ItemHook({
+    architraveFamilies,
+    architraveFinishes,
+    architraveModels,
+    architraveTypes,
     doorFamilies,
     doorFinishes,
     doorExtras,
     doorModels,
     doorTypes,
     fieldArray,
-    frames,
+    frameFamilies,
+    frameFinishes,
+    frameModels,
+    frameTypes,
+    glassFamilies,
+    glassFinishes,
+    glassModels,
+    glassTypes,
     hardwares,
     index,
   });
 
   return (
-    <div className="grid [grid-template-columns:minmax(232px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(520px,1fr)_160px_96px_80px_80px] items-start gap-2">
+    <div className="w- grid grid-cols-[minmax(176px,1fr)_minmax(176px,1fr)_minmax(176px,1fr)_minmax(176px,1fr)_minmax(520px,1fr)_160px_96px_80px_80px] items-start gap-x-4 gap-y-2">
       <FormField
         control={control}
         name={`items.${index}.doorTypeId`}
         render={({ field }) => (
-          <FormItem className="col-[1/2] row-[1/2] grid [grid-template-columns:64px_1fr] items-center">
-            <FormLabel htmlFor={field.name}>Tipo</FormLabel>
-            <FormControl>
-              <AutoComplete
-                emptyMessage="No se han encontrado tipos de hojas."
-                items={doorTypeItems}
-                onSearchValueChange={setSearchValueDoorType}
-                onSelectedValueChange={field.onChange}
-                placeholder="Tipo hoja"
-                searchValue={searchValueDoorType}
-                selectedValue={field.value}
-              />
-            </FormControl>
-            <FormMessage className="col-span-2" />
+          <FormItem className="col-[1/2] row-[1/2]">
+            <Select onValueChange={field.onChange} value={field.value}>
+              <FormControl>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Tipo hoja" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {doorTypes.map((doorType) => (
+                  <SelectItem key={doorType.id} value={doorType.id}>
+                    {doorType.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FormMessage />
           </FormItem>
         )}
       />
@@ -105,20 +112,27 @@ const Item = ({
         control={control}
         name={`items.${index}.doorFamilyId`}
         render={({ field }) => (
-          <FormItem className="col-[1/2] row-[2/3] grid [grid-template-columns:64px_1fr] items-center">
-            <FormLabel htmlFor={field.name}>Familia</FormLabel>
+          <FormItem className="col-[1/2] row-[2/3]">
             <FormControl>
-              <AutoComplete
-                emptyMessage="No se han encontrado familias de hojas."
-                items={doorFamilyItems}
-                onSearchValueChange={setSearchValueDoorFamily}
-                onSelectedValueChange={field.onChange}
-                placeholder="Familia hoja"
-                searchValue={searchValueDoorFamily}
-                selectedValue={field.value}
-              />
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Familia hoja" />
+                </SelectTrigger>
+                <SelectContent>
+                  {doorFamilies.map((doorFamily) => (
+                    <SelectItem key={doorFamily.id} value={doorFamily.id}>
+                      {doorFamily.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormControl>
-            <FormMessage className="col-span-2" />
+            <FormMessage />
           </FormItem>
         )}
       />
@@ -126,20 +140,27 @@ const Item = ({
         control={control}
         name={`items.${index}.doorModelId`}
         render={({ field }) => (
-          <FormItem className="col-[1/2] row-[3/4] grid [grid-template-columns:64px_1fr] items-center">
-            <FormLabel htmlFor={field.name}>Modelo</FormLabel>
+          <FormItem className="col-[1/2] row-[3/4]">
             <FormControl>
-              <AutoComplete
-                emptyMessage="No se han encontrado modelos de hojas."
-                items={doorModelItems}
-                onSearchValueChange={setSearchValueDoorModel}
-                onSelectedValueChange={field.onChange}
-                placeholder="Modelo hoja"
-                searchValue={searchValueDoorModel}
-                selectedValue={field.value}
-              />
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Modelo hoja" />
+                </SelectTrigger>
+                <SelectContent>
+                  {doorModels.map((doorModel) => (
+                    <SelectItem key={doorModel.id} value={doorModel.id}>
+                      {doorModel.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormControl>
-            <FormMessage className="col-span-2" />
+            <FormMessage />
           </FormItem>
         )}
       />
@@ -147,20 +168,27 @@ const Item = ({
         control={control}
         name={`items.${index}.doorFinishId`}
         render={({ field }) => (
-          <FormItem className="col-[1/2] row-[4/5] grid [grid-template-columns:64px_1fr] items-center">
-            <FormLabel htmlFor={field.name}>Acabado</FormLabel>
+          <FormItem className="col-[1/2] row-[4/5]">
             <FormControl>
-              <AutoComplete
-                emptyMessage="No se han encontrado acabados de hojas."
-                items={doorFinishItems}
-                onSearchValueChange={setSearchValueDoorFinish}
-                onSelectedValueChange={field.onChange}
-                placeholder="Acabado hoja"
-                searchValue={searchValueDoorFinish}
-                selectedValue={field.value}
-              />
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Acabado hoja" />
+                </SelectTrigger>
+                <SelectContent>
+                  {doorFinishes.map((doorFinish) => (
+                    <SelectItem key={doorFinish.id} value={doorFinish.id}>
+                      {doorFinish.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormControl>
-            <FormMessage className="col-span-2" />
+            <FormMessage />
           </FormItem>
         )}
       />
@@ -168,18 +196,17 @@ const Item = ({
         control={control}
         name={`items.${index}.doorExtras`}
         render={({ field }) => (
-          <FormItem className="col-[1/2] row-[5/6] grid [grid-template-columns:64px_1fr] items-center">
-            <FormLabel htmlFor={field.name}>Extras</FormLabel>
+          <FormItem className="col-[1/2] row-[5/6]">
             <FormControl>
               <MultiSelect
                 {...field}
                 defaultValue={field.value}
                 onValueChange={field.onChange}
-                options={doorExtras.map((model) => ({
-                  label: model.name,
-                  value: model.id,
+                options={doorExtras.map((doorExtra) => ({
+                  label: doorExtra.name,
+                  value: doorExtra.id,
                 }))}
-                placeholder="Seleccionar"
+                placeholder="Extras hoja"
                 singleLine
                 variant="inverted"
               />
@@ -190,19 +217,27 @@ const Item = ({
       />
       <FormField
         control={control}
-        name={`items.${index}.glassId`}
+        name={`items.${index}.glassTypeId`}
         render={({ field }) => (
           <FormItem className="col-[2/3] row-[1/2]">
             <FormControl>
-              <AutoComplete
-                emptyMessage="No se han encontrado vidrios."
-                items={glassItems}
-                onSearchValueChange={setSearchValueGlass}
-                onSelectedValueChange={field.onChange}
-                placeholder="Nombre vidrio"
-                searchValue={searchValueGlass}
-                selectedValue={field.value}
-              />
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Tipo vidrio" />
+                </SelectTrigger>
+                <SelectContent>
+                  {glassTypes.map((glassType) => (
+                    <SelectItem key={glassType.id} value={glassType.id}>
+                      {glassType.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -210,19 +245,114 @@ const Item = ({
       />
       <FormField
         control={control}
-        name={`items.${index}.architraveId`}
+        name={`items.${index}.glassFamilyId`}
+        render={({ field }) => (
+          <FormItem className="col-[2/3] row-[2/3]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Familia vidrio" />
+                </SelectTrigger>
+                <SelectContent>
+                  {glassFamilies.map((glassFamily) => (
+                    <SelectItem key={glassFamily.id} value={glassFamily.id}>
+                      {glassFamily.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.glassModelId`}
+        render={({ field }) => (
+          <FormItem className="col-[2/3] row-[3/4]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Modelo vidrio" />
+                </SelectTrigger>
+                <SelectContent>
+                  {glassModels.map((glassModel) => (
+                    <SelectItem key={glassModel.id} value={glassModel.id}>
+                      {glassModel.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.glassFinishId`}
+        render={({ field }) => (
+          <FormItem className="col-[2/3] row-[4/5]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Acabado vidrio" />
+                </SelectTrigger>
+                <SelectContent>
+                  {glassFinishes.map((glassFinish) => (
+                    <SelectItem key={glassFinish.id} value={glassFinish.id}>
+                      {glassFinish.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.architraveTypeId`}
         render={({ field }) => (
           <FormItem className="col-[3/4] row-[1/2]">
             <FormControl>
-              <AutoComplete
-                emptyMessage="No se han encontrado tapajuntas."
-                items={architraveItems}
-                onSearchValueChange={setSearchValueArchitrave}
-                onSelectedValueChange={field.onChange}
-                placeholder="Nombre tapajunta"
-                searchValue={searchValueArchitrave}
-                selectedValue={field.value}
-              />
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Tipo tapajuntas" />
+                </SelectTrigger>
+                <SelectContent>
+                  {architraveTypes.map((architraveType) => (
+                    <SelectItem
+                      key={architraveType.id}
+                      value={architraveType.id}
+                    >
+                      {architraveType.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -230,19 +360,204 @@ const Item = ({
       />
       <FormField
         control={control}
-        name={`items.${index}.frameId`}
+        name={`items.${index}.architraveFamilyId`}
+        render={({ field }) => (
+          <FormItem className="col-[3/4] row-[2/3]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Familia tapajuntas" />
+                </SelectTrigger>
+                <SelectContent>
+                  {architraveFamilies.map((architraveFamily) => (
+                    <SelectItem
+                      key={architraveFamily.id}
+                      value={architraveFamily.id}
+                    >
+                      {architraveFamily.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.architraveModelId`}
+        render={({ field }) => (
+          <FormItem className="col-[3/4] row-[3/4]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Modelo tapajuntas" />
+                </SelectTrigger>
+                <SelectContent>
+                  {architraveModels.map((architraveModel) => (
+                    <SelectItem
+                      key={architraveModel.id}
+                      value={architraveModel.id}
+                    >
+                      {architraveModel.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.architraveFinishId`}
+        render={({ field }) => (
+          <FormItem className="col-[3/4] row-[4/5]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Acabado tapajuntas" />
+                </SelectTrigger>
+                <SelectContent>
+                  {architraveFinishes.map((architraveFinish) => (
+                    <SelectItem
+                      key={architraveFinish.id}
+                      value={architraveFinish.id}
+                    >
+                      {architraveFinish.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.frameTypeId`}
         render={({ field }) => (
           <FormItem className="col-[4/5] row-[1/2]">
             <FormControl>
-              <AutoComplete
-                emptyMessage="No se han encontrado marcos."
-                items={frameItems}
-                onSearchValueChange={setSearchValueFrame}
-                onSelectedValueChange={field.onChange}
-                placeholder="Nombre marco"
-                searchValue={searchValueFrame}
-                selectedValue={field.value}
-              />
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Tipo marco" />
+                </SelectTrigger>
+                <SelectContent>
+                  {frameTypes.map((frameType) => (
+                    <SelectItem key={frameType.id} value={frameType.id}>
+                      {frameType.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.frameFamilyId`}
+        render={({ field }) => (
+          <FormItem className="col-[4/5] row-[2/3]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Familia marco" />
+                </SelectTrigger>
+                <SelectContent>
+                  {frameFamilies.map((frameFamily) => (
+                    <SelectItem key={frameFamily.id} value={frameFamily.id}>
+                      {frameFamily.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.frameModelId`}
+        render={({ field }) => (
+          <FormItem className="col-[4/5] row-[3/4]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Modelo marco" />
+                </SelectTrigger>
+                <SelectContent>
+                  {frameModels.map((frameModel) => (
+                    <SelectItem key={frameModel.id} value={frameModel.id}>
+                      {frameModel.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={control}
+        name={`items.${index}.frameFinishId`}
+        render={({ field }) => (
+          <FormItem className="col-[4/5] row-[4/5]">
+            <FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  id={field.name}
+                  aria-labelledby={field.name}
+                  onReset={() => field.onChange("")}
+                  value={field.value}
+                >
+                  <SelectValue placeholder="Acabado marco" />
+                </SelectTrigger>
+                <SelectContent>
+                  {frameFinishes.map((frameFinish) => (
+                    <SelectItem key={frameFinish.id} value={frameFinish.id}>
+                      {frameFinish.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -252,7 +567,7 @@ const Item = ({
         control={control}
         name={`items.${index}.observations`}
         render={({ field }) => (
-          <FormItem className="col-[2/5] row-[3/5] self-end">
+          <FormItem className="col-[1/5] row-[6/7] self-end">
             <FormLabel htmlFor={field.name}>Observaciones</FormLabel>
             <FormControl>
               <Textarea
@@ -289,7 +604,7 @@ const Item = ({
         control={control}
         name={`items.${index}.height`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] row-[1/2] grid [grid-template-columns:56px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[1/2] grid grid-cols-[56px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Alto</FormLabel>
             <FormControl>
               <Input
@@ -326,7 +641,7 @@ const Item = ({
         control={control}
         name={`items.${index}.width1`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] row-[2/3] grid [grid-template-columns:56px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[2/3] grid grid-cols-[56px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Ancho 1</FormLabel>
             <FormControl>
               <Input
@@ -363,7 +678,7 @@ const Item = ({
         control={control}
         name={`items.${index}.width2`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] row-[3/4] grid [grid-template-columns:56px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[3/4] grid grid-cols-[56px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Ancho 2</FormLabel>
             <FormControl>
               <Input
@@ -400,7 +715,7 @@ const Item = ({
         control={control}
         name={`items.${index}.thickness`}
         render={({ field }) => (
-          <FormItem className="col-[6/7] row-[4/5] grid [grid-template-columns:56px_1fr] items-center">
+          <FormItem className="col-[6/7] row-[4/5] grid grid-cols-[56px_1fr] items-center">
             <FormLabel htmlFor={field.name}>Grosor</FormLabel>
             <FormControl>
               <Input
@@ -464,7 +779,7 @@ const Item = ({
                   }
                 }}
                 placeholder="Ej: 10"
-                step={0.01}
+                step={1}
                 type="number"
               />
             </FormControl>

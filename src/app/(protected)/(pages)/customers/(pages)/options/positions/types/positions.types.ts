@@ -1,4 +1,4 @@
-import { Position as PrismaPosition } from "@prisma/client";
+import { Position as PrismaPosition } from "@/generated/prisma";
 
 type Position = PrismaPosition;
 

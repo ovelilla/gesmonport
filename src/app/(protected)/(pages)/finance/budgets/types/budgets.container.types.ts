@@ -1,29 +1,49 @@
 // Types
 import type {
-  Architrave,
+  ArchitraveFamily,
+  ArchitraveFinish,
+  ArchitraveModel,
+  ArchitraveType,
   Budget,
   Customer,
+  DoorExtra,
   DoorFamily,
   DoorFinish,
-  DoorExtra,
   DoorModel,
   DoorType,
-  Frame,
+  FrameFamily,
+  FrameFinish,
+  FrameModel,
+  FrameType,
+  GlassFamily,
+  GlassFinish,
+  GlassModel,
+  GlassType,
   Hardware,
   HardwareType,
   PaymentMethod,
 } from "./budgets.types";
 
 type BudgetsProps = {
-  architraves: Architrave[];
+  architraveFamilies: ArchitraveFamily[];
+  architraveFinishes: ArchitraveFinish[];
+  architraveModels: ArchitraveModel[];
+  architraveTypes: ArchitraveType[];
   budgets: Budget[];
   customers: Customer[];
+  doorExtras: DoorExtra[];
   doorFamilies: DoorFamily[];
   doorFinishes: DoorFinish[];
-  doorExtras: DoorExtra[];
   doorModels: DoorModel[];
   doorTypes: DoorType[];
-  frames: Frame[];
+  frameFamilies: FrameFamily[];
+  frameFinishes: FrameFinish[];
+  frameModels: FrameModel[];
+  frameTypes: FrameType[];
+  glassFamilies: GlassFamily[];
+  glassFinishes: GlassFinish[];
+  glassModels: GlassModel[];
+  glassTypes: GlassType[];
   hardwares: Hardware[];
   hardwareTypes: HardwareType[];
   paymentMethods: PaymentMethod[];

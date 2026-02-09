@@ -1,7 +1,7 @@
 // Vendors
 import { z } from "zod";
 // Enums
-import { BudgetStatus } from "@prisma/client";
+import { BudgetStatus } from "@/generated/prisma";
 
 const budgetSchema = z.object({
   customerId: z
@@ -15,7 +15,18 @@ const budgetSchema = z.object({
     .max(100, { error: "El descuento no puede ser mayor a 100" }),
   items: z.array(
     z.object({
-      architraveId: z.string().min(1, { error: "El tapajuntas es requerido" }),
+      architraveTypeId: z
+        .string()
+        .min(1, { error: "El tipo de tapajuntas es requerido" }),
+      architraveFamilyId: z
+        .string()
+        .min(1, { error: "La familia de tapajuntas es requerida" }),
+      architraveModelId: z
+        .string()
+        .min(1, { error: "El modelo de tapajuntas es requerido" }),
+      architraveFinishId: z
+        .string()
+        .min(1, { error: "El acabado de tapajuntas es requerido" }),
       doorTypeId: z.string().min(1, { error: "El tipo de hoja es requerido" }),
       doorFamilyId: z
         .string()
@@ -29,8 +40,30 @@ const budgetSchema = z.object({
       doorExtras: z
         .array(z.string())
         .max(100, { error: "Máximo 100 extras de puertas permitidos" }),
-      frameId: z.string().min(1, { error: "El marco es requerido" }),
-      glassId: z.string().min(1, { error: "El vidrio es requerido" }),
+      frameTypeId: z
+        .string()
+        .min(1, { error: "El tipo de marco es requerido" }),
+      frameFamilyId: z
+        .string()
+        .min(1, { error: "La familia de marco es requerida" }),
+      frameModelId: z
+        .string()
+        .min(1, { error: "El modelo de marco es requerido" }),
+      frameFinishId: z
+        .string()
+        .min(1, { error: "El acabado de marco es requerido" }),
+      glassTypeId: z
+        .string()
+        .min(1, { error: "El tipo de vidrio es requerido" }),
+      glassFamilyId: z
+        .string()
+        .min(1, { error: "La familia de vidrio es requerida" }),
+      glassModelId: z
+        .string()
+        .min(1, { error: "El modelo de vidrio es requerido" }),
+      glassFinishId: z
+        .string()
+        .min(1, { error: "El acabado de vidrio es requerido" }),
       hardwareItems: z.array(
         z.object({
           typeId: z.string().min(1, { error: "El herraje es requerido" }),

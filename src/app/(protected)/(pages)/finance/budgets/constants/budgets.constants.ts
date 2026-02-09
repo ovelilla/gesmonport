@@ -1,5 +1,5 @@
 // Enums
-import { BudgetStatus } from "@prisma/client";
+import { BudgetStatus } from "@/generated/prisma";
 // Types
 import type { BudgetSchema } from "../schemas/types/budgets.schemas.types";
 import type { DefaultValues } from "react-hook-form";
@@ -11,14 +11,23 @@ const HARDWARE_DEFAULT_ITEM = {
 };
 
 const DEFAULT_ITEM = {
-  architraveId: "",
+  architraveTypeId: "",
+  architraveFamilyId: "",
+  architraveModelId: "",
+  architraveFinishId: "",
   doorTypeId: "",
   doorFamilyId: "",
   doorModelId: "",
   doorFinishId: "",
   doorExtras: [] as string[],
-  frameId: "",
-  glassId: "",
+  frameTypeId: "",
+  frameFamilyId: "",
+  frameModelId: "",
+  frameFinishId: "",
+  glassTypeId: "",
+  glassFamilyId: "",
+  glassModelId: "",
+  glassFinishId: "",
   hardwareItems: [HARDWARE_DEFAULT_ITEM],
   height: 0,
   observations: "",

@@ -1,0 +1,192 @@
+model GlassType {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  families GlassTypeFamily[]
+  images   GlassTypeImage[]
+  prices   GlassTypePrice[]
+}
+
+model GlassTypeImage {
+  id          String   @id @default(cuid())
+  glassTypeId String
+  url         String
+  publicId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  glassType GlassType @relation(fields: [glassTypeId], references: [id], onDelete: Cascade)
+}
+
+model GlassTypePrice {
+  id          String   @id @default(cuid())
+  glassTypeId String
+  width       Float
+  height      Float
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  glassType GlassType @relation(fields: [glassTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([glassTypeId, width, height])
+}
+
+model GlassTypeFamily {
+  glassTypeId   String
+  glassFamilyId String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  glassType   GlassType   @relation(fields: [glassTypeId], references: [id], onDelete: Cascade)
+  glassFamily GlassFamily @relation(fields: [glassFamilyId], references: [id], onDelete: Cascade)
+
+  @@id([glassTypeId, glassFamilyId])
+  @@index([glassFamilyId])
+}
+
+model GlassFamily {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  types  GlassTypeFamily[]
+  models GlassFamilyModel[]
+  images GlassFamilyImage[]
+  prices GlassFamilyPrice[]
+}
+
+model GlassFamilyImage {
+  id            String   @id @default(cuid())
+  glassFamilyId String
+  url           String
+  publicId      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  glassFamily GlassFamily @relation(fields: [glassFamilyId], references: [id], onDelete: Cascade)
+}
+
+model GlassFamilyPrice {
+  id            String   @id @default(cuid())
+  glassFamilyId String
+  width         Float
+  height        Float
+  price         Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  glassFamily GlassFamily @relation(fields: [glassFamilyId], references: [id], onDelete: Cascade)
+
+  @@unique([glassFamilyId, width, height])
+}
+
+model GlassFamilyModel {
+  glassFamilyId String
+  glassModelId  String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  glassFamily GlassFamily @relation(fields: [glassFamilyId], references: [id], onDelete: Cascade)
+  glassModel  GlassModel  @relation(fields: [glassModelId], references: [id], onDelete: Cascade)
+
+  @@id([glassFamilyId, glassModelId])
+  @@index([glassModelId])
+}
+
+model GlassModel {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  families GlassFamilyModel[]
+  finishes GlassModelFinish[]
+  images   GlassModelImage[]
+  prices   GlassModelPrice[]
+}
+
+model GlassModelImage {
+  id           String   @id @default(cuid())
+  url          String
+  publicId     String
+  glassModelId String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  glassModel GlassModel @relation(fields: [glassModelId], references: [id], onDelete: Cascade)
+}
+
+model GlassModelPrice {
+  id           String   @id @default(cuid())
+  glassModelId String
+  width        Float
+  height       Float
+  price        Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  glassModel GlassModel @relation(fields: [glassModelId], references: [id], onDelete: Cascade)
+
+  @@unique([glassModelId, width, height])
+}
+
+model GlassModelFinish {
+  glassModelId  String
+  glassFinishId String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  glassModel  GlassModel  @relation(fields: [glassModelId], references: [id], onDelete: Cascade)
+  glassFinish GlassFinish @relation(fields: [glassFinishId], references: [id], onDelete: Cascade)
+
+  @@id([glassModelId, glassFinishId])
+  @@index([glassFinishId])
+}
+
+model GlassFinish {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  models GlassModelFinish[]
+  images GlassFinishImage[]
+  prices GlassFinishPrice[]
+}
+
+model GlassFinishImage {
+  id            String   @id @default(cuid())
+  glassFinishId String
+  url           String
+  publicId      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  glassFinish GlassFinish @relation(fields: [glassFinishId], references: [id], onDelete: Cascade)
+}
+
+model GlassFinishPrice {
+  id            String   @id @default(cuid())
+  glassFinishId String
+  width         Float
+  height        Float
+  price         Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  glassFinish GlassFinish @relation(fields: [glassFinishId], references: [id], onDelete: Cascade)
+
+  @@unique([glassFinishId, width, height])
+}

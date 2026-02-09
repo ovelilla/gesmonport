@@ -1,7 +1,7 @@
 import {
   Customer as PrismaCustomer,
   PaymentMethod as PrismaPaymentMethod,
-} from "@prisma/client";
+} from "@/generated/prisma";
 
 type Customer = PrismaCustomer;
 

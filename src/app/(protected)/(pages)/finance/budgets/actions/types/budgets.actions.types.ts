@@ -1,53 +1,72 @@
 // Types
 import type {
-  Architrave,
+  ArchitraveFamily,
+  ArchitraveFinish,
+  ArchitraveModel,
+  ArchitraveType,
   Budget,
   Customer,
+  DoorExtra,
   DoorFamily,
   DoorFinish,
-  DoorExtra,
   DoorModel,
   DoorType,
-  Frame,
+  FrameFamily,
+  FrameFinish,
+  FrameModel,
+  FrameType,
+  GlassFamily,
+  GlassFinish,
+  GlassModel,
+  GlassType,
   Hardware,
   HardwareType,
   PaymentMethod,
 } from "../../types/budgets.types";
 
-type ReadArchitravesReturn = Architrave[];
-
+type ReadArchitraveFamiliesReturn = ArchitraveFamily[];
+type ReadArchitraveFinishesReturn = ArchitraveFinish[];
+type ReadArchitraveModelsReturn = ArchitraveModel[];
+type ReadArchitraveTypesReturn = ArchitraveType[];
 type ReadBudgetsReturn = Budget[];
-
 type ReadCustomersReturn = Customer[];
-
-type ReadDoorFamiliesReturn = DoorFamily[];
-
-type ReadDoorFinishesReturn = DoorFinish[];
-
 type ReadDoorExtrasReturn = DoorExtra[];
-
+type ReadDoorFamiliesReturn = DoorFamily[];
+type ReadDoorFinishesReturn = DoorFinish[];
 type ReadDoorModelsReturn = DoorModel[];
-
 type ReadDoorTypesReturn = DoorType[];
-
-type ReadFramesReturn = Frame[];
-
+type ReadFrameFamiliesReturn = FrameFamily[];
+type ReadFrameFinishesReturn = FrameFinish[];
+type ReadFrameModelsReturn = FrameModel[];
+type ReadFrameTypesReturn = FrameType[];
+type ReadGlassFamiliesReturn = GlassFamily[];
+type ReadGlassFinishesReturn = GlassFinish[];
+type ReadGlassModelsReturn = GlassModel[];
+type ReadGlassTypesReturn = GlassType[];
 type ReadHardwaresReturn = Hardware[];
-
 type ReadHardwareTypesReturn = HardwareType[];
-
 type ReadPaymentMethodsReturn = PaymentMethod[];
 
 export type {
-  ReadArchitravesReturn,
+  ReadArchitraveFamiliesReturn,
+  ReadArchitraveFinishesReturn,
+  ReadArchitraveModelsReturn,
+  ReadArchitraveTypesReturn,
   ReadBudgetsReturn,
   ReadCustomersReturn,
+  ReadDoorExtrasReturn,
   ReadDoorFamiliesReturn,
   ReadDoorFinishesReturn,
-  ReadDoorExtrasReturn,
   ReadDoorModelsReturn,
   ReadDoorTypesReturn,
-  ReadFramesReturn,
+  ReadFrameFamiliesReturn,
+  ReadFrameFinishesReturn,
+  ReadFrameModelsReturn,
+  ReadFrameTypesReturn,
+  ReadGlassFamiliesReturn,
+  ReadGlassFinishesReturn,
+  ReadGlassModelsReturn,
+  ReadGlassTypesReturn,
   ReadHardwaresReturn,
   ReadHardwareTypesReturn,
   ReadPaymentMethodsReturn,

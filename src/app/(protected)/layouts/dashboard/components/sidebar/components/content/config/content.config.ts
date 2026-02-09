@@ -83,27 +83,20 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
     icon: Frame,
     items: [
       {
-        title: "Lista de marcos",
-        icon: Rows4,
-        url: "/frames",
+        title: "Tipos",
+        url: "/frames/types",
       },
       {
-        title: "Opciones",
-        icon: Settings2,
-        items: [
-          {
-            title: "Familias",
-            url: "/frames/options/families",
-          },
-          {
-            title: "Tipos",
-            url: "/frames/options/types",
-          },
-          {
-            title: "Acabados",
-            url: "/frames/options/finishes",
-          },
-        ],
+        title: "Familias",
+        url: "/frames/families",
+      },
+      {
+        title: "Modelos",
+        url: "/frames/models",
+      },
+      {
+        title: "Acabados",
+        url: "/frames/finishes",
       },
     ],
   },
@@ -112,27 +105,20 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
     icon: SquareDashedBottom,
     items: [
       {
-        title: "Lista de tapajuntas",
-        icon: Rows4,
-        url: "/architraves",
+        title: "Tipos",
+        url: "/architraves/types",
       },
       {
-        title: "Opciones",
-        icon: Settings2,
-        items: [
-          {
-            title: "Familias",
-            url: "/architraves/options/families",
-          },
-          {
-            title: "Tipos",
-            url: "/architraves/options/types",
-          },
-          {
-            title: "Acabados",
-            url: "/architraves/options/finishes",
-          },
-        ],
+        title: "Familias",
+        url: "/architraves/families",
+      },
+      {
+        title: "Modelos",
+        url: "/architraves/models",
+      },
+      {
+        title: "Acabados",
+        url: "/architraves/finishes",
       },
     ],
   },
@@ -141,31 +127,20 @@ const getNavigation = (hardwareTypes: HardwareType[]): NavigationType[] => [
     icon: Grid2x2,
     items: [
       {
-        title: "Lista de vidrios",
-        icon: Rows4,
-        url: "/glass",
+        title: "Tipos",
+        url: "/glass/types",
       },
       {
-        title: "Opciones",
-        icon: Settings2,
-        items: [
-          {
-            title: "Familias",
-            url: "/glass/options/families",
-          },
-          {
-            title: "Tipos",
-            url: "/glass/options/types",
-          },
-          {
-            title: "Acabados",
-            url: "/glass/options/finishes",
-          },
-          {
-            title: "Modelos",
-            url: "/glass/options/models",
-          },
-        ],
+        title: "Familias",
+        url: "/glass/families",
+      },
+      {
+        title: "Modelos",
+        url: "/glass/models",
+      },
+      {
+        title: "Acabados",
+        url: "/glass/finishes",
       },
     ],
   },
