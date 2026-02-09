@@ -1,5 +1,5 @@
 // Enums
-import { BudgetStatus } from "@/generated/prisma";
+import { BudgetStatus } from "@/generated/prisma/enums";
 // Types
 import type { BudgetSchema } from "../schemas/types/budgets.schemas.types";
 import type { DefaultValues } from "react-hook-form";
