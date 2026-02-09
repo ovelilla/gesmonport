@@ -2,7 +2,7 @@ import type {
   ArchitraveFinish as PrismaArchitraveFinish,
   ArchitraveModel as PrismaArchitraveModel,
   ArchitraveModelImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Finish = PrismaArchitraveFinish;
 

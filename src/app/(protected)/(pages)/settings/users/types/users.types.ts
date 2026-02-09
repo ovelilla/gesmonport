@@ -1,4 +1,4 @@
-import { User as PrismaUser } from "@/generated/prisma";
+import { User as PrismaUser } from "@/generated/prisma/client";
 
 type User = Pick<PrismaUser, "id" | "name" | "email" | "role" | "isAuthorized">;
 

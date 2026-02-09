@@ -1,4 +1,4 @@
-import { Department as PrismaDepartment } from "@/generated/prisma";
+import { Department as PrismaDepartment } from "@/generated/prisma/client";
 
 type Department = PrismaDepartment;
 

@@ -1,6 +1,6 @@
 "use server";
 // Enums
-import { UserRole } from "@/generated/prisma";
+import { UserRole } from "@/generated/prisma/client";
 // Libs
 import { prisma } from "@/lib/db/prisma";
 // Schemas

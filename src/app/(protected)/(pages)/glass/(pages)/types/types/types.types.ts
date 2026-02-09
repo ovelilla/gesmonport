@@ -2,7 +2,7 @@ import {
   GlassFamily as PrismaGlassFamily,
   GlassType as PrismaGlassType,
   GlassTypeImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Family = PrismaGlassFamily;
 

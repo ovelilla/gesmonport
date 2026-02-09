@@ -2,7 +2,7 @@
 import type {
   DoorExtra as PrismaDoorExtra,
   DoorExtraImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Extra = PrismaDoorExtra & {
   images: DoorExtraImage[];

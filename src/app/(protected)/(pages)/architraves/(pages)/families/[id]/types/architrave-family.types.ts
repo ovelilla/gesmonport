@@ -3,7 +3,7 @@ import {
   ArchitraveFamilyImage,
   ArchitraveModel,
   ArchitraveFamilyPrice as PrismaArchitraveFamilyPrice,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type ArchitraveFamily = PrismaArchitraveFamily & {
   images: ArchitraveFamilyImage[];

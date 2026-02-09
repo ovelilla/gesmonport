@@ -2,7 +2,7 @@ import type {
   FrameFinish as PrismaFrameFinish,
   FrameModel as PrismaFrameModel,
   FrameModelImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Finish = PrismaFrameFinish;
 

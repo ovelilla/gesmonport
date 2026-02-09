@@ -32,7 +32,7 @@ import { Textarea } from "@/components/ui/textarea";
 // Constants
 import { DEFAULT_ITEM } from "../../constants/budgets.constants";
 // Enums
-import { BudgetStatus } from "@/generated/prisma";
+import { BudgetStatus } from "@/generated/prisma/enums";
 // Hooks
 import { BudgetFormHook } from "./hooks/form.hook";
 // Icons

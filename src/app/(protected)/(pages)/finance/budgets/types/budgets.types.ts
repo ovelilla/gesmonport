@@ -39,7 +39,7 @@ import {
   HardwareImage,
   HardwareType as PrismaHardwareType,
   PaymentMethod as PrismaPaymentMethod,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type ArchitraveFamily = PrismaArchitraveFamily & {
   models: PrismaArchitraveModel[];

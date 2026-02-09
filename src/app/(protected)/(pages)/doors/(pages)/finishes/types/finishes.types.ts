@@ -1,7 +1,7 @@
 import {
   DoorFinish as PrismaDoorFinish,
   DoorFinishImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Finish = PrismaDoorFinish & { images: DoorFinishImage[] };
 

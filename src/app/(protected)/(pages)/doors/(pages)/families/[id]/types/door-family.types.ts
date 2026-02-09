@@ -3,7 +3,7 @@ import {
   DoorFamilyImage,
   DoorModel,
   DoorFamilyPrice as PrismaDoorFamilyPrice,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type DoorFamily = PrismaDoorFamily & {
   images: DoorFamilyImage[];

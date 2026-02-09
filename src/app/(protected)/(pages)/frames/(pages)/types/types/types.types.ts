@@ -2,7 +2,7 @@ import {
   FrameFamily as PrismaFrameFamily,
   FrameType as PrismaFrameType,
   FrameTypeImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Family = PrismaFrameFamily;
 

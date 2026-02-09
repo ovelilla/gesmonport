@@ -3,7 +3,7 @@ import {
   FrameType as PrismaFrameType,
   FrameTypeImage,
   FrameTypePrice as PrismaFrameTypePrice,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type FrameType = PrismaFrameType & {
   families: FrameFamily[];

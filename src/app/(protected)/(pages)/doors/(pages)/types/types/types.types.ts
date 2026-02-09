@@ -2,7 +2,7 @@ import {
   DoorFamily as PrismaDoorFamily,
   DoorType as PrismaDoorType,
   DoorTypeImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Family = PrismaDoorFamily;
 

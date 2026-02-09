@@ -1,7 +1,7 @@
 import {
   HardwareType as PrismaHardwareType,
   HardwareTypeImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Type = PrismaHardwareType & { images: HardwareTypeImage[] };
 

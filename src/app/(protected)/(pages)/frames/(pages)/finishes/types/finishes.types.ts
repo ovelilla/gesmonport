@@ -1,7 +1,7 @@
 import {
   FrameFinish as PrismaFrameFinish,
   FrameFinishImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Finish = PrismaFrameFinish & { images: FrameFinishImage[] };
 

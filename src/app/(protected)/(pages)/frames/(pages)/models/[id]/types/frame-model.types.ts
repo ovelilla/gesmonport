@@ -3,7 +3,7 @@ import {
   FrameModel as PrismaFrameModel,
   FrameModelImage,
   FrameModelPrice as PrismaFrameModelPrice,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type FrameModel = PrismaFrameModel & {
   finishes: FrameFinish[];

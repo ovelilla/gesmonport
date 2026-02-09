@@ -1,7 +1,7 @@
 import {
   GlassFinish as PrismaGlassFinish,
   GlassFinishImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Finish = PrismaGlassFinish & { images: GlassFinishImage[] };
 

@@ -2,7 +2,7 @@
 import type {
   HardwareFinish as PrismaHardwareFinish,
   HardwareFinishImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Finish = PrismaHardwareFinish & { images: HardwareFinishImage[] };
 

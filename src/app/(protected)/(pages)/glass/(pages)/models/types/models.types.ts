@@ -2,7 +2,7 @@ import type {
   GlassFinish as PrismaGlassFinish,
   GlassModel as PrismaGlassModel,
   GlassModelImage,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Finish = PrismaGlassFinish;
 

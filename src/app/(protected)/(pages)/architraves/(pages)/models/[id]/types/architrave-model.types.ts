@@ -3,7 +3,7 @@ import {
   ArchitraveModel as PrismaArchitraveModel,
   ArchitraveModelImage,
   ArchitraveModelPrice as PrismaArchitraveModelPrice,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type ArchitraveModel = PrismaArchitraveModel & {
   finishes: ArchitraveFinish[];

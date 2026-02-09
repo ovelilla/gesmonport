@@ -4,7 +4,7 @@ import type {
   Department as PrismaDepartment,
   PaymentMethod as PrismaPaymentMethod,
   Position as PrismaPosition,
-} from "@/generated/prisma";
+} from "@/generated/prisma/client";
 
 type Contact = PrismaContact & {
   department: PrismaDepartment | null;
