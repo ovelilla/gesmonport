@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 // Vendors
 import { NextResponse } from "next/server";
 import NextAuth from "next-auth";
